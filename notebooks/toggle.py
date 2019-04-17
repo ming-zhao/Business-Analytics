@@ -2,7 +2,7 @@ import IPython.core.display as di
 from IPython.display import HTML
 
 di.display_html('''<script>
-    function code_toggle(e) {
+	function code_toggle(e) {
 		while (!e.closest(".nboutput").previousElementSibling.classList.contains("nbinput")) {
 			e = e.closest(".nboutput").previousElementSibling;
 		}
