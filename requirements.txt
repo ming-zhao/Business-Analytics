@@ -6,3 +6,4 @@ scipy
 seaborn
 statsmodels
 sklearn
+pmdarima
