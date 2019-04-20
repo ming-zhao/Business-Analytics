@@ -7,3 +7,4 @@ seaborn
 statsmodels
 sklearn
 pmdarima
+jupyter_contrib_nbextensions
