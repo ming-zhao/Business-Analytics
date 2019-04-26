@@ -8,4 +8,5 @@ statsmodels
 sklearn
 pmdarima
 jupyter_contrib_nbextensions
+patsy
 pulp
