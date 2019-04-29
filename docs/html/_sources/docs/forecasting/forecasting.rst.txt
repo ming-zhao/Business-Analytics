@@ -11,3 +11,9 @@ Time Series Analysis and Forecasting
    
    ./time_series_data.ipynb
    ./exponential_smooth.ipynb
+   ./stationarity.ipynb
+   ./components.ipynb
+   ./autocorrelation.ipynb
+   ./arima.ipynb
+   ./sarima.ipynb
+   ./cases.ipynb
