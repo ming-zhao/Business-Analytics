@@ -89,10 +89,8 @@
 <li class="toctree-l1"><a class="reference internal" href="statistical_significance.html">Statistical Significance</a></li>
 <li class="toctree-l1"><a class="reference internal" href="estimating_relationships.html">Estimating Relationships</a></li>
 <li class="toctree-l1"><a class="reference internal" href="regression_analysis.html">Regression Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="regression.html">Indices and tables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../forecasting/time_series_data.html">Time Series Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../forecasting/exponential_smooth.html">Exponential Smoothing Forecasts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Indices and tables</a></li>
 </ul>
 
             
@@ -525,23 +523,11 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">patsy</span> <span class="k">import</span> <span class="n">dmatrices</span>
+<span></span><span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="k">import</span> <span class="n">ols</span>
-<span class="kn">from</span> <span class="nn">statsmodels.graphics.gofplots</span> <span class="k">import</span> <span class="n">ProbPlot</span>
-
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">color_codes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="n">dataurl</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/regression/&#39;</span>
-
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="o">%</span><span class="k">run</span> loadfuncs.py
 <span class="n">toggle</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -563,30 +549,9 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">df_salary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dataurl</span><span class="o">+</span><span class="s1">&#39;salaries.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;employee&#39;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">column</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_salary</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">)</span>
-    <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_salary</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
-    <span class="n">nbars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
-        <span class="n">percentage</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:.1f}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span><span class="o">/</span><span class="n">total</span><span class="p">)</span>
-        <span class="n">shift</span><span class="o">=.</span><span class="mi">12</span>
-        <span class="k">if</span> <span class="n">nbars</span><span class="o">&lt;=</span><span class="mi">2</span><span class="p">:</span>
-            <span class="n">shift</span><span class="o">=.</span><span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">nbars</span><span class="o">&gt;=</span><span class="mi">10</span> <span class="ow">and</span> <span class="n">nbars</span><span class="o">&lt;</span><span class="mi">20</span><span class="p">:</span>
-            <span class="n">shift</span><span class="o">=.</span><span class="mi">25</span>
-        <span class="k">elif</span> <span class="n">nbars</span><span class="o">&gt;=</span><span class="mi">20</span><span class="p">:</span>
-            <span class="n">shift</span><span class="o">=.</span><span class="mi">5</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">shift</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_y</span><span class="p">()</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">percentage</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">interact</span><span class="p">(</span><span class="n">update</span><span class="p">,</span>
+<span></span><span class="n">interact</span><span class="p">(</span><span class="n">plot_hist</span><span class="p">,</span>
          <span class="n">column</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">df_salary</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">value</span><span class="o">=</span><span class="n">df_salary</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                             <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Column:&#39;</span><span class="p">,</span><span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">));</span>
-<span class="n">toggle</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1283,9 +1248,7 @@ Warnings:
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">statsmodels.stats.outliers_influence</span> <span class="k">import</span> <span class="n">variance_inflation_factor</span>
-<span class="n">df_multicollinearity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-    <span class="s1">&#39;https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/regression/multicollinearity.csv&#39;</span><span class="p">,</span>
-    <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;person&#39;</span><span class="p">)</span>
+<span class="n">df_multicollinearity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dataurl</span><span class="o">+</span><span class="s1">&#39;multicollinearity.csv&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;person&#39;</span><span class="p">)</span>
 
 <span class="n">features</span> <span class="o">=</span> <span class="s2">&quot;+&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_multicollinearity</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;salary&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
 

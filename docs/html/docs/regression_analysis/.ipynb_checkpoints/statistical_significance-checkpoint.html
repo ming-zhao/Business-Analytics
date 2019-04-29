@@ -85,14 +85,8 @@
             
               <p class="caption"><span class="caption-text">Business Analytics</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../statistical_inferences.html">Statistical Inferences</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../statistical_significance.html">Statistical Significance</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../estimating_relationships.html">Estimating Relationships</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../regression_analysis.html">Regression Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../regression.html">Indices and tables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../forecasting/time_series_data.html">Time Series Data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../forecasting/exponential_smooth.html">Exponential Smoothing Forecasts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../forecasting/forecasting.html">Indices and tables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../regression.html">Applied Regression Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../forecasting/forecasting.html">Time Series Analysis and Forecasting</a></li>
 </ul>
 
             
@@ -392,9 +386,8 @@ div.rendered_html tbody tr:hover {
 <span class="s2">    &lt;button onclick=&quot;done()&quot; style=&quot;border-radius: 12px;&quot;&gt;Submit&lt;/button&gt;</span>
 <span class="s2">&lt;/div&gt;</span>
 <span class="s2">&lt;button onclick=&quot;unlock()&quot; style=&quot;border-radius: 12px;&quot;&gt;Unclock&lt;/button&gt;</span>
-
-<span class="s2">&lt;a href=&quot;#&quot; onclick=&quot;code_toggle(this); return false;&quot;&gt;show code&lt;/a&gt;</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+<span class="c1"># &lt;a href=&quot;#&quot; onclick=&quot;code_toggle(this); return false;&quot;&gt;show code&lt;/a&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -460,8 +453,9 @@ div.rendered_html tbody tr:hover {
         var items = data.split(',');
         var url = window.location.pathname;
         var filename = url.substring(url.lastIndexOf('/')+1);
+        password='123';
         for (var i = 0, len = items.length; i < len; ++i) {
-            if (filename.includes(items[i].trim()) && i%2==0) {
+            if (filename.includes(items[i].trim()) && i%2==0 && i<items.length) {
                 password=items[i+1].trim();
                 break;
             }
@@ -500,6 +494,8 @@ div.rendered_html tbody tr:hover {
             }
           }
         }
+
+
       }
     });
   });
@@ -515,15 +511,13 @@ div.rendered_html tbody tr:hover {
     <input id="password" type="password"/>
     <button onclick="done()" style="border-radius: 12px;">Submit</button>
 </div>
-<button onclick="unlock()" style="border-radius: 12px;">Unclock</button>
-
-<a href="#" onclick="code_toggle(this); return false;">show code</a></div>
+<button onclick="unlock()" style="border-radius: 12px;">Unclock</button></div>
 </div>
 <div class="section" id="Statistical-Significance">
 <h1>Statistical Significance<a class="headerlink" href="#Statistical-Significance" title="Permalink to this headline">¶</a></h1>
 <p>When you run an experiment, conduct a survey, take a poll, or analyze a set of data, you’re taking a sample of some population of interest, not looking at every single data point that you possibly can. Statistical significance helps quantify whether a result is likely due to chance or to some factor of interest. When a finding is (statistically) significant, it simply means you can feel confident that’s it real, not that you just got lucky (or unlucky) in choosing the sample.</p>
-<div class="section" id="The-process-of-evaluating">
-<h2>The process of evaluating<a class="headerlink" href="#The-process-of-evaluating" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="The-Process-of-Evaluating">
+<h2>The Process of Evaluating<a class="headerlink" href="#The-Process-of-Evaluating" title="Permalink to this headline">¶</a></h2>
 <p>No matter what you’re studying, the process for evaluating significance is the same.</p>
 <ol class="arabic simple">
 <li><p>Establish a null hypothesis (a straw man that you’re trying to disprove). For example, in the experiment of a marketing campaign, the null hypothesis might be “on average, customers don’t prefer our new campaign to the old one”. In the experiment of introducing new surgical intervention, the null hypothesis might be “the new surgical intervention cannot reduce the number of patient deaths”.</p></li>
@@ -538,15 +532,7 @@ are testing for whether the new marketing concept is better, we probably willing
 <li><p>Practical significance is business relevance</p></li>
 <li><p>Statistical significance is the confidence that a result isn’t due purely to chance</p></li>
 </ul>
-<p><strong>Example: Weight-Loss Program</strong></p>
-<p>Researchers are studying a new weight-loss program. Using a large sample they construct a <span class="math notranslate nohighlight">\(95%\)</span> confidence interval for the mean amount of weight loss after six months on the program to be <span class="math notranslate nohighlight">\([0.12, 0.20]\)</span>. All measurements were taken in pounds. Note that this confidence interval does not contain <span class="math notranslate nohighlight">\(0\)</span>, so we know that their results were statistically significant at a <span class="math notranslate nohighlight">\(0.05\)</span> alpha level. However, most people would say that the results are not practically significant because
-after six months on a weight-loss program we would want to lose more than <span class="math notranslate nohighlight">\(0.12\)</span> to <span class="math notranslate nohighlight">\(0.20\)</span> pounds.</p>
-</div>
-<div class="section" id="Case:-surgical-intervention">
-<h2>Case: surgical intervention<a class="headerlink" href="#Case:-surgical-intervention" title="Permalink to this headline">¶</a></h2>
-<p>We need to decide whether a new surgical intervention is more appropriate for a cancer patient with a brain tumor compared to the standard chemotherapy treatment:</p>
-<p><strong>Hypothetical result 1:</strong> The new surgical intervention <strong>significantly</strong> reduced the number of patient deaths compared to the current standard chemotherapy treatment (p=0.04)</p>
-<p>Evaluate the result?</p>
+<p>Give an example that statistical significance is not practical significance.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -563,8 +549,14 @@ after six months on a weight-loss program we would want to lose more than <span 
 <div class="output_area rendered_html docutils container">
 <a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
 </div>
-<p>What is significant? Do the analysts mean considerably fewer deaths or just statistically significant fewer deaths? It is not clear, but possibly just the latter, since the p-value is reported. Here, we don’t have any information on exactly how superior the new surgical intervention was compared to chemotherapy.</p>
-<p><strong>Hypothetical result 2:</strong> The new surgical intervention <strong>significantly</strong> reduced the number of patient deaths compared to the current standard chemotherapy treatment (p=0.04). After five years, there were two fewer deaths in the intervention group.</p>
+<p><strong>Example: Weight-Loss Program</strong></p>
+<p>Researchers are studying a new weight-loss program. Using a large sample they construct a <span class="math notranslate nohighlight">\(95%\)</span> confidence interval for the mean amount of weight loss after six months on the program to be <span class="math notranslate nohighlight">\([0.12, 0.20]\)</span>. All measurements were taken in pounds. Note that this confidence interval does not contain <span class="math notranslate nohighlight">\(0\)</span>, so we know that their results were statistically significant at a <span class="math notranslate nohighlight">\(0.05\)</span> alpha level. However, most people would say that the results are not practically significant because
+after six months on a weight-loss program we would want to lose more than <span class="math notranslate nohighlight">\(0.12\)</span> to <span class="math notranslate nohighlight">\(0.20\)</span> pounds.</p>
+</div>
+<div class="section" id="Case:-Surgical-Intervention">
+<h2>Case: Surgical Intervention<a class="headerlink" href="#Case:-Surgical-Intervention" title="Permalink to this headline">¶</a></h2>
+<p>We need to decide whether a new surgical intervention is more appropriate for a cancer patient with a brain tumor compared to the standard chemotherapy treatment:</p>
+<p><strong>Hypothetical result 1:</strong> The new surgical intervention <strong>significantly</strong> reduced the number of patient deaths compared to the current standard chemotherapy treatment (p=0.04)</p>
 <p>Evaluate the result?</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
@@ -577,6 +569,25 @@ after six months on a weight-loss program we would want to lose more than <span 
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
+<p>What is significant? Do the analysts mean considerably fewer deaths or just statistically significant fewer deaths? It is not clear, but possibly just the latter, since the p-value is reported. Here, we don’t have any information on exactly how superior the new surgical intervention was compared to chemotherapy.</p>
+<p><strong>Hypothetical result 2:</strong> The new surgical intervention <strong>significantly</strong> reduced the number of patient deaths compared to the current standard chemotherapy treatment (p=0.04). After five years, there were two fewer deaths in the intervention group.</p>
+<p>Evaluate the result?</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -587,7 +598,7 @@ even if statistically significant, is less impressive. In this case, we would c
 <p><strong>Hypothetical result 3:</strong> The new surgical intervention <strong>did not statistically significantly</strong> reduce the number of patient deaths compared to the current standard chemotherapy treatment (p=0.07). After five years, there was 1 death in the surgical intervention group and 9 deaths in the standard chemotherapy group.</p>
 <p>Evaluate the result?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -596,7 +607,7 @@ even if statistically significant, is less impressive. In this case, we would c
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -605,13 +616,13 @@ even if statistically significant, is less impressive. In this case, we would c
 <p>This time we have a statistically <strong>non–significant</strong> result that corresponds to a seemingly large point estimate (8 fewer deaths). In this case, it appears the treatment has an important effect but perhaps the study lacks sufficient power for this difference to be statistically <strong>significant</strong>. Again, we need more information about the size of the trial to contextualize the results. To simply conclude by virtue of statistical hypothesis testing that this study shows no difference between
 groups would seem inappropriate.</p>
 </div>
-<div class="section" id="Case:-market-campaign">
-<h2>Case: market campaign<a class="headerlink" href="#Case:-market-campaign" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Case:-Market-Campaign">
+<h2>Case: Market Campaign<a class="headerlink" href="#Case:-Market-Campaign" title="Permalink to this headline">¶</a></h2>
 <p>The marketing department comes up with a new concept and you want to see if it works better than the current one. You can’t show it to every single target customer, of course, so you choose a sample group. When you run the results, you find that those who saw the new campaign spent $10.17 on average, more than the \$8.41 those who saw the old one spent.</p>
 <p>This $1.76 might seem like a big — and perhaps important — difference. But in reality you may have been unlucky, drawing a sample of people who do not represent the larger population; in fact, maybe there was no difference between the two campaigns and their influence on consumers’ purchasing behaviors. This is called a sampling error, something you must contend with in any test that does not include the entire population of interest.</p>
 <p>What causes sampling error?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -620,7 +631,7 @@ groups would seem inappropriate.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -638,7 +649,7 @@ groups would seem inappropriate.</p>
 <p>To summarize, the important thing to understand is that the greater the variation in the underlying population, the larger the sampling error.</p>
 <p>Should we adopt the new campaign? Evaluate the new campaign in different scenarios.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -647,7 +658,7 @@ groups would seem inappropriate.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -657,14 +668,62 @@ groups would seem inappropriate.</p>
 <p>If the <span class="math notranslate nohighlight">\(p\)</span>-value comes in at 0.2 the result is not statistically significant, but since the boost is so large we’ll likely still proceed, though perhaps with a bit more caution.</p>
 <p>But what if the difference were only a few cents? If the <span class="math notranslate nohighlight">\(p\)</span>-value comes in at 0.2, we’ll stick with your current campaign or explore other options. But even if it had a significance level of 0.01, the result is likely real, though quite small. In this case, our decision probably will be based on other factors, such as the cost of implementing the new campaign.</p>
 </div>
-<div class="section" id="Advices-to-managers">
-<h2>Advices to managers<a class="headerlink" href="#Advices-to-managers" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Advices-to-Managers">
+<h2>Advices to Managers<a class="headerlink" href="#Advices-to-Managers" title="Permalink to this headline">¶</a></h2>
 <p><strong>How to evaluate?</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
 <p>Although software will report statistical significance, it’s still helpful to know the process described above in order to understand and interpret the results because Managers should not trust a model they don’t understand.</p>
 <p><strong>How do managers use it?</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
 <p>Companies use statistical significance to understand how strongly the results of an experiment they’ve conducted should influence the decisions they make. Managers want to know what findings say about what they should do in the real world. But confidence intervals and hypothesis tests were designed to support science, where the idea is to learn something that will stand the test of time. So rather than obsessing about whether your findings are precisely right, think about the implication of each
 finding for the decision you’re hoping to make. What would you do differently if the finding were different?</p>
 <p><strong>What mistakes do managers make?</strong></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
 <ul class="simple">
 <li><p>The word “significant” is often used in businesses to mean whether a finding is strategically important. When you look at results of a survey or experiment, ask about the statistical significance if the analyst hasn’t reported it.</p></li>
 <li><p>Statistical significance tests help you account for potential sampling errors, but what is often more worrisome is the <em>non-sampling error</em>. Non-sampling error involves things where the experimental and/or measurement protocols didn’t happen according to plan, such as people lying on the survey, data getting lost, or mistakes being made in the analysis.</p></li>

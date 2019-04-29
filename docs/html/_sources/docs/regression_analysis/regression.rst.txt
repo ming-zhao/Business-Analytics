@@ -3,22 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-======================
-
-All notebooks at the `GitHub Repository <https://github.com/ming-zhao/Business-Analytics>`_.
+Applied Regression Analysis
+==============================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Applied Regression Analysis
+   :maxdepth: 3
    
    ./statistical_inferences.ipynb
    ./statistical_significance.ipynb
    ./estimating_relationships.ipynb
    ./regression_analysis.ipynb
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
