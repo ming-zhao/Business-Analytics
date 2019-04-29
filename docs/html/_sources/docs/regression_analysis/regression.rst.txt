@@ -14,6 +14,7 @@ All notebooks at the `GitHub Repository <https://github.com/ming-zhao/Business-A
    ./statistical_inferences.ipynb
    ./statistical_significance.ipynb
    ./estimating_relationships.ipynb
+   ./regression_analysis.ipynb
 
 Indices and tables
 ==================

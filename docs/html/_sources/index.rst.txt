@@ -12,6 +12,7 @@ All notebooks at the `GitHub Repository <https://github.com/ming-zhao/Business-A
    :caption: Business Analytics
  
    docs/regression_analysis/regression.rst
+   docs/forecasting/forecasting.rst
 
 Indices and tables
 ==================
