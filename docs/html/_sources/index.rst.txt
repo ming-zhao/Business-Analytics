@@ -13,6 +13,7 @@ All notebooks at the `GitHub Repository <https://github.com/ming-zhao/Business-A
  
    docs/regression_analysis/regression.rst
    docs/forecasting/forecasting.rst
+   docs/optimization_simulation/optimization_simulation.rst
 
 Indices and tables
 ==================
