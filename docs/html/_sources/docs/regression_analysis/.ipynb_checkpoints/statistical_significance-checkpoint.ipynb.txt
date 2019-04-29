@@ -124,7 +124,9 @@
        "    <input id=\"password\" type=\"password\"/>\n",
        "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
        "</div>\n",
-       "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n"
+       "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n",
+       "\n",
+       "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n"
       ],
       "text/plain": [
        "<IPython.core.display.HTML object>"
@@ -144,51 +146,9 @@
     "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
     "</div>\n",
     "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n",
+    "\n",
+    "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n",
     "\"\"\")"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "metadata": {
-    "scrolled": false
-   },
-   "outputs": [
-    {
-     "data": {
-      "text/html": [
-       "\n",
-       "        <a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n",
-       "    "
-      ],
-      "text/plain": [
-       "<IPython.core.display.HTML object>"
-      ]
-     },
-     "execution_count": 2,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "import pandas as pd\n",
-    "import numpy as np\n",
-    "import matplotlib.pyplot as plt\n",
-    "import seaborn as sns\n",
-    "from ipywidgets import *\n",
-    "from patsy import dmatrices\n",
-    "import warnings\n",
-    "from scipy import stats\n",
-    "import statsmodels.api as sm\n",
-    "from statsmodels.formula.api import ols\n",
-    "from statsmodels.graphics.gofplots import ProbPlot\n",
-    "\n",
-    "%matplotlib inline\n",
-    "sns.set(color_codes=True)\n",
-    "warnings.filterwarnings('ignore')\n",
-    "dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/regression/'\n",
-    "\n",
-    "toggle()"
    ]
   },
   {
@@ -266,7 +226,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 2,
    "metadata": {
     "scrolled": false
    },
@@ -282,7 +242,7 @@
        "<IPython.core.display.HTML object>"
       ]
      },
-     "execution_count": 3,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -310,7 +270,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -324,7 +284,7 @@
        "<IPython.core.display.HTML object>"
       ]
      },
-     "execution_count": 4,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -352,7 +312,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -366,7 +326,7 @@
        "<IPython.core.display.HTML object>"
       ]
      },
-     "execution_count": 5,
+     "execution_count": 4,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -402,7 +362,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 5,
    "metadata": {
     "scrolled": false
    },
@@ -418,7 +378,7 @@
        "<IPython.core.display.HTML object>"
       ]
      },
-     "execution_count": 6,
+     "execution_count": 5,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -441,7 +401,7 @@
     "\n",
     "**Variation** is a little trickier to understand.\n",
     "\n",
-    "<img src=\"https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/stat_variation.png\" width=\"400\">\n",
+    "<img src=\"https://hbr.org/resources/images/article_assets/2016/02/W160214_GALLO_GREATERVARIATION1-1200x589.png\" width=\"400\">\n",
     "\n",
     "In the graph, each plot expresses a different possible distribution of customer purchases under the campaign. \n",
     "\n",
@@ -461,7 +421,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -475,7 +435,7 @@
        "<IPython.core.display.HTML object>"
       ]
      },
-     "execution_count": 7,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }

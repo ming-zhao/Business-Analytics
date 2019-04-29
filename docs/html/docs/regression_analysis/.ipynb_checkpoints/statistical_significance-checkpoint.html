@@ -87,6 +87,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../statistical_inferences.html">Statistical Inferences</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../statistical_significance.html">Statistical Significance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../estimating_relationships.html">Estimating Relationships</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../regression.html">Indices and tables</a></li>
 </ul>
 
@@ -387,6 +388,8 @@ div.rendered_html tbody tr:hover {
 <span class="s2">    &lt;button onclick=&quot;done()&quot; style=&quot;border-radius: 12px;&quot;&gt;Submit&lt;/button&gt;</span>
 <span class="s2">&lt;/div&gt;</span>
 <span class="s2">&lt;button onclick=&quot;unlock()&quot; style=&quot;border-radius: 12px;&quot;&gt;Unclock&lt;/button&gt;</span>
+
+<span class="s2">&lt;a href=&quot;#&quot; onclick=&quot;code_toggle(this); return false;&quot;&gt;show code&lt;/a&gt;</span>
 <span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -508,39 +511,8 @@ div.rendered_html tbody tr:hover {
     <input id="password" type="password"/>
     <button onclick="done()" style="border-radius: 12px;">Submit</button>
 </div>
-<button onclick="unlock()" style="border-radius: 12px;">Unclock</button></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">patsy</span> <span class="k">import</span> <span class="n">dmatrices</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
-<span class="kn">from</span> <span class="nn">statsmodels.formula.api</span> <span class="k">import</span> <span class="n">ols</span>
-<span class="kn">from</span> <span class="nn">statsmodels.graphics.gofplots</span> <span class="k">import</span> <span class="n">ProbPlot</span>
+<button onclick="unlock()" style="border-radius: 12px;">Unclock</button>
 
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">color_codes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="n">dataurl</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/regression/&#39;</span>
-
-<span class="n">toggle</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
 <a href="#" onclick="code_toggle(this); return false;">show code</a></div>
 </div>
 <div class="section" id="Statistical-Significance">
@@ -572,7 +544,7 @@ after six months on a weight-loss program we would want to lose more than <span 
 <p><strong>Hypothetical result 1:</strong> The new surgical intervention <strong>significantly</strong> reduced the number of patient deaths compared to the current standard chemotherapy treatment (p=0.04)</p>
 <p>Evaluate the result?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -581,7 +553,7 @@ after six months on a weight-loss program we would want to lose more than <span 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -591,7 +563,7 @@ after six months on a weight-loss program we would want to lose more than <span 
 <p><strong>Hypothetical result 2:</strong> The new surgical intervention <strong>significantly</strong> reduced the number of patient deaths compared to the current standard chemotherapy treatment (p=0.04). After five years, there were two fewer deaths in the intervention group.</p>
 <p>Evaluate the result?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -600,7 +572,7 @@ after six months on a weight-loss program we would want to lose more than <span 
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -611,7 +583,7 @@ even if statistically significant, is less impressive. In this case, we would c
 <p><strong>Hypothetical result 3:</strong> The new surgical intervention <strong>did not statistically significantly</strong> reduce the number of patient deaths compared to the current standard chemotherapy treatment (p=0.07). After five years, there was 1 death in the surgical intervention group and 9 deaths in the standard chemotherapy group.</p>
 <p>Evaluate the result?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -620,7 +592,7 @@ even if statistically significant, is less impressive. In this case, we would c
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -635,7 +607,7 @@ groups would seem inappropriate.</p>
 <p>This $1.76 might seem like a big — and perhaps important — difference. But in reality you may have been unlucky, drawing a sample of people who do not represent the larger population; in fact, maybe there was no difference between the two campaigns and their influence on consumers’ purchasing behaviors. This is called a sampling error, something you must contend with in any test that does not include the entire population of interest.</p>
 <p>What causes sampling error?</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -644,7 +616,7 @@ groups would seem inappropriate.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -662,7 +634,7 @@ groups would seem inappropriate.</p>
 <p>To summarize, the important thing to understand is that the greater the variation in the underlying population, the larger the sampling error.</p>
 <p>Should we adopt the new campaign? Evaluate the new campaign in different scenarios.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -671,7 +643,7 @@ groups would seem inappropriate.</p>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
