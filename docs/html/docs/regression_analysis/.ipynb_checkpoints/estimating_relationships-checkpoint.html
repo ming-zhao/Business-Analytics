@@ -518,11 +518,11 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="o">*</span>
+<span></span><span class="o">%</span><span class="k">run</span> loadfuncs.py
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="o">%</span><span class="k">run</span> loadfuncs.py
 <span class="n">toggle</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -761,7 +761,7 @@ Y = a + b X + \text{residual}\nonumber
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "80cb53b209564d24b42efe88b66c3244", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1db48716164141ebb5aa44e6546a7a43", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </div>
 <div class="section" id="Skin-Cancer">
@@ -843,7 +843,7 @@ one.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "13dbb2c37cf446aeab8845d1e78a4574", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "23dde54b04804865b94a25fda17098af", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>Suppose we have population as shown in the plot. For example, <span class="math notranslate nohighlight">\(X\)</span> is the years of college education and <span class="math notranslate nohighlight">\(Y\)</span> is the annual salary. Given years of education, there is a range of possible salaries for different individuals.</p>
 <p>The first assumption says, for each <span class="math notranslate nohighlight">\(X\)</span>, the mean of <span class="math notranslate nohighlight">\(Y\)</span>s (<span class="math notranslate nohighlight">\(=\overline{Y}\)</span>) lies on the maroon line <span class="math notranslate nohighlight">\(\overline{Y} = 3.08 X + 9.87\)</span>, which is the population regression line joining means. For each data point, its <span class="math notranslate nohighlight">\(Y\)</span> value is expressed by the population regression line with error <span class="math notranslate nohighlight">\(Y = 3.08 X + 9.87 + \epsilon\)</span> where <span class="math notranslate nohighlight">\(\epsilon\)</span> is the deviation of the data point to the maroon line.</p>
@@ -863,7 +863,7 @@ one.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "80cc74e0b2da4230a12821ab75416e40", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ee435ce3f660404a84d75b8b5cf1fe4b", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>The estimated regression line as shown in orange is based on the sample data, which is usually different from the population regression line. The regression lines derived from the first two samples are largely deviated from the population regression line.</p>
 <p>Note that an error <span class="math notranslate nohighlight">\(\epsilon\)</span> is not quite the same as a residual <span class="math notranslate nohighlight">\(e\)</span>. An error is the vertical distance from a point to the (unobservable) population regression line. A residual is the vertical distance from a point to the <em>estimated</em> regression line.</p>
@@ -897,7 +897,7 @@ is through a visual inspection of a scatterplot.</p>
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2b988f7ea92546c78f64453e01d38581", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "0404d2df03554b4a9a513afcfe85ba90", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <p>The plot shows the Q-Q plot and histogram of four distributions including normal, student t, uniform and triangular.</p>
 <p>Besides graphical method for assessing residual normality, there are several hypothesis tests in which the null hypothesis is that the errors have a normal distribution, such as</p>
