@@ -420,17 +420,18 @@ div.rendered_html tbody tr:hover {
       class_answer;
 
   function code_toggle(e) {
+    var orig_e = e;
     while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {
       e = e.closest(class_output).previousElementSibling;
     }
     var target = e.closest(class_output).previousElementSibling;
     if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
       target.style.display = "none";
-      e.innerHTML = 'show code';
+      orig_e.innerHTML = 'show code';
     }
     else {
       target.style.removeProperty("display");
-      e.innerHTML = 'hide code';
+      orig_e.innerHTML = 'hide code';
     }
   }
 
@@ -559,12 +560,20 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="Linear-Programming">
 <h1>Linear Programming<a class="headerlink" href="#Linear-Programming" title="Permalink to this headline">¶</a></h1>
-<p>All optimization models have several common elements: - <strong>Decision variables</strong> the variable whose values the decision maker is allowed to choose. The values of these variables determine such outputs as total cost, revenue, and profit. - An <strong>objective function</strong> (<strong>objective</strong>, for short) to be optimized – minimized or maximized. - <strong>Constraints</strong> that must be satisfied. They are usually physical, logical, or economic restrictions, depending on the nature of the problem. * In searching for the
-values of the decision variables that optimize the objective, only those values that satisfy all of the constraints are allowed.</p>
+<p>All optimization models have several common elements:</p>
+<ul class="simple">
+<li><p><strong>Decision variables</strong> the variable whose values the decision maker is allowed to choose. The values of these variables determine such outputs as total cost, revenue, and profit.</p></li>
+<li><p>An <strong>objective function</strong> (<strong>objective</strong>, for short) to be optimized – minimized or maximized.</p></li>
+<li><p><strong>Constraints</strong> that must be satisfied. They are usually physical, logical, or economic restrictions, depending on the nature of the problem.</p>
+<ul>
+<li><p>In searching for the values of the decision variables that optimize the objective, only those values that satisfy all of the constraints are allowed.</p></li>
+</ul>
+</li>
+</ul>
 <p>To <strong>optimize</strong> means that you must systematically choose the values of the decision variables that make the objective as large (for maximization) or small (for minimization) as possible and cause all of the constraints to be satisfied.</p>
 <p>Any set of values of the decision variables that satisfies all of the constraints is called a <strong>feasible solution</strong>. The set of all feasible solutions is called the <strong>feasible region</strong>.</p>
 <p>As one of the fundamental prescriptive analysis method, <strong>linear programming (LP)</strong> is used in all types of organizations, often on a daily basis, to solve a wide variety of problems. More formally, linear programming is a technique for the optimization of a <strong>linear</strong> objective function, subject to <strong>linear equality and/or linear inequality</strong> constraints.</p>
-<p>A PC manufacturer assembles and then tests two models of computers, Basic and XP. There are at most 10,000 assembly hours at the cost of $11 available and 3000 testing hours at the cost of \$15 available.</p>
+<p>A PC manufacturer assembles and then tests two models of computers, Basic and XP. There are at most 10,000 assembly hours at the cost of \$11 available and 3000 testing hours at the cost of \$15 available.</p>
 <div class="highlight-sas notranslate"><div class="highlight"><pre><span></span><span class="kr">data </span>ds_labor;
     <span class="k">input</span> type $ cost avail;
 <span class="k">    datalines;</span><span class="x"></span>
@@ -591,14 +600,14 @@ values of the decision variables that optimize the objective, only those values 
 <h2>Modeling<a class="headerlink" href="#Modeling" title="Permalink to this headline">¶</a></h2>
 <p>The PC manufacturer wants to</p>
 <p><span class="math">\begin{equation}
-\text{maximize $\quad$ Profit = Basic's unit margin $\times$ Production of Basic + XP's unit margin $\times$ Production of XP  }
+\text{maximize} \quad \text{Profit} = \text{Basic's unit margin} \times \text{Production of Basic} + \text{XP's unit margin} \times \text{Production of XP}
 \end{equation}</span></p>
-<p>subject to following constraints: <span class="math">\begin{align}
+<p>subject to following constraints: <span class="math">\begin{eqnarray}
 5 \times \text{Production of Basic} + 6 \times \text{Production of XP} &\le 10000 \tag{constraints on assembly hours}\\
-\times \text{Production of Basic} + 2\times \text{Production of XP} &\le 3000 \tag{constraints on testing hours}\\
+\text{Production of Basic} + 2\times \text{Production of XP} &\le 3000 \tag{constraints on testing hours}\\
 \text{Production of Basic} &\le 600 \tag{constraints on maximal sales}\\
 \text{Production of XP} &\le 1200 \tag{constraints on maximal sales}\\
-\end{align}</span></p>
+\end{eqnarray}</span></p>
 <p>Intuitive constraints: <span class="math">\begin{align}
 \text{Production of Basic} &\ge 0 \\
 \text{Production of XP} &\ge 0 \\
@@ -728,7 +737,7 @@ values of the decision variables that optimize the objective, only those values 
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8367719b685f4ffbba0388c4e092562a", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "8c95e7afbc054c27b9832500f8efe036", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:

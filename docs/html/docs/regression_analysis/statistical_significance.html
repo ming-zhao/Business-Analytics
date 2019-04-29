@@ -423,17 +423,18 @@ div.rendered_html tbody tr:hover {
       class_answer;
 
   function code_toggle(e) {
+    var orig_e = e;
     while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {
       e = e.closest(class_output).previousElementSibling;
     }
     var target = e.closest(class_output).previousElementSibling;
     if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
       target.style.display = "none";
-      e.innerHTML = 'show code';
+      orig_e.innerHTML = 'show code';
     }
     else {
       target.style.removeProperty("display");
-      e.innerHTML = 'hide code';
+      orig_e.innerHTML = 'hide code';
     }
   }
 

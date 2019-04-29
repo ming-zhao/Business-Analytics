@@ -18,17 +18,18 @@
        "      class_answer;\n",
        "      \n",
        "  function code_toggle(e) {\n",
+       "    var orig_e = e;\n",
        "    while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {\n",
        "      e = e.closest(class_output).previousElementSibling;\n",
        "    }\n",
        "    var target = e.closest(class_output).previousElementSibling;\n",
        "    if (target.getAttribute(\"style\") == \"\" || target.getAttribute(\"style\") == null) {\n",
        "      target.style.display = \"none\";\n",
-       "      e.innerHTML = 'show code';\n",
+       "      orig_e.innerHTML = 'show code';\n",
        "    }\n",
        "    else {\n",
        "      target.style.removeProperty(\"display\");\n",
-       "      e.innerHTML = 'hide code';\n",
+       "      orig_e.innerHTML = 'hide code';\n",
        "    }\n",
        "  }\n",
        "  \n",
@@ -337,7 +338,7 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "f7841e05ac4d42fba0206c832a36fc30",
+       "model_id": "cae74de098da4403a199b2bde7e756e8",
        "version_major": 2,
        "version_minor": 0
       },
@@ -4481,6 +4482,12 @@
       "model_name": "LayoutModel",
       "state": {}
      },
+     "76b5a0c9097d4a1c9e6fe5ccbf702b0f": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
      "76c18b572c0341cfb735005d5184c149": {
       "model_module": "@jupyter-widgets/base",
       "model_module_version": "1.1.0",
@@ -4704,6 +4711,14 @@
       "model_module_version": "1.1.0",
       "model_name": "LayoutModel",
       "state": {}
+     },
+     "7e3e206b7ef9424d8ce8b9080497e4f1": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
      },
      "7e7f3d29d08f48eaab581726f9e175ec": {
       "model_module": "@jupyter-widgets/controls",
@@ -7589,6 +7604,16 @@
        "layout": "IPY_MODEL_0a227523b2b74a8b88a3e4d31d8c819d",
        "style": "IPY_MODEL_0304fa5e7c704efe9a53266f2a9a1381",
        "value": "\n        <a href=\"#\" onclick=\"code_toggle(this); return false;\">show/hide code</a>\n    "
+      }
+     },
+     "cae74de098da4403a199b2bde7e756e8": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "HTMLModel",
+      "state": {
+       "layout": "IPY_MODEL_76b5a0c9097d4a1c9e6fe5ccbf702b0f",
+       "style": "IPY_MODEL_7e3e206b7ef9424d8ce8b9080497e4f1",
+       "value": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/CsJRsToDI8w\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
       }
      },
      "cb3d4da9d0f6427489d96c8e489c9837": {
