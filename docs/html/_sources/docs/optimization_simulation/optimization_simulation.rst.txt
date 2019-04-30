@@ -1,0 +1,15 @@
+.. Business Analytics documentation master file, created by
+   sphinx-quickstart on Tue Apr  9 19:11:20 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+   
+Optimization and Simulation
+===============================
+
+.. toctree::
+   :maxdepth: 2
+   
+   ./linear_programming.ipynb
+   ./mixed-integer_programming.ipynb
+   ./nonlinear_programming.ipynb
+
