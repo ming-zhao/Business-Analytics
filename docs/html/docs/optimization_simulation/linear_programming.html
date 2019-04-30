@@ -599,19 +599,20 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Modeling">
 <h2>Modeling<a class="headerlink" href="#Modeling" title="Permalink to this headline">¶</a></h2>
 <p>The PC manufacturer wants to</p>
-<p><span class="math">\begin{equation}
-\text{maximize} \quad \text{Profit} = \text{Basic's unit margin} \times \text{Production of Basic} + \text{XP's unit margin} \times \text{Production of XP}
-\end{equation}</span></p>
-<p>subject to following constraints: <span class="math">\begin{eqnarray}
-5 \times \text{Production of Basic} + 6 \times \text{Production of XP} &\le 10000 \tag{constraints on assembly hours}\\
-\text{Production of Basic} + 2\times \text{Production of XP} &\le 3000 \tag{constraints on testing hours}\\
-\text{Production of Basic} &\le 600 \tag{constraints on maximal sales}\\
-\text{Production of XP} &\le 1200 \tag{constraints on maximal sales}\\
-\end{eqnarray}</span></p>
-<p>Intuitive constraints: <span class="math">\begin{align}
+<p><span class="math">\begin{align*}
+\text{maximize} \quad \text{Profit} &= \text{Basic's unit margin} \times \text{Production of Basic} \\
+& \qquad \qquad+ \text{XP's unit margin} \times \text{Production of XP}
+\end{align*}</span></p>
+<p>subject to following constraints: <span class="math">\begin{align*}
+&\text{assembly hours:} & 5 \times \text{Production of Basic} + 6 \times \text{Production of XP} &\le 10000 \\
+&\text{testing hours:}  & \text{Production of Basic} + 2\times \text{Production of XP} &\le 3000 \\
+&\text{maximal sales:}   & \text{Production of Basic} &\le 600 \\
+&\text{maximal sales:}   & \text{Production of XP} &\le 1200 \\
+\end{align*}</span></p>
+<p>Intuitive constraints: <span class="math">\begin{align*}
 \text{Production of Basic} &\ge 0 \\
 \text{Production of XP} &\ge 0 \\
-\end{align}</span></p>
+\end{align*}</span></p>
 </div>
 <div class="section" id="Graphical-solution">
 <h2>Graphical solution<a class="headerlink" href="#Graphical-solution" title="Permalink to this headline">¶</a></h2>

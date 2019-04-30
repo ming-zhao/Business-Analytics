@@ -3,7 +3,9 @@
   {
    "cell_type": "code",
    "execution_count": 1,
-   "metadata": {},
+   "metadata": {
+    "scrolled": true
+   },
    "outputs": [
     {
      "data": {
@@ -180,10 +182,10 @@
     "No matter what you're studying, the process for evaluating significance is the same.\n",
     "\n",
     "1. Establish a null hypothesis (a straw man that you're trying to disprove). <br>\n",
-    "   For example, in the experiment of a marketing campaign, the null hypothesis might be \"on average, customers don't prefer our new campaign to the old one\". In the experiment of introducing new surgical intervention, the null hypothesis might be \"the new surgical intervention cannot reduce the number of patient deaths\".\n",
+    "   For example, in an experiment of a marketing campaign, the null hypothesis might be \"on average, customers don't prefer our new campaign to the old one\". In an experiment of introducing new surgical intervention, the null hypothesis might be \"the new surgical intervention cannot reduce the number of patient deaths\".\n",
     "\n",
-    "2. Set a target and interpret $p$-value. <br>\n",
-    "The significance level is an expression of how rare your results are, under the assumption that the null hypothesis is true. It is usually expressed as a $p$-value, and the lower the p-value, the less likely the results are due purely to chance. Setting a target can be dauntingly complex and depends on what we are analyzing. For the surgical intervention, we may want an every low $p$-value (such as 0.001) to be conservative. But if we are testing for whether the new marketing concept is better, we probably willing to take a higher value (such as 0.2).\n",
+    "2. Set a target and interpret p-value. <br>\n",
+    "The significance level is an expression of how rare your results are, under the assumption that the null hypothesis is true. It is usually expressed as a p-value, and the lower the p-value, the less likely the results are due purely to chance. Setting a target can be dauntingly complex and depends on what we are analyzing. For the surgical intervention, we may want an every low p-value (such as 0.001) to be conservative. But if we are testing for whether the new marketing concept is better, we probably willing to take a higher value (such as 0.2).\n",
     "\n",
     "3. Collect data.\n",
     "\n",
@@ -230,9 +232,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "**Example: Weight-Loss Program**\n",
-    "\n",
-    "Researchers are studying a new weight-loss program. Using a large sample they construct a $95%$ confidence interval for the mean amount of weight loss after six months on the program to be $[0.12, 0.20]$. All measurements were taken in pounds. Note that this confidence interval does not contain $0$, so we know that their results were statistically significant at a $0.05$ alpha level. However, most people would say that the results are not practically significant because after six months on a weight-loss program we would want to lose more than $0.12$ to $0.20$ pounds."
+    "**Example: Weight-Loss Program** Researchers are studying a new weight-loss program. Using a large sample they construct a $95%$ confidence interval for the mean amount of weight loss after six months on the program to be $[0.12, 0.20]$. All measurements were taken in pounds. Note that this confidence interval does not contain $0$, so we know that their results were statistically significant at a $0.05$ alpha level. However, most people would say that the results are not practically significant because after six months on a weight-loss program we would want to lose more than $0.12$ to $0.20$ pounds."
    ]
   },
   {
@@ -388,7 +388,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The marketing department comes up with a new concept and you want to see if it works better than the current one. You can't show it to every single target customer, of course, so you choose a sample group. When you run the results, you find that those who saw the new campaign spent \\$10.17 on average, more than the \\\\$8.41 those who saw the old one spent. \n",
+    "The marketing department comes up with a new concept and you want to see if it works better than the current one. You can't show it to every single target customer, of course, so you choose a sample group. When you run the results, you find that those who saw the new campaign spent <span>&dollar;</span>10.17 on average, more than the <span>&dollar;</span>8.41 those who saw the old one spent. \n",
     "\n",
     "This $1.76 might seem like a big — and perhaps important — difference. But in reality you may have been unlucky, drawing a sample of people who do not represent the larger population; in fact, maybe there was no difference between the two campaigns and their influence on consumers' purchasing behaviors. This is called a sampling error, something you must contend with in any test that does not include the entire population of interest.\n",
     "\n",
@@ -426,25 +426,21 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "there are two main contributors to sampling error:\n",
-    "- the size of the sample, and\n",
-    "- the variation in the underlying population. \n",
+    "- There are two main contributors to sampling error **the size of the sample** and **the variation in the underlying population**.\n",
     "\n",
-    "**Sample size** follows our intuition: All else being equal, we will feel more comfortable in the accuracy of the campaigns' $1.76 difference if you showed the new one to 1,000 people rather than just 25. Of course, showing the campaign to more people costs more, so you have to balance the need for a larger sample size with your budget. \n",
-    "\n",
-    "The same is true of statistical significance: with bigger sample sizes, you're less likely to get results that reflect randomness. Thus, a small difference, which may not be practical significance, can be statistical significance.\n",
-    "\n",
-    "**Variation** is a little trickier to understand.\n",
-    "\n",
-    "![](https://hbr.org/resources/images/article_assets/2016/02/W160214_GALLO_GREATERVARIATION1-1200x589.png)\n",
-    "\n",
-    "In the graph, each plot expresses a different possible distribution of customer purchases under the campaign. \n",
-    "\n",
-    "- The plot with less variation: most people spend roughly the same amount of dollars. Some people spend a few dollars more or less, but if you pick a customer at random, chances are pretty good that they'll be pretty close to the average. So it's less likely that you'll select a sample that looks vastly different from the total population, which means you can be relatively confident in your results.\n",
-    "\n",
-    "- The plot with more variation: people vary more widely in how much they spend. The average is still the same, but quite a few people spend more or less. If you pick a customer at random, chances are higher that they are pretty far from the average. So if you select a sample from a more varied population, you can't be as confident in your results. \n",
-    "\n",
-    "To summarize, the important thing to understand is that the greater the variation in the underlying population, the larger the sampling error."
+    "- **sample size** follows our intuition: \n",
+    "    - All else being equal, we will feel more comfortable in the accuracy of the campaigns' <span>&dollar;</span>1.76 difference if you showed the new one to 1,000 people rather than just 25. Of course, showing the campaign to more people costs more, so you have to balance the need for a larger sample size with your budget.\n",
+    "    \n",
+    "    - The same is true of statistical significance: with bigger sample sizes, you're less likely to get results that reflect randomness. Thus, a small difference, which may not be practical significance, can be statistical significance.\n",
+    "    \n",
+    "- **variation** is a little trickier to understand.\n",
+    "    ![](https://hbr.org/resources/images/article_assets/2016/02/W160214_GALLO_GREATERVARIATION1-1200x589.png)\n",
+    "    \n",
+    "    - In the graph, each plot expresses a different possible distribution of customer purchases under the campaign. The plot with less variation: most people spend roughly the same amount of dollars. Some people spend a few dollars more or less, but if you pick a customer at random, chances are pretty good that they'll be pretty close to the average. So it's less likely that you'll select a sample that looks vastly different from the total population, which means you can be relatively confident in your results.\n",
+    "    \n",
+    "    - The plot with more variation: people vary more widely in how much they spend. The average is still the same, but quite a few people spend more or less. If you pick a customer at random, chances are higher that they are pretty far from the average. So if you select a sample from a more varied population, you can't be as confident in your results. \n",
+    "    \n",
+    "- To summarize, the important thing to understand is that the greater the variation in the underlying population, the larger the sampling error."
    ]
   },
   {
@@ -483,11 +479,11 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The new marketing campaign shows a \\\\$1.76 increase (more than 20\\%) in average sales. If the $p$-values is 0.02, then the result is also statistically significant, and we should adopt the new campaign. \n",
+    "- The new marketing campaign shows a <span>&dollar;</span>1.76 increase (more than 20\\%) in average sales. If the p-values is 0.02, then the result is also statistically significant, and we should adopt the new campaign. \n",
     "\n",
-    "If the $p$-value comes in at 0.2 the result is not statistically significant, but since the boost is so large we'll likely still proceed, though perhaps with a bit more caution.\n",
+    "- If the p-value comes in at 0.2 the result is not statistically significant, but since the boost is so large we'll likely still proceed, though perhaps with a bit more caution.\n",
     "\n",
-    "But what if the difference were only a few cents? If the $p$-value comes in at 0.2, we'll stick with your current campaign or explore other options. But even if it had a significance level of 0.01, the result is likely real, though quite small. In this case, our decision probably will be based on other factors, such as the cost of implementing the new campaign."
+    "- But what if the difference were only a few cents? If the p-value comes in at 0.2, we'll stick with your current campaign or explore other options. But even if it had a significance level of 0.01, the result is likely real, though quite small. In this case, our decision probably will be based on other factors, such as the cost of implementing the new campaign."
    ]
   },
   {
@@ -617,7 +613,7 @@
     "\n",
     "- Keep in mind the practical application of the findings.\n",
     "\n",
-    "Be all for using statistics, but always wed it with good judgment."
+    "- Be all for using statistics, but always wed it with good judgment."
    ]
   }
  ],
