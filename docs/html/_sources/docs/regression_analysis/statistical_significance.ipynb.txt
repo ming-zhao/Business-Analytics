@@ -436,7 +436,7 @@
     "\n",
     "**Variation** is a little trickier to understand.\n",
     "\n",
-    "<img src=\"https://hbr.org/resources/images/article_assets/2016/02/W160214_GALLO_GREATERVARIATION1-1200x589.png\" width=\"400\">\n",
+    "![](https://hbr.org/resources/images/article_assets/2016/02/W160214_GALLO_GREATERVARIATION1-1200x589.png)\n",
     "\n",
     "In the graph, each plot expresses a different possible distribution of customer purchases under the campaign. \n",
     "\n",
