@@ -128,7 +128,8 @@
        "    <input id=\"password\" type=\"password\"/>\n",
        "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
        "</div>\n",
-       "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n"
+       "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n",
+       "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n"
       ],
       "text/plain": [
        "<IPython.core.display.HTML object>"
@@ -148,8 +149,8 @@
     "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
     "</div>\n",
     "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n",
-    "\"\"\")\n",
-    "# <a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>"
+    "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n",
+    "\"\"\")"
    ]
   },
   {

@@ -1,0 +1,772 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Forecasting Methods &mdash; Business Analytics 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Time Series Data" href="time_series_data.html" />
+    <link rel="prev" title="Introduction to Forecasting" href="forecasting.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Business Analytics
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Business Analytics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../regression_analysis/regression.html">Applied Regression Analysis</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="forecasting.html">Introduction to Forecasting</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Forecasting Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Judgmental-Forecasts">Judgmental Forecasts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Bayes-Rule">Bayes Rule</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Is-the-Copernican-Principle-Right?">Is the Copernican Principle Right?</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Simple-Prediction-Rules">Simple Prediction Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Small-Data-is-Big-Data-in-Disguise">Small Data is Big Data in Disguise</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="time_series_data.html">Time Series Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exponential_smooth.html">Exponential Smoothing Forecasts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stationarity.html">Stationarity and Forecastability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">Components of Time Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autocorrelation.html">Autocorrelation and Partial Autocorrelation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arima.html">ARIMA Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sarima.html">Seasonal ARIMA (SARIMA) Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cases.html">Case Study</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../optimization_simulation/optimization_simulation.html">Optimization and Simulation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Business Analytics</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="forecasting.html">Introduction to Forecasting</a> &raquo;</li>
+        
+      <li>Forecasting Methods</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/docs/forecasting/methods.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">run</span> ../initscript.py
+<span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;div id=&quot;popup&quot; style=&quot;padding-bottom:5px; display:none;&quot;&gt;</span>
+<span class="s2">    &lt;div&gt;Enter Password:&lt;/div&gt;</span>
+<span class="s2">    &lt;input id=&quot;password&quot; type=&quot;password&quot;/&gt;</span>
+<span class="s2">    &lt;button onclick=&quot;done()&quot; style=&quot;border-radius: 12px;&quot;&gt;Submit&lt;/button&gt;</span>
+<span class="s2">&lt;/div&gt;</span>
+<span class="s2">&lt;button onclick=&quot;unlock()&quot; style=&quot;border-radius: 12px;&quot;&gt;Unclock&lt;/button&gt;</span>
+<span class="s2">&lt;a href=&quot;#&quot; onclick=&quot;code_toggle(this); return false;&quot;&gt;show code&lt;/a&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<script>
+  var password,
+      teacher_mode,
+      isHtml;
+
+  var class_output,
+      class_input,
+      class_answer;
+
+  function code_toggle(e) {
+    var orig_e = e;
+    while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {
+      e = e.closest(class_output).previousElementSibling;
+    }
+    var target = e.closest(class_output).previousElementSibling;
+    if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+      target.style.display = "none";
+      orig_e.innerHTML = 'show code';
+    }
+    else {
+      target.style.removeProperty("display");
+      orig_e.innerHTML = 'hide code';
+    }
+  }
+
+  function hide_answer(e) {
+    var target = e.closest(class_answer).nextElementSibling;
+    //e.closest(class_output).previousElementSibling.style.display = "none";
+    if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+      target.style.display = "none";
+      e.innerHTML = 'show answer';
+    }
+    else if (teacher_mode) {
+        e.innerHTML = 'hide answer';
+        target.style.removeProperty("display");
+    }
+  }
+
+  function done() {
+    document.getElementById("popup").style.display = "none";
+    var input = document.getElementById("password").value;
+    if (input==password) { teacher_mode=1; alert("Unlocked!");}
+    else { teacher_mode=0; alert("Wrong password!");}
+  };
+
+  function unlock() {
+    document.getElementById("popup").style.display = "block";
+  }
+
+  $(document).ready(function() {
+    $.ajax({
+      type: "GET",
+      url: "https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/course.csv",
+      dataType: "text",
+      success: function(data)
+      {
+        var items = data.split(',');
+        var url = window.location.pathname;
+        var filename = url.substring(url.lastIndexOf('/')+1);
+        password='123';
+        for (var i = 0, len = items.length; i < len; ++i) {
+            if (filename.includes(items[i].trim()) && i%2==0 && i<items.length) {
+                password=items[i+1].trim();
+                break;
+            }
+        }
+        var code_blocks = document.getElementsByClassName('nbinput docutils container');
+        if (code_blocks[0]==null) {
+            isHtml=0;
+            code_blocks = document.getElementsByClassName('input');
+            class_output=".output_wrapper";
+            class_input="input";
+            class_answer='.cell';
+        }
+        else {
+            isHtml=1;
+            class_output=".nboutput";
+            class_input="nbinput";
+            class_answer=".nboutput";
+        }
+
+        for (var i = 0, len = code_blocks.length; i < len; ++i) {
+          if (
+              code_blocks[i].innerHTML.indexOf("toggle") !== -1
+              || code_blocks[i].innerHTML.indexOf("button onclick") !== -1
+             ) {
+            code_blocks[i].style.display = "none";
+          }
+        }
+        for (var i = 0, len = code_blocks.length; i < len; ++i) {
+          if (code_blocks[i].innerHTML.indexOf("hide_answer") !== -1) {
+            code_blocks[i].style.display = "none";
+            if (isHtml) {
+              code_blocks[i].nextElementSibling.nextElementSibling.style.display = "none";
+            }
+            else{
+              code_blocks[i].closest(class_answer).nextElementSibling.style.display = "none";
+            }
+          }
+        }
+
+
+      }
+    });
+  });
+</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div id="popup" style="padding-bottom:5px; display:none;">
+    <div>Enter Password:</div>
+    <input id="password" type="password"/>
+    <button onclick="done()" style="border-radius: 12px;">Submit</button>
+</div>
+<button onclick="unlock()" style="border-radius: 12px;">Unclock</button>
+<a href="#" onclick="code_toggle(this); return false;">show code</a></div>
+</div>
+<div class="section" id="Forecasting-Methods">
+<h1>Forecasting Methods<a class="headerlink" href="#Forecasting-Methods" title="Permalink to this headline">¶</a></h1>
+<p>Forecasting methods can be generally divided into:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://otexts.com/fpp2/judgmental.html">Judgmental methods</a></p></li>
+<li><p>Econometric methods</p></li>
+<li><p>Time series methods</p></li>
+</ul>
+<div class="section" id="Judgmental-Forecasts">
+<h2>Judgmental Forecasts<a class="headerlink" href="#Judgmental-Forecasts" title="Permalink to this headline">¶</a></h2>
+<p>Forecasting using judgment is common in practice. In many cases, judgmental forecasting is the only option, such as when there is a complete lack of historical data, or when a new product is being launched, or when a new competitor enters the market, or during completely new and unique market conditions.</p>
+<p>Judgmental methods are basically nonquantitative and will not be discussed in this notes. Instead, we will talk about some simple forecasting strategies based on Bayes rule.</p>
+</div>
+<div class="section" id="Bayes-Rule">
+<h2>Bayes Rule<a class="headerlink" href="#Bayes-Rule" title="Permalink to this headline">¶</a></h2>
+<p>Bayes Rule can be simply expressed as</p>
+<p><span class="math">\begin{align*}
+\text{posterior} \propto \text{likelihood} \times \text{prior}
+\end{align*}</span></p>
+<p>In other words, prediction <span class="math notranslate nohighlight">\(\approx\)</span> observations <span class="math notranslate nohighlight">\(\times\)</span> prior knowledge.</p>
+<p><strong>Example</strong>: J. Richard Gott III. took a trip to Europe in 1969. There he saw the Berlin Wall, a stark symbol of the Cold War, which had been built eight years earlier (1961). He wondered “how much longer it would continue to divide the East and West?”.</p>
+<p>There’s something absurd about trying to make this kind of prediction. Even setting aside the impossibility of forecasting geopolitics, the question seems mathematically laughable: it’s trying to make a prediction from a single data point. But as ridiculous as this might seem on its face, we make such predictions all the time, by necessity.</p>
+<p><img alt="wall0" src="https://media.architecturaldigest.com/photos/56bd1375202b83b31f120f67/16:9/w_1280%2Cc_limit/bridge-of-spies-movie-sets-001.jpg" /></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/J._Richard_Gott">John Richard Gott III</a> is a professor of astrophysical sciences at Princeton University.</p></li>
+<li><p>He is known for developing and advocating two cosmological theories: Time travel and the Doomsday theory.</p></li>
+<li><p>Gott first thought of his <strong>“Copernicus method”</strong> of lifetime estimation in 1969 when stopping at the Berlin Wall and wondering how long it would stand.</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
+<ul>
+<li><p>Why it is called the Copernican principle (method)?</p>
+<ul class="simple">
+<li><p>In about 1510, the astronomer Nicolaus Copernicus was obsessed by questions: Where are we? Where in the universe is the Earth? Copernicus would make the radical paradigm shift of imagining that the Earth was not the center of the universe — that it was, in fact, nowhere special in particular.</p></li>
+<li><p>When Gott arrived at the Berlin Wall, he asked himself a very simple question: Where am I? That is to say, where in the total life span of this artifact have I happened to arrive? In a way, he was asking the temporal version of the spatial question that had proposed by Copernicus four hundred years earlier. Gott decided to take the same step with regard to time.</p></li>
+</ul>
+</li>
+<li><p>He made the assumption that the moment when he encountered the Berlin Wall was not special. My visit should be located at some random point between the Wall’s beginning and its end. <img alt="wall1" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall1.png" /></p></li>
+<li><p>We can divide that timeline up into quarters, like so. <img alt="wall2" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall2.png" /></p></li>
+<li><p>Gott reasoned that his visit, because it was not special in any way, could be located anywhere on that timeline. From the standpoint of probability, that meant there was a 50 percent chance that it was somewhere in the middle portion of the wall’s timeline — the middle two quarters, or 50 percent, of its existence. <img alt="wall3" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall3.png" /></p></li>
+<li><p>When Gott visited in 1969, the Wall had been standing for eight years. If his visit took place at the very beginning of that middle portion of the Wall’s existence, Gott reasoned, that eight years would represent exactly one quarter of the way into its history. That would mean the Wall would exist for another 24 years, coming down in 1993. <img alt="wall4" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall4.png" /></p></li>
+<li><p>If, on the other hand, his visit happened at the very end of the middle portion, then the eight years would represent exactly three quarters of the way into the Wall’s history. Each quarter would represent just 2.66 years, meaning that the wall could fall as early as 1971. <img alt="wall5" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall5.png" /></p></li>
+<li><div class="line-block">
+<div class="line">So by that logic, there was a 50 percent chance that the Wall would come down between 1971 (2.66, or 8/3 years into the future) and 1993 (24, or 8 x 3 years into the future). In reality, the Wall fell in 1989, well within his predicted range.</div>
+<div class="line"><img alt="wall6" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall6.png" /></div>
+</div>
+</li>
+<li><p>What if we need a single number prediction instead of a range?</p>
+<ul class="simple">
+<li><p>Recall that Gott made the assumption that the moment when he encountered the Berlin Wall wasn’t special–that it was equally likely to be any moment in the wall’s total lifetime. And if any moment was equally likely, then on average his arrival should have come precisely at the halfway point (Why? since it was 50% likely to fall before halfway and 50% likely to fall after).</p></li>
+<li><p>More generally, unless we know better we can expect to have shown up precisely halfway into the duration of any given phenomenon. And if we assume that we’re arriving precisely halfway into the duration, the best guess we can make for how long it will last into the future becomes obvious: exactly as long as it’s lasted already. Since Gott saw Berlin Wall eight years after it was built, so his best guess was that it would stand for eight years more. <img alt="wall7" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall7.png" /></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong>: You arrive at a bus stop in a foreign city and learn, perhaps, that the other tourist standing there has been waiting <strong>7 minutes</strong>. When is the next bus likely to arrive? Is it worthwhile to wait — and if so, how long should you do so before giving up? <img alt="bus" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/bus_waiting.png" /></p>
+<p><strong>Example</strong>: A friend of yours has been dating somebody for ONE Month and wants your advice: is it too soon to invite them along to an upcoming family wedding? The relationship is off to a good start, but how far ahead is it safe to make plans? <img alt="quest" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/relationship_quest.png" /></p>
+<p>One thing in common for all these examples is that we don’t have much information, or even we have some information, how should we incorporate our information into forecasting. Let’s hold those forecasting questions in mind, and start with some simple math.</p>
+<p><strong>Example</strong>: There are two different coins. One is a fair coin with a 50–50 chance of heads and tails; the other is a two-headed coin. I drop them into a bag and then pull one out at random. Then I flip it once: heads. Which coin do you think I flipped? <img alt="coin1" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/coin1.png" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
+<p>There is 100% change to get head for two-headed coin, but only 50% for the normal coin. Thus we can assert confidently that it’s exactly twice as probable, that the friend had pulled out the two headed coin.</p>
+<p>Now I show you 9 fair coins and 1 two-headed coin, puts all ten into a bag, draws one at random, and flips it: heads. Now what do you suppose? Is it a fair coin or the two-headed one? <img alt="coin2" src="https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/coin2.png" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
+<ul class="simple">
+<li><p>As before, a fair coin is exactly half as likely to come up heads as a two-headed coin.</p></li>
+<li><p>But now, a fair coin is also 9 times as likely to have been drawn in the first place.</p></li>
+<li><p>Its exactly 4.5 times more likely that your friend is holding a fair coin than the two-headed one.</p></li>
+<li><p>The number of coins and its probability of showing head are our priors. The outcome of a flip is our observation. We have different predictions when our priors are different.</p></li>
+</ul>
+<div class="section" id="Is-the-Copernican-Principle-Right?">
+<h3>Is the Copernican Principle Right?<a class="headerlink" href="#Is-the-Copernican-Principle-Right?" title="Permalink to this headline">¶</a></h3>
+<p>After Gott published his conjecture in <em>Nature</em>, the journal received a flurry of critical correspondence. And it’s easy to see why when we try to apply the rule to some more familiar examples. If you meet a 90-year-old man, the Copernican Principle predicts he will live to 180. Every 6-year-old boy, meanwhile, is predicted to face an early death at the age of 12.</p>
+<p>The Copernican Principle is exactly the Bayes Rule by using an uninformative prior. The question is what prior we should use.</p>
+</div>
+</div>
+<div class="section" id="Simple-Prediction-Rules">
+<h2>Simple Prediction Rules<a class="headerlink" href="#Simple-Prediction-Rules" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Average Rule</strong>: If our prior information follows normal distribution (Things that tend toward or cluster around some kind of natural value), we use the distribution’s “natural” average — its single, specific scale — as your guide.</p>
+<ul>
+<li><p>For example, average life span for men in US is 76 years. So, for a 6-year-old boy, the prediction is 77. He gets a tiny edge over the population average of 76 by virtue of having made it through infancy: we know he’s not in the distribution’s left tail.</p></li>
+</ul>
+</li>
+<li><p><strong>Multiplicative Rule</strong>: If our prior information shows that the rare events have tremendous impact (power-law distribution), then multiply the quantity observed so far by some constant factor.</p>
+<ul>
+<li><p>For example, movie box-office grosses do not cluster to a “natural” center. Instead, most movies don’t make much money at all, but the occasional Titanic makes titanic amounts. Income (or money in general) is also follows the power-laws (the rich get richer).</p></li>
+<li><p>For the grosses of movies, the multiplier is 1.4. So if you hear a movie has made $6 million so far, you can guess it will make about $8.4 million overall.</p></li>
+<li><p>This multiplicative rule is a direct consequence of the fact that power-law distributions do not specify (or you are uninformative on) a natural scale for the phenomenon they are describing. It is possible that a movie that is grossed $6 million is actually a blockbuster in its first hour of release, but it is far more likely to be just a single-digit-millions kind of movie.</p></li>
+</ul>
+</li>
+</ul>
+<p>In summary, something normally distributed that’s gone on seemingly too long is bound to end shortly; but the longer something in a power-law distribution has gone on, the longer you can expect it to keep going.</p>
+<p>There’s a third category of things in life: those that are neither more nor less likely to end just because they have gone on for a while.</p>
+<ul class="simple">
+<li><p><strong>Additive Rule</strong>: If the prior follows Erlang distributions (such as exponential or gamma distributions), then we should always predict that things will go on just a constant amount longer. It is a memoryless prediction.</p>
+<ul>
+<li><p>Additive rule is suitable for events that are completely independent from one another and the intervals between them thus fall on Erlang distribution.</p></li>
+</ul>
+</li>
+</ul>
+<p>If you wait for a win at the roulette wheel, what is your strategy?</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
+<ul class="simple">
+<li><p>Suppose a win at the roulette wheel were characterized by a normal distribution, then the Average Rule would apply: after a run of bad luck, it’d tell you that your number should be coming any second, probably followed by more losing spins. The strategy is to quit after winning.</p></li>
+<li><p>If, instead, the wait for a win obeyed a power-law distribution, then the Multiplicative Rule would tell you that winning spins follow quickly after one another, but the longer a drought had gone on the longer it would probably continue. The strategy is keep playing for a while after any win, but give up after a losing streak.</p></li>
+<li><p>If it is a memoryless distribution, then you’re stuck. The Additive Rule tells you the chance of a win now is the same as it was an hour ago, and the same as it will be an hour from now. Nothing ever changes. You’re not rewarded for sticking it out and ending on a high note; neither is there a tipping point when you should just cut your losses. For a memoryless distribution, there is no right time to quit. This may in part explain these games’ addictiveness.</p></li>
+<li><p><strong>In summary</strong>, knowing what distribution you’re up against (i.e. having a correct prior knowledge) can make all the difference.</p></li>
+</ul>
+</div>
+<div class="section" id="Small-Data-is-Big-Data-in-Disguise">
+<h2>Small Data is Big Data in Disguise<a class="headerlink" href="#Small-Data-is-Big-Data-in-Disguise" title="Permalink to this headline">¶</a></h2>
+<p>Many behavior studies show that the predictions that people had made were extremely close to those produced by Bayes Rule.</p>
+<p>The reason we can often make good predictions from a small number of observations — or just a single one — is that our priors are so rich.</p>
+<p>Behavior studies show that we actually carry around in our heads surprisingly accurate priors.</p>
+<p>However, the challenge has increased with the development of the printing press, the nightly news, and social media. Those innovations allow us to spread information mechanically which may affect our priors.</p>
+<p>As sociologist Barry Glassner notes, the murder rate in the United States declined by 20% over the course of the 1990s, yet during that time period the presence of gun violence on American news increased by 600%.</p>
+<p>If you want to naturally make good predictions by following your intuitions, without having to think about what kind of prediction rule is appropriate, you need to protect your priors. Counter-intuitively, that might mean turning off the news.</p>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="time_series_data.html" class="btn btn-neutral float-right" title="Time Series Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="forecasting.html" class="btn btn-neutral float-left" title="Introduction to Forecasting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ming Zhao
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

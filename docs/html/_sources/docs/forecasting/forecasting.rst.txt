@@ -3,12 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
    
-Time Series Analysis and Forecasting
+Introduction to Forecasting
 ========================================
 
 .. toctree::
    :maxdepth: 2
    
+   ./methods.ipynb
    ./time_series_data.ipynb
    ./exponential_smooth.ipynb
    ./stationarity.ipynb

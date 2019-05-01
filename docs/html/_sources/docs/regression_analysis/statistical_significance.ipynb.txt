@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 2,
    "metadata": {
     "scrolled": true
    },
@@ -130,13 +130,14 @@
        "    <input id=\"password\" type=\"password\"/>\n",
        "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
        "</div>\n",
-       "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n"
+       "<!--<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>-->\n",
+       "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n"
       ],
       "text/plain": [
        "<IPython.core.display.HTML object>"
       ]
      },
-     "execution_count": 1,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -149,9 +150,9 @@
     "    <input id=\"password\" type=\"password\"/>\n",
     "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
     "</div>\n",
-    "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n",
-    "\"\"\")\n",
-    "# <a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>"
+    "<!--<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>-->\n",
+    "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n",
+    "\"\"\")"
    ]
   },
   {
