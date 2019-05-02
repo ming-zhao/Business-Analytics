@@ -11,6 +11,7 @@ Introduction to Forecasting
    
    ./methods.ipynb
    ./time_series_data.ipynb
+   ./regression.ipynb
    ./exponential_smooth.ipynb
    ./stationarity.ipynb
    ./components.ipynb
