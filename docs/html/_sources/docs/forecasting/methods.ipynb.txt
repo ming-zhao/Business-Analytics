@@ -324,7 +324,7 @@
    "metadata": {},
    "source": [
     "**Example**:\n",
-    "There are two different coins. One is a fair coin with a 50–50 chance of heads and tails; the other is a two-headed coin. I drop them into a bag and then pull one out at random. Then I flip it once: heads. Which coin do you think I flipped? \n",
+    "There are two different coins. One is a fair coin with a 50–50 chance of heads and tails; the other is a two-headed coin. I drop them into a bag and then pull one out at random. Then I flip it once: head. Which coin do you think I flipped? \n",
     "![coin1](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/coin1.png)"
    ]
   },
@@ -365,7 +365,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Now I show you 9 fair coins and 1 two-headed coin, puts all ten into a bag, draws one at random, and flips it: heads. Now what do you suppose? Is it a fair coin or the two-headed one?\n",
+    "Now I show you 9 fair coins and 1 two-headed coin, puts all ten into a bag, draws one at random, and flips it: head. Now what do you suppose? Is it a fair coin or the two-headed one?\n",
     "![coin2](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/coin2.png)"
    ]
   },
