@@ -6,7 +6,142 @@
    "metadata": {
     "scrolled": true
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<script>\n",
+       "  var password,\n",
+       "      teacher_mode,\n",
+       "      isHtml;\n",
+       "      \n",
+       "  var class_output,\n",
+       "      class_input,\n",
+       "      class_answer;\n",
+       "      \n",
+       "  function code_toggle(e) {\n",
+       "    var orig_e = e;\n",
+       "    while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {\n",
+       "      e = e.closest(class_output).previousElementSibling;\n",
+       "    }\n",
+       "    var target = e.closest(class_output).previousElementSibling;\n",
+       "    if (target.getAttribute(\"style\") == \"\" || target.getAttribute(\"style\") == null) {\n",
+       "      target.style.display = \"none\";\n",
+       "      orig_e.innerHTML = 'show code';\n",
+       "    }\n",
+       "    else {\n",
+       "      target.style.removeProperty(\"display\");\n",
+       "      orig_e.innerHTML = 'hide code';\n",
+       "    }\n",
+       "  }\n",
+       "  \n",
+       "  function hide_answer(e) {\n",
+       "    var target = e.closest(class_answer).nextElementSibling;\n",
+       "    //e.closest(class_output).previousElementSibling.style.display = \"none\";\n",
+       "    if (target.getAttribute(\"style\") == \"\" || target.getAttribute(\"style\") == null) {\n",
+       "      target.style.display = \"none\";\n",
+       "      e.innerHTML = 'show answer';\n",
+       "    }\n",
+       "    else if (teacher_mode) {\n",
+       "        e.innerHTML = 'hide answer';\n",
+       "        target.style.removeProperty(\"display\");\n",
+       "    }\n",
+       "  }\n",
+       "  \n",
+       "  function done() { \n",
+       "    document.getElementById(\"popup\").style.display = \"none\";\n",
+       "    var input = document.getElementById(\"password\").value;\n",
+       "    if (input==password) { teacher_mode=1; alert(\"Unlocked!\");}\n",
+       "    else { teacher_mode=0; alert(\"Wrong password!\");}       \n",
+       "  };\n",
+       "\n",
+       "  function unlock() {\n",
+       "    document.getElementById(\"popup\").style.display = \"block\";\n",
+       "  }\n",
+       "  \n",
+       "  $(document).ready(function() {\n",
+       "    $.ajax({\n",
+       "      type: \"GET\",  \n",
+       "      url: \"https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/course.csv\",\n",
+       "      dataType: \"text\",       \n",
+       "      success: function(data)  \n",
+       "      {\n",
+       "        var items = data.split(',');\n",
+       "        var url = window.location.pathname;\n",
+       "        var filename = url.substring(url.lastIndexOf('/')+1);\n",
+       "        password='123';\n",
+       "        for (var i = 0, len = items.length; i < len; ++i) {\n",
+       "            if (filename.includes(items[i].trim()) && i%2==0 && i<items.length) {\n",
+       "                password=items[i+1].trim();\n",
+       "                break;\n",
+       "            }\n",
+       "        }\n",
+       "        var code_blocks = document.getElementsByClassName('nbinput docutils container');\n",
+       "        if (code_blocks[0]==null) { \n",
+       "            isHtml=0;\n",
+       "            code_blocks = document.getElementsByClassName('input');\n",
+       "            class_output=\".output_wrapper\";\n",
+       "            class_input=\"input\";\n",
+       "            class_answer='.cell';\n",
+       "        }\n",
+       "        else { \n",
+       "            isHtml=1;\n",
+       "            class_output=\".nboutput\";\n",
+       "            class_input=\"nbinput\";\n",
+       "            class_answer=\".nboutput\";\n",
+       "        }\n",
+       "        \n",
+       "        for (var i = 0, len = code_blocks.length; i < len; ++i) {\n",
+       "          if (\n",
+       "              code_blocks[i].innerHTML.indexOf(\"toggle\") !== -1 \n",
+       "              || code_blocks[i].innerHTML.indexOf(\"button onclick\") !== -1\n",
+       "             ) {\n",
+       "            code_blocks[i].style.display = \"none\";\n",
+       "          }\n",
+       "        }\n",
+       "        for (var i = 0, len = code_blocks.length; i < len; ++i) {\n",
+       "          if (code_blocks[i].innerHTML.indexOf(\"hide_answer\") !== -1) {\n",
+       "            code_blocks[i].style.display = \"none\";\n",
+       "            if (isHtml) {\n",
+       "              code_blocks[i].nextElementSibling.nextElementSibling.style.display = \"none\";\n",
+       "            }\n",
+       "            else{\n",
+       "              code_blocks[i].closest(class_answer).nextElementSibling.style.display = \"none\";\n",
+       "            }            \n",
+       "          }\n",
+       "        }\n",
+       "        \n",
+       "        \n",
+       "      }\n",
+       "    });\n",
+       "  });\n",
+       "</script>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "<div id=\"popup\" style=\"padding-bottom:5px; display:none;\">\n",
+       "    <div>Enter Password:</div>\n",
+       "    <input id=\"password\" type=\"password\"/>\n",
+       "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
+       "</div>\n",
+       "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n",
+       "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 1,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "%run ../initscript.py\n",
     "HTML(\"\"\"\n",
@@ -73,7 +208,23 @@
    "metadata": {
     "scrolled": true
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "hide_answer()"
    ]
@@ -115,7 +266,23 @@
    "metadata": {
     "scrolled": false
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "hide_answer()"
    ]
@@ -141,7 +308,23 @@
    "cell_type": "code",
    "execution_count": 4,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "hide_answer()"
    ]
@@ -167,7 +350,23 @@
    "cell_type": "code",
    "execution_count": 5,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "hide_answer()"
    ]
@@ -203,7 +402,23 @@
    "metadata": {
     "scrolled": false
    },
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "hide_answer()"
    ]
@@ -240,7 +455,23 @@
    "cell_type": "code",
    "execution_count": 7,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "hide_answer()"
    ]
@@ -274,7 +505,23 @@
    "cell_type": "code",
    "execution_count": 8,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "hide_answer()"
    ]
@@ -297,7 +544,23 @@
    "cell_type": "code",
    "execution_count": 9,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "hide_answer()"
    ]
@@ -320,7 +583,23 @@
    "cell_type": "code",
    "execution_count": 10,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
    "source": [
     "hide_answer()"
    ]
