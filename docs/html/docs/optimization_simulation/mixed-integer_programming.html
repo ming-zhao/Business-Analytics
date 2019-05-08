@@ -848,11 +848,11 @@ $\displaystyle Bound~the~optimal~profit~from~above~with~5.158.$</div></div>
 </div>
 <p>The Branch and Bound algorithm keeps a tree structure with procedures: (we assume a maximization problem)</p>
 <ol class="arabic simple" start="0">
-<li><p>At root node, we solve a LP problem and set initial upper bound as LP’s objective and lower bound negative infinity.</p></li>
-<li><p>(Branch) If the solution is integer infeasible, we branch on this node by creating two child nodes. Each child node corresponds to a LP problem with an extra branching inequality.</p></li>
-<li><p>(Lower bound) If the solution is integer feasible, we update the lower bound so that it always corresponds to the highest objective of feasible solution we find so far.</p></li>
-<li><p>(Upper bound) Solve a node LP (if it hasn’t been solved). If the LP’s objective is less than the upper bound, we update the upper bound, else we prune the node without further branching on it. Therefore, the upper bound in the algorithm can limit the number of branches generated and may allow us to solve less LPs.</p></li>
-<li><p>The algorithm stops when the tree is fully explored or the difference between the upper and lower bounds is small.</p></li>
+<li>At root node, we solve a LP problem and set initial upper bound as LP’s objective and lower bound negative infinity.</li>
+<li>(Branch) If the solution is integer infeasible, we branch on this node by creating two child nodes. Each child node corresponds to a LP problem with an extra branching inequality.</li>
+<li>(Lower bound) If the solution is integer feasible, we update the lower bound so that it always corresponds to the highest objective of feasible solution we find so far.</li>
+<li>(Upper bound) Solve a node LP (if it hasn’t been solved). If the LP’s objective is less than the upper bound, we update the upper bound, else we prune the node without further branching on it. Therefore, the upper bound in the algorithm can limit the number of branches generated and may allow us to solve less LPs.</li>
+<li>The algorithm stops when the tree is fully explored or the difference between the upper and lower bounds is small.</li>
 </ol>
 </div>
 <div class="section" id="Modeling-with-Binary-Variables">

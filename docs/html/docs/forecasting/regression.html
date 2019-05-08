@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Business Analytics 1.0 documentation</title>
+  <title>Forecasting with Regression &mdash; Business Analytics 1.0 documentation</title>
   
 
   
@@ -86,9 +86,21 @@
             
             
               <p class="caption"><span class="caption-text">Business Analytics</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../regression_analysis/regression.html">Applied Regression Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="forecasting.html">Introduction to Forecasting</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="forecasting.html">Introduction to Forecasting</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="methods.html">Forecasting Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="time_series_data.html">Time Series Data</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Forecasting with Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exponential_smooth.html">Exponential Smoothing Forecasts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stationarity.html">Stationarity and Forecastability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="components.html">Components of Time Series</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autocorrelation.html">Autocorrelation and Partial Autocorrelation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arima.html">ARIMA Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sarima.html">Seasonal ARIMA (SARIMA) Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cases.html">Case Study</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../optimization_simulation/optimization_simulation.html">Optimization and Simulation</a></li>
 </ul>
 
@@ -137,7 +149,7 @@
         
           <li><a href="forecasting.html">Introduction to Forecasting</a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>Forecasting with Regression</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -542,6 +554,13 @@ div.rendered_html tbody tr:hover {
 <div class="output_area rendered_html docutils container">
 <a href="#" onclick="code_toggle(this); return false;">show code</a></div>
 </div>
+<div class="section" id="Forecasting-with-Regression">
+<h1>Forecasting with Regression<a class="headerlink" href="#Forecasting-with-Regression" title="Permalink to this headline">¶</a></h1>
+<p>Many time series follow a long-term trend except for random variation which can be modeled by regression:</p>
+<p><span class="math">\begin{equation*}
+Y_t = a + b t + e_t
+\end{equation*}</span></p>
+<p><strong>Example</strong>: Monthly US population.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
@@ -556,9 +575,10 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/docs_forecasting_regression_2_0.png" src="../../_images/docs_forecasting_regression_2_0.png" />
+<img alt="../../_images/docs_forecasting_regression_4_0.png" src="../../_images/docs_forecasting_regression_4_0.png" />
 </div>
 </div>
+<p>The plot indicates a clear upward trend with little or no curvature. Therefore, a linear trend is plausible.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
@@ -608,22 +628,29 @@ standard error of estimate:2582.62518
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/docs_forecasting_regression_3_1.png" src="../../_images/docs_forecasting_regression_3_1.png" />
+<img alt="../../_images/docs_forecasting_regression_6_1.png" src="../../_images/docs_forecasting_regression_6_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/docs_forecasting_regression_3_2.png" src="../../_images/docs_forecasting_regression_3_2.png" />
+<img alt="../../_images/docs_forecasting_regression_6_2.png" src="../../_images/docs_forecasting_regression_6_2.png" />
 </div>
 </div>
+<p>The linear fit has a very high R-squared, but is not perfect, as the residual plot indicates.</p>
+<p><strong>Example</strong>: Quarterly PC device sales.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">plot_time_series</span><span class="p">(</span><span class="n">df_reg</span><span class="p">,</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span></span><span class="n">df_reg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dataurl</span><span class="o">+</span><span class="s1">&#39;Regression2.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Quarter&#39;</span><span class="p">],</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df_reg</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_reg</span><span class="o">.</span><span class="n">Quarter</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)[</span><span class="n">i</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+                       <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">offsets</span><span class="o">.</span><span class="n">QuarterEnd</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">df_reg</span> <span class="o">=</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+
+<span class="n">plot_time_series</span><span class="p">(</span><span class="n">df_reg</span><span class="p">,</span> <span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -631,7 +658,7 @@ standard error of estimate:2582.62518
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/docs_forecasting_regression_4_0.png" src="../../_images/docs_forecasting_regression_4_0.png" />
+<img alt="../../_images/docs_forecasting_regression_8_0.png" src="../../_images/docs_forecasting_regression_8_0.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -769,22 +796,23 @@ standard error of estimate:0.11045
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/docs_forecasting_regression_6_1.png" src="../../_images/docs_forecasting_regression_6_1.png" />
+<img alt="../../_images/docs_forecasting_regression_10_1.png" src="../../_images/docs_forecasting_regression_10_1.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/docs_forecasting_regression_6_2.png" src="../../_images/docs_forecasting_regression_6_2.png" />
+<img alt="../../_images/docs_forecasting_regression_10_2.png" src="../../_images/docs_forecasting_regression_10_2.png" />
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[49]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_reg</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">Sales</span><span class="p">,</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">forecast</span><span class="p">)</span>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_reg</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">Sales</span><span class="p">,</span> <span class="n">df_reg</span><span class="o">.</span><span class="n">forecast</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -793,7 +821,8 @@ standard error of estimate:0.11045
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/docs_forecasting_regression_7_0.png" src="../../_images/docs_forecasting_regression_7_0.png" />
+<img alt="../../_images/docs_forecasting_regression_11_0.png" src="../../_images/docs_forecasting_regression_11_0.png" />
+</div>
 </div>
 </div>
 

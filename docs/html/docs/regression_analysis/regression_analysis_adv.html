@@ -112,7 +112,7 @@
 <li class="toctree-l2"><a class="reference internal" href="regression_modeling.html">Regression Modeling</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Time Series Analysis and Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Introduction to Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optimization_simulation/optimization_simulation.html">Optimization and Simulation</a></li>
 </ul>
 
@@ -715,8 +715,8 @@ div.rendered_html tbody tr:hover {
 <h3>Partial Regression Plots<a class="headerlink" href="#Partial-Regression-Plots" title="Permalink to this headline">¶</a></h3>
 <p>For a particular independent variable <span class="math notranslate nohighlight">\(X_i\)</span>, a <strong>partial regression</strong> plot shows:</p>
 <ul class="simple">
-<li><p>residuals from regressing <span class="math notranslate nohighlight">\(Y\)</span> (the response variable) against all the independent variables except <span class="math notranslate nohighlight">\(X_i\)</span></p></li>
-<li><p>residuals from regressing <span class="math notranslate nohighlight">\(X_i\)</span> against the remaining independent variables.</p></li>
+<li>residuals from regressing <span class="math notranslate nohighlight">\(Y\)</span> (the response variable) against all the independent variables except <span class="math notranslate nohighlight">\(X_i\)</span></li>
+<li>residuals from regressing <span class="math notranslate nohighlight">\(X_i\)</span> against the remaining independent variables.</li>
 </ul>
 <p>It has a slope that is the same as the multiple regression coefficient for that predictor and also has the same residuals as the full multiple regression. So we can spot any outliers or influential points and tell whether they’ve affected the estimation of this particular coefficient. For the same reasons that we always look at a scatterplot before interpreting a simple regression coefficient, it’s a good idea to make a partial regression plot for any multiple regression coefficient that we hope
 to understand or interpret.</p>
@@ -805,9 +805,9 @@ to understand or interpret.</p>
 </div></div>
 </div>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">sum_sq[Residual]</span></code> is sum of squared residuals;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sum_sq[Area]</span></code> is <code class="docutils literal notranslate"><span class="pre">sum_sq[Residual]</span></code> - <code class="docutils literal notranslate"><span class="pre">sum_sq[Residual]</span></code> for regression <code class="docutils literal notranslate"><span class="pre">Infarc</span> <span class="pre">~</span> <span class="pre">X2</span> <span class="pre">+</span> <span class="pre">X3</span></code>, i.e., regression without <code class="docutils literal notranslate"><span class="pre">Area</span></code>;</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">df[Residual]</span></code> is degree of freedom <span class="math notranslate nohighlight">\(=\)</span> total number of observations (<code class="docutils literal notranslate"><span class="pre">result.nobs</span></code>) <span class="math notranslate nohighlight">\(-\)</span> the number of explanatory variables (<code class="docutils literal notranslate"><span class="pre">3</span></code> or <code class="docutils literal notranslate"><span class="pre">result.df_model</span></code>) <span class="math notranslate nohighlight">\(- 1 =\)</span> <code class="docutils literal notranslate"><span class="pre">result.df_resid</span></code>;</p></li>
+<li><code class="docutils literal notranslate"><span class="pre">sum_sq[Residual]</span></code> is sum of squared residuals;</li>
+<li><code class="docutils literal notranslate"><span class="pre">sum_sq[Area]</span></code> is <code class="docutils literal notranslate"><span class="pre">sum_sq[Residual]</span></code> - <code class="docutils literal notranslate"><span class="pre">sum_sq[Residual]</span></code> for regression <code class="docutils literal notranslate"><span class="pre">Infarc</span> <span class="pre">~</span> <span class="pre">X2</span> <span class="pre">+</span> <span class="pre">X3</span></code>, i.e., regression without <code class="docutils literal notranslate"><span class="pre">Area</span></code>;</li>
+<li><code class="docutils literal notranslate"><span class="pre">df[Residual]</span></code> is degree of freedom <span class="math notranslate nohighlight">\(=\)</span> total number of observations (<code class="docutils literal notranslate"><span class="pre">result.nobs</span></code>) <span class="math notranslate nohighlight">\(-\)</span> the number of explanatory variables (<code class="docutils literal notranslate"><span class="pre">3</span></code> or <code class="docutils literal notranslate"><span class="pre">result.df_model</span></code>) <span class="math notranslate nohighlight">\(- 1 =\)</span> <code class="docutils literal notranslate"><span class="pre">result.df_resid</span></code>;</li>
 </ul>
 </div>
 <div class="section" id="Examples">
@@ -912,8 +912,8 @@ F^\ast = \frac{SSE(R) - SSE(F)}{df_R - df_F} \div \frac{SSE(F)}{df_F}
 \end{equation*}</span></p>
 <p>Why don’t we perform a series of individual t-tests? For example, for the rabbit heart attacks study, we could have done the following in Example 3:</p>
 <ul class="simple">
-<li><p>Fit the model InfSize ~ Area <span class="math notranslate nohighlight">\(+\)</span> x2 <span class="math notranslate nohighlight">\(+\)</span> x3 and use an individual t-test for x3.</p></li>
-<li><p>If the test results indicate that we can drop x3 then fit the model oInfSize ~ Area <span class="math notranslate nohighlight">\(+\)</span> x2 and use an individual t-test for x2.</p></li>
+<li>Fit the model InfSize ~ Area <span class="math notranslate nohighlight">\(+\)</span> x2 <span class="math notranslate nohighlight">\(+\)</span> x3 and use an individual t-test for x3.</li>
+<li>If the test results indicate that we can drop x3 then fit the model oInfSize ~ Area <span class="math notranslate nohighlight">\(+\)</span> x2 and use an individual t-test for x2.</li>
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
@@ -933,8 +933,8 @@ F^\ast = \frac{SSE(R) - SSE(F)}{df_R - df_F} \div \frac{SSE(F)}{df_F}
 </div>
 <p>Note that we’re using two individual t-tests instead of one F-test in the suggested method. It means the chance of drawing an incorrect conclusion in our testing procedure is higher. Recall that every time we do a hypothesis test, we can draw an incorrect conclusion by:</p>
 <ul class="simple">
-<li><p>rejecting a true null hypothesis, i.e., make a type 1 error by concluding the tested predictor(s) should be retained in the model, when in truth it/they should be dropped; or</p></li>
-<li><p>failing to reject a false null hypothesis, i.e., make a type 2 error by concluding the tested predictor(s) should be dropped from the model, when in truth it/they should be retained.</p></li>
+<li>rejecting a true null hypothesis, i.e., make a type 1 error by concluding the tested predictor(s) should be retained in the model, when in truth it/they should be dropped; or</li>
+<li>failing to reject a false null hypothesis, i.e., make a type 2 error by concluding the tested predictor(s) should be dropped from the model, when in truth it/they should be retained.</li>
 </ul>
 <p>Thus, in general, the fewer tests we perform the better. In this case, this means that wherever possible using one F-test in place of multiple individual t-tests is preferable.</p>
 </div>
@@ -1020,9 +1020,9 @@ F^\ast = \frac{SSE(R) - SSE(F)}{df_R - df_F} \div \frac{SSE(F)}{df_F}
 </div></div>
 </div>
 <ul class="simple">
-<li><p>mean is the value calculated based on the (sample) regression line</p></li>
-<li><p>mean (or confidence) lower and upper limits offer the confidence interval of the average of predictor with given values of explanatory variables. In other words, if we run experiments many times with given values of explanatory variables, we have 95% confidence that the mean of the dependent variable will be in this interval.</p></li>
-<li><p>obs (or prediction) lower and upper limits offer the confidence interval of a single prediction. In other words, if we run one experiment with given values of explanatory variables, we have 95% confidence that the value of the dependent variable will be in this interval.</p></li>
+<li>mean is the value calculated based on the (sample) regression line</li>
+<li>mean (or confidence) lower and upper limits offer the confidence interval of the average of predictor with given values of explanatory variables. In other words, if we run experiments many times with given values of explanatory variables, we have 95% confidence that the mean of the dependent variable will be in this interval.</li>
+<li>obs (or prediction) lower and upper limits offer the confidence interval of a single prediction. In other words, if we run one experiment with given values of explanatory variables, we have 95% confidence that the value of the dependent variable will be in this interval.</li>
 </ul>
 </div>
 <div class="section" id="Cross-Validation">
@@ -1064,8 +1064,8 @@ Validation StErr of Est:        5032.718
 <p>Multicollinearity exists when two or more of the predictors in a regression model are moderately or highly correlated with one another. The exact linear relationship is fairly simple to spot because regression packages will typically respond with an error message. A more common and serious problem is multicollinearity, where explanatory variables are highly, but not exactly, correlated.</p>
 <p>There are two types of multicollinearity:</p>
 <ul class="simple">
-<li><p>Structural multicollinearity is a mathematical artifact caused by creating new predictors from other predictors — such as, creating the predictor <span class="math notranslate nohighlight">\(X^2\)</span> from the predictor <span class="math notranslate nohighlight">\(X\)</span>.</p></li>
-<li><p>Data-based multicollinearity, on the other hand, is a result of a poorly designed experiment, reliance on purely observational data, or the inability to manipulate the system on which the data are collected.</p></li>
+<li>Structural multicollinearity is a mathematical artifact caused by creating new predictors from other predictors — such as, creating the predictor <span class="math notranslate nohighlight">\(X^2\)</span> from the predictor <span class="math notranslate nohighlight">\(X\)</span>.</li>
+<li>Data-based multicollinearity, on the other hand, is a result of a poorly designed experiment, reliance on purely observational data, or the inability to manipulate the system on which the data are collected.</li>
 </ul>
 <p>Variance inflation factor (VIF) can be used to identify multicollinearity. The VIF for <span class="math notranslate nohighlight">\(X\)</span> is defined as 1/(1 - R-square for <span class="math notranslate nohighlight">\(X\)</span>), where R-square for <span class="math notranslate nohighlight">\(X\)</span> variable is the usual R-square value from a regression with that <span class="math notranslate nohighlight">\(X\)</span> as the dependent variable and the other <span class="math notranslate nohighlight">\(X\)</span>’s as the explanatory variables.</p>
 <div class="nbinput docutils container">

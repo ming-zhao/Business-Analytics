@@ -113,7 +113,7 @@
 <li class="toctree-l2"><a class="reference internal" href="regression_modeling.html">Regression Modeling</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Time Series Analysis and Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Introduction to Forecasting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../optimization_simulation/optimization_simulation.html">Optimization and Simulation</a></li>
 </ul>
 
@@ -451,9 +451,9 @@ div.rendered_html tbody tr:hover {
 <p>However, such a deterministic (or functional) relationship is not our interests. We are interested in statistical relationships, in which the relationship between the variables is not perfect. For example, we might be interested in the relationship between rainfall and product sales, or between the mortality due to skin cancer and state latitude.</p>
 <p>Scatterplots provide graphical indications of relationships, whether they are linear, non-linear or even nonexistent. Correlation <span class="math notranslate nohighlight">\(\rho\)</span> is a numerical summary measures that indicate the strength of <strong>linear relationships</strong> between pairs of variables.</p>
 <ul class="simple">
-<li><p>If <span class="math notranslate nohighlight">\(\rho\)</span> = -1, then there is a perfect negative linear relationship between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(\rho\)</span> = 1, then there is a perfect positive linear relationship between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(\rho\)</span> = 0, then there is no linear relationship between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p></li>
+<li>If <span class="math notranslate nohighlight">\(\rho\)</span> = -1, then there is a perfect negative linear relationship between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</li>
+<li>If <span class="math notranslate nohighlight">\(\rho\)</span> = 1, then there is a perfect positive linear relationship between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</li>
+<li>If <span class="math notranslate nohighlight">\(\rho\)</span> = 0, then there is no linear relationship between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</li>
 </ul>
 <p>Scatterplots are useful for indicating linear relationships and demonstrate its strength visually. However, they do not quantify the relationship. For example, a scatterplot could show a strong positive relationship between rainfall and product sales. But a scatterplot does not specify exactly what this relationship is. For example, what is the sales amount if the rainfall is, says, 4 inches?</p>
 <div class="section" id="Scatterplots">
@@ -581,9 +581,9 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Correlation">
 <h2>Correlation<a class="headerlink" href="#Correlation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>correlation only quantifies the strength of a linear relationship (see example in section of R-squared).</p></li>
-<li><p>correlation can be greatly affected by just one data point (see example in section of R-squared).</p></li>
-<li><p>correlation can be greatly affected after aggregation.</p></li>
+<li>correlation only quantifies the strength of a linear relationship (see example in section of R-squared).</li>
+<li>correlation can be greatly affected by just one data point (see example in section of R-squared).</li>
+<li>correlation can be greatly affected after aggregation.</li>
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -634,8 +634,8 @@ correlation: 0.9974059619080593
 </div>
 <p>Freedman, Pisani and Purves (1997) investigated data from the 1988 Current Population Survey and considered the relationship between a man’s level of education and his income. They calculated the correlation between education and income in two ways:</p>
 <ul class="simple">
-<li><p>First, they treated individual men, aged 25-64, as the experimental units. That is, each data point represented a man’s income and education level. Using these data, they determined that the correlation between income and education level for men aged 25-64 was about 0.4, not a convincingly strong relationship.</p></li>
-<li><p>The statisticians analyzed the data again, but in the second go-around they treated nine geographical regions as the units. That is, they first computed the average income and average education for men aged 25-64 in each of the nine regions. They determined that the correlation between the average income and average education for the sample of n = 9 regions was about 0.7, obtaining a much larger correlation than that obtained on the individual data.</p></li>
+<li>First, they treated individual men, aged 25-64, as the experimental units. That is, each data point represented a man’s income and education level. Using these data, they determined that the correlation between income and education level for men aged 25-64 was about 0.4, not a convincingly strong relationship.</li>
+<li>The statisticians analyzed the data again, but in the second go-around they treated nine geographical regions as the units. That is, they first computed the average income and average education for men aged 25-64 in each of the nine regions. They determined that the correlation between the average income and average education for the sample of n = 9 regions was about 0.7, obtaining a much larger correlation than that obtained on the individual data.</li>
 </ul>
 <p>The correlation calculated on the region data tends to overstate the strength of an association. How do you know what kind of data to use — aggregate data (such as the regional data) or individual data? It depends on the conclusion you’d like to make.</p>
 <p>If you want to learn about the strength of the association between an individual’s education level and his/her income, then by all means you should use individual data. On the other hand, if you want to learn about the strength of the association between a school’s average salary level and the schools graduation rate, you should use aggregate data in which the units are the schools.</p>
@@ -717,15 +717,15 @@ one.</p>
 <h2>Regression Assumptions<a class="headerlink" href="#Regression-Assumptions" title="Permalink to this headline">¶</a></h2>
 <p>As one of the most important types of data analysis, regression analysis is a way of mathematically sorting out factors that may have an impact. It focuses on questions:</p>
 <ul class="simple">
-<li><p>Which factors matter most?</p></li>
-<li><p>Which can we ignore?</p></li>
-<li><p>How do those factors interact with each other?</p></li>
-<li><p>Perhaps most importantly, how certain are we about all of these factors?</p></li>
+<li>Which factors matter most?</li>
+<li>Which can we ignore?</li>
+<li>How do those factors interact with each other?</li>
+<li>Perhaps most importantly, how certain are we about all of these factors?</li>
 </ul>
 <p>Those factors are called variables, and we have</p>
 <ul class="simple">
-<li><p><strong>Dependent</strong> (or <strong>response</strong> or <strong>target</strong>) variable: the main factor that you’re trying to understand or predict</p></li>
-<li><p><strong>Independent</strong> (or <strong>explanatory</strong> or <strong>predictor</strong>) variables: the factors you suspect have an impact on your dependent variable</p></li>
+<li><strong>Dependent</strong> (or <strong>response</strong> or <strong>target</strong>) variable: the main factor that you’re trying to understand or predict</li>
+<li><strong>Independent</strong> (or <strong>explanatory</strong> or <strong>predictor</strong>) variables: the factors you suspect have an impact on your dependent variable</li>
 </ul>
 <p>Generally, regression model finds a line that fits the data “best” such that <span class="math notranslate nohighlight">\(n\)</span> residuals — one for each observed data point — are as small as possible in some overall sense. One way to achieve this goal is to use the “ordinary least squares (OLS) criterion,” which says to “minimize the sum of the squared prediction errors.”</p>
 <p><strong>What does the line estimate?</strong></p>
@@ -782,9 +782,9 @@ one.</p>
 is through a visual inspection of a scatterplot.</p>
 <p>It is usually sufficient to “visually” interpret a residuals versus fitted values plot. However, there are several hypothesis tests on the residuals for checking constant variance.</p>
 <ul class="simple">
-<li><p>Brown-Forsythe test (Modified Levene Test)</p></li>
-<li><p>Cook-Weisberg score test (Breusch-Pagan Test)</p></li>
-<li><p>Bartlett’s Test</p></li>
+<li>Brown-Forsythe test (Modified Levene Test)</li>
+<li>Cook-Weisberg score test (Breusch-Pagan Test)</li>
+<li>Bartlett’s Test</li>
 </ul>
 </div>
 <div class="section" id="Assumption-3">
@@ -810,10 +810,10 @@ is through a visual inspection of a scatterplot.</p>
 <p>The plot shows the Q-Q plot and histogram of four distributions including normal, student t, uniform and triangular.</p>
 <p>Besides graphical method for assessing residual normality, there are several hypothesis tests in which the null hypothesis is that the errors have a normal distribution, such as</p>
 <ul class="simple">
-<li><p>Kolmogorov-Smirnov Test</p></li>
-<li><p>Anderson-Darling Test</p></li>
-<li><p>Shapiro-Wilk Test</p></li>
-<li><p>Ryan-Joiner Test</p></li>
+<li>Kolmogorov-Smirnov Test</li>
+<li>Anderson-Darling Test</li>
+<li>Shapiro-Wilk Test</li>
+<li>Ryan-Joiner Test</li>
 </ul>
 <p>If those tests are available in software, then a large p-value indicates failure to reject this null hypothesis.</p>
 </div>
@@ -826,10 +826,10 @@ detected by plotting the model residuals versus time. - For cross-sectional data
 <h3>Summary<a class="headerlink" href="#Summary" title="Permalink to this headline">¶</a></h3>
 <p>We now summarize the four assumptions that underlie the linear regression model:</p>
 <ul class="simple">
-<li><p>The mean of the response is a <strong>L</strong>inear function of the explanatory variables.</p></li>
-<li><p>The errors are <strong>I</strong>ndependent.</p></li>
-<li><p>The errors are <strong>N</strong>ormally distributed.</p></li>
-<li><p>The errors have <strong>E</strong>qual variances.</p></li>
+<li>The mean of the response is a <strong>L</strong>inear function of the explanatory variables.</li>
+<li>The errors are <strong>I</strong>ndependent.</li>
+<li>The errors are <strong>N</strong>ormally distributed.</li>
+<li>The errors have <strong>E</strong>qual variances.</li>
 </ul>
 <p>The first letters that are highlighted spell <strong>“LINE”</strong>.</p>
 <script type="application/vnd.jupyter.widget-state+json">

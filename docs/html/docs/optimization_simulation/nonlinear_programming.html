@@ -87,7 +87,7 @@
               <p class="caption"><span class="caption-text">Business Analytics</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../regression_analysis/regression.html">Applied Regression Analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Time Series Analysis and Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Introduction to Forecasting</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="optimization_simulation.html">Optimization and Simulation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="linear_programming.html">Linear Programming</a></li>
 <li class="toctree-l2"><a class="reference internal" href="mixed-integer_programming.html">Mixed-Integer Programming</a></li>
@@ -610,11 +610,11 @@ for an optimal solution.</p>
 </div>
 <p>GA uses the following steps: 1. <strong>Generate a population.</strong> The GA randomly samples values of the changing cells between the lower and upper bounds to generate a set of (usually at least 50) chromosomes. The initial set of chromosomes is called the population.</p>
 <ol class="arabic" start="2">
-<li><p><strong>Create a new generation.</strong> Create a new generation of chromosomes in the hope of finding an improvement. In the new generation, chromosomes with a larger fitness function (in a maximization problem) have a greater chance of surviving to the next generation.</p>
+<li><p class="first"><strong>Create a new generation.</strong> Create a new generation of chromosomes in the hope of finding an improvement. In the new generation, chromosomes with a larger fitness function (in a maximization problem) have a greater chance of surviving to the next generation.</p>
 <ul class="simple">
-<li><p>Crossover and mutation are also used to generate chromosomes for the next generation.</p></li>
-<li><p>Crossover (fairly common) splices together two chromosomes at a pre-specified point.</p></li>
-<li><p>Mutation (very rare) randomly selects a digit and changes it from 0 to 1 or vice versa.</p></li>
+<li>Crossover and mutation are also used to generate chromosomes for the next generation.</li>
+<li>Crossover (fairly common) splices together two chromosomes at a pre-specified point.</li>
+<li>Mutation (very rare) randomly selects a digit and changes it from 0 to 1 or vice versa.</li>
 </ul>
 <p>For example, consider the crossover point to be 3 as shown below.</p>
 <p>Offspring are created by exchanging the genes of parents among themselves until the crossover point is reached.</p>
@@ -624,7 +624,8 @@ for an optimal solution.</p>
 </div>
 <p>A5 may mutate</p>
 </li>
-<li><p><strong>Stopping condition.</strong> At each generation, the best value of the fitness function in the generation is recorded, and the algorithm repeats step 2. If no improvement in the best fitness value is observed after many consecutive generations, the GA terminates.</p></li>
+<li><p class="first"><strong>Stopping condition.</strong> At each generation, the best value of the fitness function in the generation is recorded, and the algorithm repeats step 2. If no improvement in the best fitness value is observed after many consecutive generations, the GA terminates.</p>
+</li>
 </ol>
 <p>Strengths of GA: - If you let a GA run long enough, it is guaranteed to find the solution to any optimization problem. - GAs do very well in problems with few constraints. The complexity of the objective cell does not bother a GA. For example, a GA can easily handle MIN, MAX, IF, and ABS functions in the models. This is the key advantage of GAs.</p>
 <p>Weakness of GA: - It might take too long to find a good solution. Even a solution is found, you do not know if the solution is optimal or how close it is to the optimal solution. - GAs do not usually perform very well on problems that have many constraints. For example, Simplex LP Solver has no difficulty with the multiple-constraint linear models, but GAs perform much worse and more slowly on them.</p>
