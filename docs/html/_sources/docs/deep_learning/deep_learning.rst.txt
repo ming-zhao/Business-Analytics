@@ -11,3 +11,4 @@ Introduction to Deep Learning
    
    ./example.ipynb
    ./history.ipynb
+   ./status.ipynb

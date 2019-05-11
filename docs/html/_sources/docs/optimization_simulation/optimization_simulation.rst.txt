@@ -12,4 +12,3 @@ Optimization and Simulation
    ./linear_programming.ipynb
    ./mixed-integer_programming.ipynb
    ./nonlinear_programming.ipynb
-
