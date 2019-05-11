@@ -4,11 +4,10 @@
    contain the root `toctree` directive.
    
 Introduction to Deep Learning
-========================================
+==============================
 
 .. toctree::
    :maxdepth: 2
    
    ./example.ipynb
    ./history.ipynb
-

@@ -12,6 +12,7 @@ Applied Regression Analysis
    ./statistical_inferences.ipynb
    ./statistical_significance.ipynb
    ./estimating_relationships.ipynb
+   ./assumptions.ipynb
    ./regression_analysis_basic.ipynb
    ./regression_analysis_adv.ipynb
    ./regression_modeling.ipynb
