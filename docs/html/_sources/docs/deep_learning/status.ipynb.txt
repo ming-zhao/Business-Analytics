@@ -198,16 +198,27 @@
     "## Achievements\n",
     "\n",
     "Deep learning has achieved the following breakthroughs, all in historically difficult areas of machine learning:\n",
+    "\n",
     "- Near-human-level image classification\n",
+    "\n",
     "- Near-human-level speech recognition\n",
+    "\n",
     "- Near-human-level handwriting transcription\n",
+    "\n",
     "- Improved machine translation\n",
+    "\n",
     "- Improved text-to-speech conversion\n",
+    "\n",
     "- Digital assistants such as Google Now and Amazon Alexa\n",
+    "\n",
     "- Near-human-level autonomous driving\n",
+    "\n",
     "- Improved ad targeting, as used by Google, Baidu, and Bing\n",
+    "\n",
     "- Improved search results on the web\n",
+    "\n",
     "- Ability to answer natural-language questions\n",
+    "\n",
     "- Superhuman Go playing"
    ]
   },
@@ -223,7 +234,7 @@
     "\n",
     "NVIDIA launched CUDA, a programming interface for its line of GPUs, in 2007, and around 2011, some researchers began to write CUDA implementations of neural nets. \n",
     "\n",
-    "At the end of 2015, the NVIDIA TITAN X, a gaming GPU that cost \\$1,000 can deliver a peak of 6.6 TFLOPS in single precision: 6.6 trillion `float32` operations per second. That is about 350 times more than what you can get out of a modern laptop. Meanwhile, large companies train deep-learning models on clusters of hundreds of GPUs of a type developed specifically for the needs of deep learning, such as the NVIDIA Tesla K80. The sheer computational power of such clusters is something that would never have been possible without modern GPUs.\n",
+    "At the end of 2015, the NVIDIA TITAN X, a gaming GPU that cost \\$1,000 can perform 6.6 trillion `float32` operations per second. That is about 350 times more than what you can get out of a modern laptop. Meanwhile, large companies train deep-learning models on clusters of hundreds of GPUs of a type developed specifically for the needs of deep learning, such as the NVIDIA Tesla K80. The sheer computational power of such clusters is something that would never have been possible without modern GPUs.\n",
     "\n",
     "The deep-learning industry is starting to go beyond GPUs and is investing in increasingly specialized, efficient chips for deep learning. In 2016, at its annual I/O convention, Google revealed its tensor processing unit (TPU) project: a new chip design developed from the ground up to run deep neural networks, which is reportedly 10 times faster and far more energy efficient than top-of-the-line GPUs."
    ]
@@ -246,9 +257,14 @@
     "    \n",
     "    - Intel acquired a deep-learning hardware startup Nervana Systems for over <span>&dollar;</span>400 million.\n",
     "    \n",
-    "There are currently no signs that this uptrend will slow any time soon.\n",
-    "\n",
-    "**Case**:\n",
+    "There are currently no signs that this uptrend will slow any time soon."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Case Study\n",
     "\n",
     "As entrepreneurs of AI start-ups, Alice and Bob had received similar amount of investments and competed in the same market\n",
     "\n",
@@ -262,7 +278,9 @@
   {
    "cell_type": "code",
    "execution_count": 79,
-   "metadata": {},
+   "metadata": {
+    "scrolled": true
+   },
    "outputs": [
     {
      "data": {
@@ -292,6 +310,15 @@
     "print('The accuracy of a complicated model (with 512 nodes) with less (half) training data:', net_compare(512, .5))\n",
     "print('The accuracy of a simple model (with 206 nodes) with more training of data:', net_compare(206, 1))\n",
     "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Kaggle is dominated by two approaches: gradient boosting machines\n",
+    "\n",
+    "![tensor](https://hadrienj.github.io/assets/images/2.1/scalar-vector-matrix-tensor.png)"
    ]
   }
  ],

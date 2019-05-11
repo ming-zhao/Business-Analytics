@@ -3,7 +3,9 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "metadata": {},
+   "metadata": {
+    "scrolled": true
+   },
    "outputs": [
     {
      "data": {
@@ -156,7 +158,9 @@
   {
    "cell_type": "code",
    "execution_count": 36,
-   "metadata": {},
+   "metadata": {
+    "scrolled": true
+   },
    "outputs": [
     {
      "data": {
@@ -190,28 +194,111 @@
    "source": [
     "# A Short History of AI\n",
     "\n",
+    "![def](https://www.stoodnt.com/blog/wp-content/uploads/2018/03/Deep_Learning_Machine_Learning_AI_History_Medium.png)\n",
     "\n",
-    "The first AI hype\n",
+    "## Symbolic AI\n",
     "\n",
-    "For a fairly long time, many experts believed that human-level artificial intelligence could be achieved by having programmers handcraft a sufficiently large set of explicit rules for manipulating knowledge."
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
     "Artificial intelligence was proposed by a handful of pioneers from the nascent field of computer science in the 1950s. A concise definition of the field would be as follows: *the effort to automate intellectual tasks normally performed by humans*.\n",
     "\n",
-    "![def](https://www.stoodnt.com/blog/wp-content/uploads/2018/03/Deep_Learning_Machine_Learning_AI_History_Medium.png)"
+    "For a fairly long time, many experts believed that human-level artificial intelligence could be achieved by having programmers handcraft a sufficiently large set of explicit rules for manipulating knowledge. This approach is known as *symbolic AI* and was the dominant paradigm in AI from the 1950s to the late 1980s.\n",
+    "\n",
+    "In 1960s, people believe that \"the problem of creating artificial intelligence will substantially be solved within a generation.\" as these high expectations failed to materialize, researchers and government funds turned away from the field, marking the start of the first AI winter."
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Kaggle is dominated by two approaches: gradient boosting machines\n",
+    "## Expert Systems\n",
     "\n",
-    "![tensor](https://hadrienj.github.io/assets/images/2.1/scalar-vector-matrix-tensor.png)"
+    "In the 1980s, a new take on symbolic AI, expert systems, started gathering steam among large companies. A few initial success stories triggered a wave of investment. Around 1985, companies were spending over $1 billion each year on the technology; but by the early 1990s, these systems had proven expensive to maintain, difficult to scale, and limited in scope, and interest died down. Thus began the second AI winter."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Deep Learning: AI Hype?\n",
+    "\n",
+    "Although some world-changing applications like autonomous cars are already within reach, many more are likely to remain elusive\n",
+    "for a long time, such as believable dialogue systems, human-level machine translation across arbitrary languages, and human-level natural-language understanding. In particular, talk of **human-level general intelligence shouldn't be taken too seriously**. The risk with high expectations for the short term is that, as technology fails to deliver, research investment will dry up, slowing progress for a long time.\n",
+    "\n",
+    "We may be currently witnessing the third cycle of AI hype and disappointment. We're still in the phase of intense optimism."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Machine Learning\n",
+    "\n",
+    "In classical programming, such as symbolic AI, humans input rules (a program) and data to be processed according to these rules, and out come answers:\n",
+    "\n",
+    "\\begin{equation}\n",
+    "\\text{rules $+$ data} \\Rightarrow \\text{classical programming} \\Rightarrow \\text{answers} \\nonumber\n",
+    "\\end{equation}\n",
+    "\n",
+    "For example, an Expert System contains two main components: an inference engine and a knowledge base.\n",
+    "\n",
+    "- Expert systems require a real human expert to input knowledge (such as all steps s/he took to make the decision, and how to handle exceptions) into the knowledge base, whereas in machine learning, no such \"expert\" is needed.\n",
+    "\n",
+    "- The inference engine applies logical rules based on facts from the knowledge base. These rules are typically in the form of if-then statements. A flexible system would use the knowledge as an initial guide, and use the expert's guidance to learn, based on feedback from the expert. \n",
+    "\n",
+    "\n",
+    "Machine learning arises from the question that could a computer go beyond \"what we know how to order it to perform\" and learn on its own how to perform a specified task? A machine-learning system is **trained** rather than explicitly programmed. The programming paradigm is quite different\n",
+    "\n",
+    "\\begin{equation}\n",
+    "\\text{data $+$ answers} \\Rightarrow \\text{machine learning} \\Rightarrow \\text{rules} \\nonumber\n",
+    "\\end{equation}\n",
+    "\n",
+    "\n",
+    "Machine learning is a type of artificial intelligence. It can be broadly divided into **supervised** and **unsupervised** learning.\n",
+    "\n",
+    "- In supervised learning, a computer is given a set of data and an expected result, and asked to find relationships between the data and the result. The computer can then learn how to predict the result when given new data.\n",
+    "\n",
+    "- In unsupervised learning, a computer has data to play with but no expected result. It is asked to find relationships between entries in the dataset to discover new patterns.\n",
+    "\n",
+    "Machine learning started to flourish in the 1990s and has quickly become the most popular and most successful subfield of AI."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Deep Learning\n",
+    "\n",
+    "Deep learning is a specific subfield of machine learning: a new take on learning information from data that puts an emphasis on learning successive layers of increasingly meaningful representations.\n",
+    "\n",
+    "**The \"deep\" in deep learning**\n",
+    "\n",
+    "- it isn't a reference to any kind of deeper understanding achieved by the approach\n",
+    "\n",
+    "- it stands for this idea of successive layers of representations.\n",
+    "\n",
+    "Shallow learning is referring to approaches in machine learning that focus on learning only one or two layers of representations of the data.\n",
+    "\n",
+    "See the deep representations learned by a 4-layer neural network for digit number 4.\n",
+    "\n",
+    "![deep_rep](https://dpzbhybb2pdcj.cloudfront.net/chollet/HighResolutionFigures/figure_1-6.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## The promise\n",
+    "\n",
+    "Although we may have unrealistic short-term expectations for AI, the long-term picture is looking bright. We're only getting started in applying deep learning in real-world applications. Right now, it may seem hard to believe that AI could have a large impact on our world, because it isn't yet widely deployed — much as, back in 1995, it would have been difficult to believe in the future impact of the internet.\n",
+    "\n",
+    "Don't believe the short-term hype, but do believe in the long-term vision. Deep learning has several properties that justify its status as an AI revolution:\n",
+    "\n",
+    "- **Simplicity**: Deep learning removes the need for many heavy-duty engineering preprocessing.\n",
+    "\n",
+    "- **Scalability**: Deep learning is highly amenable to parallelization on GPUs or TPUs. Deep-learning models are trained by iterating over small batches of data, allowing them to be trained on datasets of pretty much arbitrary size.\n",
+    "\n",
+    "- **Versatility and reusability**: deep-learning models can be trained on additional data without restarting from scratch. Trained deep-learning models are repurposable. For instance, it's possible to take a deep-learning model trained for image classification and drop it into a video processing pipeline.\n",
+    "\n",
+    "Deep learning has only been in the spotlight for a few years, and we haven't yet established the full scope of what it can do."
    ]
   }
  ],
