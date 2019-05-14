@@ -672,7 +672,7 @@ div.rendered_html tbody tr:hover {
 <li>For example, average life span for men in US is 76 years. So, for a 6-year-old boy, the prediction is 77. He gets a tiny edge over the population average of 76 by virtue of having made it through infancy: we know he is not in the distribution’s left tail.</li>
 </ul>
 </li>
-<li><strong>Multiplicative Rule</strong>: If our prior information shows that the rare events have tremendous impact (power-law distribution), then multiply the quantity observed so far by some constant factor.<ul>
+<li><strong>Multiplicative Rule</strong>: If our prior information shows that the rare events have tremendous impact (power-law distribution), <img alt="power" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/power.png" /> then multiply the quantity observed so far by some constant factor.<ul>
 <li>For example, movie box-office grosses do not cluster to a “natural” center. Instead, most movies don’t make much money at all, but the occasional Titanic makes titanic amounts. Income (or money in general) is also follows the power-laws (the rich get richer).</li>
 <li>For the grosses of movies, the multiplier happens to be 1.4. So if you hear a movie has made $6 million so far, you can guess it will make about $8.4 million overall.</li>
 <li>This multiplicative rule is a direct consequence of the fact that power-law distributions do not specify (or you are uninformative on) a natural scale for the phenomenon they are describing. It is possible that a movie that is grossed $6 million is actually a blockbuster in its first hour of release, but it is far more likely to be just a single-digit-millions kind of movie.</li>
@@ -682,7 +682,7 @@ div.rendered_html tbody tr:hover {
 <p>In summary, something normally distributed that’s gone on seemingly too long is bound to end shortly; but the longer something in a power-law distribution has gone on, the longer you can expect it to keep going.</p>
 <p>There’s a third category of things in life: those that are neither more nor less likely to end just because they have gone on for a while.</p>
 <ul class="simple">
-<li><strong>Additive Rule</strong>: If the prior follows Erlang distributions (such as exponential or gamma distributions), then we should always predict that things will go on just a constant amount longer. It is a memoryless prediction.<ul>
+<li><strong>Additive Rule</strong>: If the prior follows <a class="reference external" href="https://en.wikipedia.org/wiki/Erlang_distribution">Erlang distributions</a> (e.g.&nbsp;exponential or gamma distributions), then we should always predict that things will go on just a constant amount longer. It is a memoryless prediction.<ul>
 <li>Additive rule is suitable for events that are completely independent from one another and the intervals between them thus fall on Erlang distribution.</li>
 </ul>
 </li>
