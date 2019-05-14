@@ -177,7 +177,7 @@
     }
    ],
    "source": [
-    "%run loadfuncs.py\n",
+    "%run loadregfuncs.py\n",
     "\n",
     "from ipywidgets import *\n",
     "import warnings\n",
