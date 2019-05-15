@@ -667,12 +667,16 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="Simple-Prediction-Rules">
 <h2>Simple Prediction Rules<a class="headerlink" href="#Simple-Prediction-Rules" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><strong>Average Rule</strong>: If our prior information follows normal distribution (things that tend toward or cluster around some kind of natural value), we use the distribution’s “natural” average — its single, specific scale — as your guide.</p>
 <ul class="simple">
-<li><strong>Average Rule</strong>: If our prior information follows normal distribution (things that tend toward or cluster around some kind of natural value), we use the distribution’s “natural” average — its single, specific scale — as your guide.<ul>
 <li>For example, average life span for men in US is 76 years. So, for a 6-year-old boy, the prediction is 77. He gets a tiny edge over the population average of 76 by virtue of having made it through infancy: we know he is not in the distribution’s left tail.</li>
 </ul>
 </li>
-<li><strong>Multiplicative Rule</strong>: If our prior information shows that the rare events have tremendous impact (power-law distribution), <img alt="power" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/power.png" /> then multiply the quantity observed so far by some constant factor.<ul>
+<li><p class="first"><strong>Multiplicative Rule</strong>: If our prior information shows that the rare events have tremendous impact (power-law distribution),</p>
+<div><center><p><img alt="power" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/power.png" /></p>
+</center></div><p>then multiply the quantity observed so far by some constant factor.</p>
+<ul class="simple">
 <li>For example, movie box-office grosses do not cluster to a “natural” center. Instead, most movies don’t make much money at all, but the occasional Titanic makes titanic amounts. Income (or money in general) is also follows the power-laws (the rich get richer).</li>
 <li>For the grosses of movies, the multiplier happens to be 1.4. So if you hear a movie has made $6 million so far, you can guess it will make about $8.4 million overall.</li>
 <li>This multiplicative rule is a direct consequence of the fact that power-law distributions do not specify (or you are uninformative on) a natural scale for the phenomenon they are describing. It is possible that a movie that is grossed $6 million is actually a blockbuster in its first hour of release, but it is far more likely to be just a single-digit-millions kind of movie.</li>

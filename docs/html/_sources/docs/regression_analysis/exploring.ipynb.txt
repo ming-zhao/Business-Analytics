@@ -380,7 +380,7 @@
     "We consider packing violation data in NYC from August 2013 to June 2014. The [dataset](https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2014-August-/jt7v-77mi\n",
     ") is available in [NYC Open Data](https://opendata.cityofnewyork.us/), which is a collection of 750 New York City public datasets made available by city agencies and organizations.\n",
     "\n",
-    "The original dataset has 9.1M rows and 43 columns with size more than 1G. The dataset used in this note is already filtered with only hydrant paking violations. It is available in the [link](https://uofh-my.sharepoint.com/:f:/g/personal/mzhao7_cougarnet_uh_edu/EnrbM9YO1H1LlaYQ4yyFNvYBFEt2EEREu2JrzbeSTBunEA?e=yYtDsC)."
+    "The original dataset has 9.1M rows and 43 columns with size more than 1G. The dataset used in this note is already filtered with only hydrant paking violations. The excel file can be downloaded from the [link](https://github.com/ming-zhao/Business-Analytics/raw/master/data/regression/Parking_Violations.xlsx)."
    ]
   },
   {
