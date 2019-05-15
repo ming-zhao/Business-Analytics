@@ -9,6 +9,7 @@ Applied Regression Analysis
 .. toctree::
    :maxdepth: 2
    
+   ./exploring.ipynb
    ./statistical_inferences.ipynb
    ./statistical_significance.ipynb
    ./estimating_relationships.ipynb
