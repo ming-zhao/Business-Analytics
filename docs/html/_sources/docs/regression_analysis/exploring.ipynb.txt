@@ -191,6 +191,7 @@
     "Percentage is a relative terminology. It is always important to ask “percentage of what” as shown in this simple example. \n",
     "\n",
     "... of what?\n",
+    "\n",
     "* Pay: &dollar;10,000 per month.\n",
     "\n",
     "* \"Sorry guys. You have to have a 10% pay cut.\"\n",
