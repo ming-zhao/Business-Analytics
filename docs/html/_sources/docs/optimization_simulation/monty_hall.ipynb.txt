@@ -21,7 +21,9 @@
     "\n",
     "nTrials = 1000\n",
     "\n",
-    "widgets.interact_manual.opts['manual_name'] = 'Run Forecast'"
+    "widgets.interact_manual.opts['manual_name'] = 'Run Forecast'\n",
+    "interact_manual(montyhall,\n",
+    "                sample_size"
    ]
   },
   {
