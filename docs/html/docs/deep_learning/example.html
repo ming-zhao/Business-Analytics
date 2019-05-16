@@ -392,7 +392,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -521,7 +521,7 @@ div.rendered_html tbody tr:hover {
 </script></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -534,11 +534,11 @@ div.rendered_html tbody tr:hover {
 <a href="#" onclick="code_toggle(this); return false;">show code</a></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">%</span><span class="k">run</span> loadfuncs.py
+<span></span><span class="o">%</span><span class="k">run</span> loadmlfuncs.py
 
 <span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="o">*</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -557,7 +557,7 @@ Using TensorFlow backend.
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -567,7 +567,7 @@ Using TensorFlow backend.
 <h1>A First Look<a class="headerlink" href="#A-First-Look" title="Permalink to this headline">¶</a></h1>
 <p>There is a set of 60,000 training images, plus 10,000 test images, assembled by the National Institute of Standards and Technology (NIST). Each image is a gray scale 28 <span class="math notranslate nohighlight">\(\times\)</span> 28 pixels handwritten digits. we’re trying to classify images into their 10 categories (0 through 9).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -586,7 +586,7 @@ training images:(60000, 28, 28), test images:(10000, 28, 28)
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -623,7 +623,7 @@ training images:(60000, 28, 28), test images:(10000, 28, 28)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f648fde6eeb54f149f284c198eaf6e88", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "891ddb6c586740debe257aa47a58aa08", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="section" id="Network-Architecture">
 <h2>Network Architecture<a class="headerlink" href="#Network-Architecture" title="Permalink to this headline">¶</a></h2>
@@ -640,9 +640,9 @@ training images:(60000, 28, 28), test images:(10000, 28, 28)
 <h2>Compilation<a class="headerlink" href="#Compilation" title="Permalink to this headline">¶</a></h2>
 <p>Before training the network, we need to perform a compilation step by setting up:</p>
 <ul class="simple">
-<li>An optimizer: the mechanism to improve its performance on the training data</li>
-<li>A loss function: the measurement of its performance on the training data</li>
-<li>Metrics to monitor during training and testing</li>
+<li><p>An optimizer: the mechanism to improve its performance on the training data</p></li>
+<li><p>A loss function: the measurement of its performance on the training data</p></li>
+<li><p>Metrics to monitor during training and testing</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s1">&#39;rmsprop&#39;</span><span class="p">,</span>
                 <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;categorical_crossentropy&#39;</span><span class="p">,</span>
@@ -670,7 +670,7 @@ training images:(60000, 28, 28), test images:(10000, 28, 28)
 </pre></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -698,23 +698,36 @@ training images:(60000, 28, 28), test images:(10000, 28, 28)
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+WARNING:tensorflow:From C:\Users\mzhao\AppData\Local\Continuum\anaconda3\envs\bzan\lib\site-packages\tensorflow\python\framework\op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+WARNING:tensorflow:From C:\Users\mzhao\AppData\Local\Continuum\anaconda3\envs\bzan\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Epoch 1/5
-60000/60000 [==============================] - 4s 73us/step - loss: 0.2566 - acc: 0.9261
+60000/60000 [==============================] - 5s 75us/step - loss: 0.2552 - acc: 0.9258
 Epoch 2/5
-60000/60000 [==============================] - 4s 69us/step - loss: 0.1033 - acc: 0.9696
+60000/60000 [==============================] - 4s 68us/step - loss: 0.1039 - acc: 0.9690
 Epoch 3/5
-60000/60000 [==============================] - 4s 69us/step - loss: 0.0672 - acc: 0.9803
+60000/60000 [==============================] - 4s 68us/step - loss: 0.0685 - acc: 0.9794
 Epoch 4/5
-60000/60000 [==============================] - 4s 68us/step - loss: 0.0487 - acc: 0.9855
+60000/60000 [==============================] - 4s 67us/step - loss: 0.0502 - acc: 0.9848
 Epoch 5/5
-60000/60000 [==============================] - 4s 68us/step - loss: 0.0366 - acc: 0.9889
-10000/10000 [==============================] - 1s 64us/step
-test accuracy: 0.9801
+60000/60000 [==============================] - 4s 69us/step - loss: 0.0377 - acc: 0.9884
+10000/10000 [==============================] - 1s 59us/step
+test accuracy: 0.9786
 </pre></div></div>
 </div>
 <p>We reach an accuracy of 98.9% on the training data. However, the test-set accuracy turns out to be 97.8% — that’s quite a bit lower than the training set accuracy as our errors are doubled. This gap between training accuracy and test accuracy is an example of <strong>overfitting</strong>.</p>
@@ -723,7 +736,7 @@ test accuracy: 0.9801
 <h2>Prediction Error<a class="headerlink" href="#Prediction-Error" title="Permalink to this headline">¶</a></h2>
 <p>We demonstrate a few images that are misclassified by the trained neural network.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -748,7 +761,7 @@ test accuracy: 0.9801
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-# of misclassified images: 195
+# of misclassified images: 214
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">

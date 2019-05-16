@@ -868,10 +868,10 @@ standard error of estimate:3.32671
 <p>The non-significance for the coefficients of <code class="docutils literal notranslate"><span class="pre">group</span></code> indicates no observed difference between the mean values of x1 in different groups.</p>
 <p><strong>Example</strong>: Researchers are interested in comparing the effectiveness of three treatments (A,B,C) for severe depression. They collect the data on a random sample of <span class="math notranslate nohighlight">\(n = 36\)</span> severely depressed individuals including following variables:</p>
 <ul class="simple">
-<li>measure of the effectiveness of the treatment for each individual</li>
-<li>age (in years) of each individual i</li>
-<li>x2 = 1 if an individual is received treatment A and 0, if not</li>
-<li>x3 = 1 if an individual is received treatment B and 0, if not</li>
+<li><p>measure of the effectiveness of the treatment for each individual</p></li>
+<li><p>age (in years) of each individual i</p></li>
+<li><p>x2 = 1 if an individual is received treatment A and 0, if not</p></li>
+<li><p>x3 = 1 if an individual is received treatment B and 0, if not</p></li>
 </ul>
 <p>The regression model:</p>
 <p><span class="math">\begin{align}
@@ -1101,14 +1101,15 @@ main effect could be excluded, but this tends to be the exception.</p>
 <div class="section" id="Log-transform">
 <h3>Log-transform<a class="headerlink" href="#Log-transform" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Transformation is used widely in regression analysis because they have a meaningful interpretation.<ul>
-<li><span class="math notranslate nohighlight">\(Y = a \log(X) + \cdots\)</span>: 1% increase by X, Y is expected to increase by 0.01*a amount</li>
-<li><span class="math notranslate nohighlight">\(\log(Y) = a X + \cdots\)</span>: 1unit increase by X, Y is expected to increase by (100*a)%</li>
-<li><span class="math notranslate nohighlight">\(\log(Y) = a \log(X) + \cdots\)</span>: 1% increase by X, Y is expected to increase by a%</li>
+<li><p>Transformation is used widely in regression analysis because they have a meaningful interpretation.</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(Y = a \log(X) + \cdots\)</span>: 1% increase by X, Y is expected to increase by 0.01*a amount</p></li>
+<li><p><span class="math notranslate nohighlight">\(\log(Y) = a X + \cdots\)</span>: 1unit increase by X, Y is expected to increase by (100*a)%</p></li>
+<li><p><span class="math notranslate nohighlight">\(\log(Y) = a \log(X) + \cdots\)</span>: 1% increase by X, Y is expected to increase by a%</p></li>
 </ul>
 </li>
-<li>Transforming the <span class="math notranslate nohighlight">\(X\)</span> values is appropriate when non-linearity is the only problem (i.e., the independence, normality, and equal variance conditions are met)</li>
-<li>Transforming the <span class="math notranslate nohighlight">\(Y\)</span> values should be considered when non-normality and/or unequal variances are the problems with the model.</li>
+<li><p>Transforming the <span class="math notranslate nohighlight">\(X\)</span> values is appropriate when non-linearity is the only problem (i.e., the independence, normality, and equal variance conditions are met)</p></li>
+<li><p>Transforming the <span class="math notranslate nohighlight">\(Y\)</span> values should be considered when non-normality and/or unequal variances are the problems with the model.</p></li>
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
@@ -1509,10 +1510,10 @@ strong multicollinearity or other numerical problems.
 <h2>Heteroscedasticity<a class="headerlink" href="#Heteroscedasticity" title="Permalink to this headline">¶</a></h2>
 <p>Excessive nonconstant variance can create technical difficulties with a multiple linear regression model. For example, if the residual variance increases with the fitted values, then prediction intervals will tend to be wider than they should be at low fitted values and narrower than they should be at high fitted values. Some remedies for refining a model exhibiting excessive nonconstant variance includes the following:</p>
 <ul class="simple">
-<li>Apply a variance-stabilizing transformation to the response variable, for example a logarithmic transformation (or a square root transformation if a logarithmic transformation is “too strong” or a reciprocal transformation if a logarithmic transformation is “too weak”).</li>
-<li>Weight the variances so that they can be different for each set of predictor values. This leads to weighted least squares, in which the data observations are given different weights when estimating the model – see below.</li>
-<li>A generalization of weighted least squares is to allow the regression errors to be correlated with one another in addition to having different variances. This leads to generalized least squares, in which various forms of nonconstant variance can be modeled.</li>
-<li>For some applications we can explicitly model the variance as a function of the mean, E(Y). This approach uses the framework of generalized linear models.</li>
+<li><p>Apply a variance-stabilizing transformation to the response variable, for example a logarithmic transformation (or a square root transformation if a logarithmic transformation is “too strong” or a reciprocal transformation if a logarithmic transformation is “too weak”).</p></li>
+<li><p>Weight the variances so that they can be different for each set of predictor values. This leads to weighted least squares, in which the data observations are given different weights when estimating the model – see below.</p></li>
+<li><p>A generalization of weighted least squares is to allow the regression errors to be correlated with one another in addition to having different variances. This leads to generalized least squares, in which various forms of nonconstant variance can be modeled.</p></li>
+<li><p>For some applications we can explicitly model the variance as a function of the mean, E(Y). This approach uses the framework of generalized linear models.</p></li>
 </ul>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
