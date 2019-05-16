@@ -394,8 +394,13 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="o">*</span>
 
 <span class="n">nTrials</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">widgets</span><span class="o">.</span><span class="n">interact_manual</span><span class="o">.</span><span class="n">opts</span><span class="p">[</span><span class="s1">&#39;manual_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Run Forecast&#39;</span>
 </pre></div>
 </div>
 </div>
