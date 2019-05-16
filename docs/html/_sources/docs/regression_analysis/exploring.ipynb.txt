@@ -162,16 +162,11 @@
    "source": [
     "# Exploring Data\n",
     "\n",
-    "Data and information are so prevalent in our lives today, that it is known as the “Information Age”. Being literate today means not just being able to read, but being able to understand the massive amount of information thrown at us every day – much of it on the computer. Statistics is the science of making effective use of numerical data. It deals with all aspects of data, including the collection, analysis and interpretation of data. However, it can be easily misinterpreted and manipulated. As Mark Twain said\n",
+    "Data and information are so prevalent in our lives today, that it is known as the \"Information Age\". Being literate today means not just being able to read, but being able to understand the massive amount of information thrown at us every day – much of it on the computer. Statistics is the science of making effective use of numerical data. It deals with all aspects of data, including the collection, analysis and interpretation of data. However, it can be easily misinterpreted and manipulated. As Mark Twain said\n",
     "\n",
     "<center>\n",
-    "‘There are lies, damned lies, and statistics.’   -- Mark Twain\n",
-    "</center>\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n",
-    "\n"
+    "\"There are lies, damned lies, and statistics.\" -- Mark Twain\n",
+    "</center>"
    ]
   },
   {
@@ -183,12 +178,12 @@
    "source": [
     "## Percentage\n",
     "\n",
-    "Percentage is the most frequently used concept in business analytics because of many uncertainties in today’s complex business environment. But many times people use it without really understanding its meaning.\n",
+    "Percentage is the most frequently used concept in business analytics because of many uncertainties in today's complex business environment. But many times people use it without really understanding its meaning.\n",
     "\n",
     "![pct](https://github.com/ming-zhao/Business-Analytics/raw/master/images/pct.png)\n",
     "\n",
     "\n",
-    "Percentage is a relative terminology. It is always important to ask “percentage of what” as shown in this simple example. \n",
+    "Percentage is a relative terminology. It is always important to ask \"percentage of what\" as shown in this simple example. \n",
     "\n",
     "... of what?\n",
     "\n",
@@ -259,10 +254,8 @@
     "(B) is correct. In a psychology experiment, subjects receive random series of Xs and Os and asks them to predict what the next one will be. For instance, they may see:\n",
     "<center>\n",
     "OXXOXOXOXOXXOOXXOXOXXXOXX\n",
-    "</center><br>\n",
-    "most people realize that there are slightly more Xs than Os — if you count, you'll see it's 60 percent Xs, 40 percent Os — so they guess X most of the time, but throw in some Os to reflect that balance. However, if you want to maximize your chances of a correct prediction, you would always choose X. Then you would be right 60 percent of the time. If you randomize 60/40, as most participants do, your prediction ends up being correct 52 percent of the time, only slightly better than if you had not  bothered to assess relative frequencies of Xs and Os and instead just guessed one or the other (50/50).\n",
-    "<br>\n",
-    "<span>1. [Sixty percent of the time you choose X and are correct 60 percent of the time, while 40 percent of the time you choose O and are correct only 40 percent of the time. On average, this is $0.6^2 + 0.4^2 = 0.52$.]</span>"
+    "</center>\n",
+    "most people realize that there are slightly more Xs than Os — if you count, you'll see it's 60 percent Xs, 40 percent Os — so they guess X most of the time, but throw in some Os to reflect that balance. However, if you want to maximize your chances of a correct prediction, you would always choose X. Then you would be right 60 percent of the time. If you randomize 60/40, as most participants do, your prediction ends up being correct 52 percent of the time, only slightly better than if you had not  bothered to assess relative frequencies of Xs and Os and instead just guessed one or the other (50/50).<br><span>1. [Sixty percent of the time you choose X and are correct 60 percent of the time, while 40 percent of the time you choose O and are correct only 40 percent of the time. On average, this is $0.6^2 + 0.4^2 = 0.52$.]</span>"
    ]
   },
   {
@@ -414,7 +407,7 @@
     "import matplotlib.pyplot as plt\n",
     "from IPython.display import IFrame\n",
     "\n",
-    "dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/data_management/'\n",
+    "dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/regression/'\n",
     "df_park = pd.read_csv(dataurl+'Parking_Violations.csv', parse_dates=['Time'])\n",
     "\n",
     "# run pivot table\n",
@@ -628,12 +621,12 @@
     "id": "gF0xfIMxARu3"
    },
    "source": [
-    "The top 10 hydrants that collect most of the tickets. Note that the fine for hydrant parking violation is $115. So the column 'fine' is the revenue generated by each hydrant and the total fine of the top 10 hydrants is &dollar;144,440.\n"
+    "The top 10 hydrants that collect most of the tickets. Note that the fine for hydrant parking violation is <span>&dollar;</span>115. So the column \"fine\" is the revenue generated by each hydrant and the total fine of the top 10 hydrants is <span>&dollar;</span>144,440."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 10,
    "metadata": {
     "colab": {
      "base_uri": "https://localhost:8080/",
@@ -648,7 +641,8 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Total annual revenue of top 10 hydrants 144440\n"
+      "Total annual revenue of top 10 hydrants\n",
+      " 144440\n"
      ]
     },
     {
@@ -751,7 +745,7 @@
        "41-28 Main St                  95  10925"
       ]
      },
-     "execution_count": 6,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -830,7 +824,7 @@
        "        "
       ],
       "text/plain": [
-       "<IPython.lib.display.IFrame at 0x1ca3fb357b8>"
+       "<IPython.lib.display.IFrame at 0x1c9c1a95ef0>"
       ]
      },
      "execution_count": 8,
@@ -881,7 +875,7 @@
        "        "
       ],
       "text/plain": [
-       "<IPython.lib.display.IFrame at 0x1ca3fbaca20>"
+       "<IPython.lib.display.IFrame at 0x1c9c1adb3c8>"
       ]
      },
      "execution_count": 9,
@@ -930,7 +924,7 @@
    "toc_cell": false,
    "toc_position": {},
    "toc_section_display": true,
-   "toc_window_display": false
+   "toc_window_display": true
   },
   "widgets": {
    "application/vnd.jupyter.widget-state+json": {
