@@ -1,0 +1,1081 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Exploring Data &mdash; Business Analytics 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Statistical Inferences" href="statistical_inferences.html" />
+    <link rel="prev" title="Applied Regression Analysis" href="regression.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Business Analytics
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Business Analytics</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="regression.html">Applied Regression Analysis</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Exploring Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Percentage">Percentage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Average">Average</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Data-Visualization">Data Visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Case:-NYC-Parking-Violation">Case: NYC Parking Violation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="statistical_inferences.html">Statistical Inferences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statistical_significance.html">Statistical Significance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="estimating_relationships.html">Estimating Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="assumptions.html">Regression Assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_estimation.html">Regression Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="advice.html">Advice to Managers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_analysis.html">Regression Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="regression_modeling.html">Regression Modeling</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Introduction to Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimization_simulation/optimization_simulation.html">Optimization and Simulation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Business Analytics</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="regression.html">Applied Regression Analysis</a> &raquo;</li>
+        
+      <li>Exploring Data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/docs/regression_analysis/exploring.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">run</span> ../initscript.py
+<span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;div id=&quot;popup&quot; style=&quot;padding-bottom:5px; display:none;&quot;&gt;</span>
+<span class="s2">    &lt;div&gt;Enter Password:&lt;/div&gt;</span>
+<span class="s2">    &lt;input id=&quot;password&quot; type=&quot;password&quot;/&gt;</span>
+<span class="s2">    &lt;button onclick=&quot;done()&quot; style=&quot;border-radius: 12px;&quot;&gt;Submit&lt;/button&gt;</span>
+<span class="s2">&lt;/div&gt;</span>
+<span class="s2">&lt;button onclick=&quot;unlock()&quot; style=&quot;border-radius: 12px;&quot;&gt;Unclock&lt;/button&gt;</span>
+<span class="s2">&lt;a href=&quot;#&quot; onclick=&quot;code_toggle(this); return false;&quot;&gt;show code&lt;/a&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<script>
+  var password,
+      teacher_mode,
+      isHtml;
+
+  var class_output,
+      class_input,
+      class_answer;
+
+  function code_toggle(e) {
+    var orig_e = e;
+    while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {
+      e = e.closest(class_output).previousElementSibling;
+    }
+    var target = e.closest(class_output).previousElementSibling;
+    if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+      target.style.display = "none";
+      orig_e.innerHTML = 'show code';
+    }
+    else {
+      target.style.removeProperty("display");
+      orig_e.innerHTML = 'hide code';
+    }
+  }
+
+  function hide_answer(e) {
+    var target = e.closest(class_answer).nextElementSibling;
+    //e.closest(class_output).previousElementSibling.style.display = "none";
+    if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+      target.style.display = "none";
+      e.innerHTML = 'show answer';
+    }
+    else if (teacher_mode) {
+        e.innerHTML = 'hide answer';
+        target.style.removeProperty("display");
+    }
+  }
+
+  function done() {
+    document.getElementById("popup").style.display = "none";
+    var input = document.getElementById("password").value;
+    if (input==password) { teacher_mode=1; alert("Unlocked!");}
+    else { teacher_mode=0; alert("Wrong password!");}
+  };
+
+  function unlock() {
+    document.getElementById("popup").style.display = "block";
+  }
+
+  $(document).ready(function() {
+    $.ajax({
+      type: "GET",
+      url: "https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/course.csv",
+      dataType: "text",
+      success: function(data)
+      {
+        var items = data.split(',');
+        var url = window.location.pathname;
+        var filename = url.substring(url.lastIndexOf('/')+1);
+        password='123';
+        for (var i = 0, len = items.length; i < len; ++i) {
+            if (filename.includes(items[i].trim()) && i%2==0 && i<items.length) {
+                password=items[i+1].trim();
+                break;
+            }
+        }
+        var code_blocks = document.getElementsByClassName('nbinput docutils container');
+        if (code_blocks[0]==null) {
+            isHtml=0;
+            code_blocks = document.getElementsByClassName('input');
+            class_output=".output_wrapper";
+            class_input="input";
+            class_answer='.cell';
+        }
+        else {
+            isHtml=1;
+            class_output=".nboutput";
+            class_input="nbinput";
+            class_answer=".nboutput";
+        }
+
+        for (var i = 0, len = code_blocks.length; i < len; ++i) {
+          if (
+              code_blocks[i].innerHTML.indexOf("toggle") !== -1
+              || code_blocks[i].innerHTML.indexOf("button onclick") !== -1
+             ) {
+            code_blocks[i].style.display = "none";
+          }
+        }
+        for (var i = 0, len = code_blocks.length; i < len; ++i) {
+          if (code_blocks[i].innerHTML.indexOf("hide_answer") !== -1) {
+            code_blocks[i].style.display = "none";
+            if (isHtml) {
+              code_blocks[i].nextElementSibling.nextElementSibling.style.display = "none";
+            }
+            else{
+              code_blocks[i].closest(class_answer).nextElementSibling.style.display = "none";
+            }
+          }
+        }
+
+
+      }
+    });
+  });
+</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div id="popup" style="padding-bottom:5px; display:none;">
+    <div>Enter Password:</div>
+    <input id="password" type="password"/>
+    <button onclick="done()" style="border-radius: 12px;">Submit</button>
+</div>
+<button onclick="unlock()" style="border-radius: 12px;">Unclock</button>
+<a href="#" onclick="code_toggle(this); return false;">show code</a></div>
+</div>
+<div class="section" id="Exploring-Data">
+<h1>Exploring Data<a class="headerlink" href="#Exploring-Data" title="Permalink to this headline">¶</a></h1>
+<p>Data and information are so prevalent in our lives today, that it is known as the “Information Age”. Being literate today means not just being able to read, but being able to understand the massive amount of information thrown at us every day – much of it on the computer. Statistics is the science of making effective use of numerical data. It deals with all aspects of data, including the collection, analysis and interpretation of data. However, it can be easily misinterpreted and manipulated. As
+Mark Twain said</p>
+<center><p>“There are lies, damned lies, and statistics.” – Mark Twain</p>
+</center><div class="section" id="Percentage">
+<h2>Percentage<a class="headerlink" href="#Percentage" title="Permalink to this headline">¶</a></h2>
+<p>Percentage is the most frequently used concept in business analytics because of many uncertainties in today’s complex business environment. But many times people use it without really understanding its meaning.</p>
+<p><img alt="pct" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/pct.png" /></p>
+<p>Percentage is a relative terminology. It is always important to ask “percentage of what” as shown in this simple example.</p>
+<p>… of what?</p>
+<ul class="simple">
+<li><p>Pay: $10,000 per month.</p></li>
+<li><p>“Sorry guys. You have to have a 10% pay cut.”</p></li>
+<li><p>Pay: $9,000 per month.</p></li>
+<li><p>“Now I can give you a 10% pay rise.”</p></li>
+<li><p>Pay: $9,900 per month.</p></li>
+</ul>
+<p>What does “60% sure or confidence” mean? This is about probability. If we flip a coin 100 times and see the head 50 times, then we could say that we are 60% sure that next toss will show a head. In business, the technique meaning is that if decision maker can try 100 times with current business environment, s/he may reach a result for 60 times.</p>
+<p><strong>Question 1:</strong></p>
+<p>There are 3 sequences (each of them has 10 symbols with 6 Xs and 4 Os):</p>
+<ol class="arabic simple">
+<li><p>OXXOXOXOXX</p></li>
+<li><p>XXOXOOXXXO</p></li>
+<li><p>XOXXOXOXOX</p></li>
+</ol>
+<p>Predict the next symbol for those 3 sequences</p>
+<ul class="simple">
+<li><ol class="upperalpha simple">
+<li><p>1-O, 2-X, 3-O</p></li>
+</ol>
+</li>
+<li><ol class="upperalpha simple" start="2">
+<li><p>1-X, 2-X, 3-X</p></li>
+</ol>
+</li>
+<li><ol class="upperalpha simple" start="3">
+<li><p>1-O, 2-O, 3-O</p></li>
+</ol>
+</li>
+<li><ol class="upperalpha simple" start="4">
+<li><p>1-X, 2-O, 3-X</p></li>
+</ol>
+</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
+<ol class="upperalpha" start="2">
+<li><p>is correct. In a psychology experiment, subjects receive random series of Xs and Os and asks them to predict what the next one will be. For instance, they may see:</p>
+<center><p>OXXOXOXOXOXXOOXXOXOXXXOXX</p>
+</center><p>most people realize that there are slightly more Xs than Os — if you count, you’ll see it’s 60 percent Xs, 40 percent Os — so they guess X most of the time, but throw in some Os to reflect that balance. However, if you want to maximize your chances of a correct prediction, you would always choose X. Then you would be right 60 percent of the time. If you randomize 60/40, as most participants do, your prediction ends up being correct 52 percent of the time, only slightly better than if you had
+not bothered to assess relative frequencies of Xs and Os and instead just guessed one or the other (50/50).1. [Sixty percent of the time you choose X and are correct 60 percent of the time, while 40 percent of the time you choose O and are correct only 40 percent of the time. On average, this is <span class="math notranslate nohighlight">\(0.6^2 + 0.4^2 = 0.52\)</span>.]</p>
+</li>
+</ol>
+<p><strong>Question 2:</strong></p>
+<p>The chance a baby will be a boy (or girl) is 50%. There are two hospitals:</p>
+<ul class="simple">
+<li><p>A - 45 births per day</p></li>
+<li><p>B - 15 births per day</p></li>
+</ul>
+<p>Which hospital would have more days when 60% or more of the babies born are boys?</p>
+<ul class="simple">
+<li><ol class="upperalpha simple">
+<li><p>Hospital A</p></li>
+</ol>
+</li>
+<li><ol class="upperalpha simple" start="2">
+<li><p>Hospital B</p></li>
+</ol>
+</li>
+<li><ol class="upperalpha simple" start="3">
+<li><p>Equal chance</p></li>
+</ol>
+</li>
+<li><ol class="upperalpha simple" start="4">
+<li><p>Uncertain</p></li>
+</ol>
+</li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
+<ol class="upperalpha simple" start="2">
+<li><p>is correct. The smaller hospital is correct because the larger the number of events (in this case, births), the likelier each daily outcome will be close to the average (in this case, 50 percent). To see how this works, imagine you are flipping coins. You are more likely to get heads every time if you flip five coins than if you flip fifty coins. Thus, the smaller hospital — precisely because it has fewer births — is more likely to have more extreme outcomes away from the average.</p></li>
+</ol>
+</div>
+<div class="section" id="Average">
+<h2>Average<a class="headerlink" href="#Average" title="Permalink to this headline">¶</a></h2>
+<p>If you were a real-estate agent and trying to convince people to move into a particular neighborhood. You could, with perfect honesty and “truthfulness” tell different people that the average income in the neighborhood is: a), b) or c).</p>
+<p><img alt="house" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/house.png" /></p>
+<p>because we have mean, median and mode to characterize the central tendency.</p>
+<p><img alt="avg" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/avg.png" /></p>
+</div>
+<div class="section" id="Data-Visualization">
+<h2>Data Visualization<a class="headerlink" href="#Data-Visualization" title="Permalink to this headline">¶</a></h2>
+<p>If your goal is to lie, cheat, manipulate, or mislead, Graphical Displays are your friend…</p>
+<p><img alt="pie" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/pie.png" /></p>
+<p><strong>Example 1:</strong></p>
+<p><img alt="chart1" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/chart1.png" /></p>
+<p><strong>Example 2:</strong></p>
+<p><img alt="chart2" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/chart2.png" /></p>
+<p><strong>Example 3:</strong></p>
+<p><img alt="chart3" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/chart3.png" /></p>
+<p><strong>Example 4:</strong></p>
+<p><img alt="chart4" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/chart4.png" /></p>
+<p>As “Statistics is the art of never having to say you’re wrong”, I would like to recommend a book</p>
+<p><img alt="book_lie" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/book_lie.png" /></p>
+</div>
+<div class="section" id="Case:-NYC-Parking-Violation">
+<h2><a class="reference external" href="https://github.com/ming-zhao/Business-Analytics/blob/master/notebooks/parking_violation.ipynb">Case</a>: NYC Parking Violation<a class="headerlink" href="#Case:-NYC-Parking-Violation" title="Permalink to this headline">¶</a></h2>
+<p>We consider packing violation data in NYC from August 2013 to June 2014. The <a class="reference external" href="https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2014-August-/jt7v-77mi">dataset</a> is available in <a class="reference external" href="https://opendata.cityofnewyork.us/">NYC Open Data</a>, which is a collection of 750 New York City public datasets made available by city agencies and organizations.</p>
+<p>The original dataset has 9.1M rows and 43 columns with size more than 1G. The dataset used in this note is already filtered with only hydrant paking violations. The excel file can be downloaded from the <a class="reference external" href="https://github.com/ming-zhao/Business-Analytics/raw/master/data/regression/Parking_Violations.xlsx">link</a>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># load python packages and data</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">IFrame</span>
+
+<span class="n">dataurl</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/regression/&#39;</span>
+<span class="n">df_park</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dataurl</span><span class="o">+</span><span class="s1">&#39;Parking_Violations.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">])</span>
+
+<span class="c1"># run pivot table</span>
+<span class="n">df_pivot</span> <span class="o">=</span> <span class="n">df_park</span><span class="p">[(</span><span class="n">df_park</span><span class="p">[</span><span class="s1">&#39;Street Code1&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>\
+                   <span class="p">(</span><span class="n">df_park</span><span class="p">[</span><span class="s1">&#39;Street Code2&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>\
+                   <span class="p">(</span><span class="n">df_park</span><span class="p">[</span><span class="s1">&#39;Street Code2&#39;</span><span class="p">]</span><span class="o">!=</span><span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="s1">&#39;Summons Number&#39;</span><span class="p">,</span>
+                                                  <span class="n">index</span><span class="o">=</span><span class="s1">&#39;Address&#39;</span><span class="p">,</span>
+                                                  <span class="n">margins</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                  <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Summons Number&#39;</span><span class="p">,</span>
+                                                                               <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">df_pivot</span><span class="p">[</span><span class="s1">&#39;ticket&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_pivot</span><span class="p">[</span><span class="s1">&#39;Summons Number&#39;</span><span class="p">]</span>
+<span class="n">df_pivot</span><span class="p">[</span><span class="s1">&#39;fine&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_pivot</span><span class="p">[</span><span class="s1">&#39;ticket&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">115</span>
+<span class="n">df_pivot</span> <span class="o">=</span> <span class="n">df_pivot</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Summons Number&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">toggle</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="code_toggle(this); return false;">show code</a></div>
+</div>
+<p>Show the first 5 rows of the dataset</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_park</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Summons Number</th>
+      <th>Registration State</th>
+      <th>Issue Date</th>
+      <th>Vehicle Body Type</th>
+      <th>Street Code1</th>
+      <th>Street Code2</th>
+      <th>Street Code3</th>
+      <th>Vehicle Make</th>
+      <th>Violation Time</th>
+      <th>Violation County</th>
+      <th>Vehicle Color</th>
+      <th>Vehicle Year</th>
+      <th>Time</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1356906515</td>
+      <td>NY</td>
+      <td>9/18/1971</td>
+      <td>SDN</td>
+      <td>13610</td>
+      <td>37270</td>
+      <td>37290</td>
+      <td>MAZDA</td>
+      <td>0914P</td>
+      <td>NY</td>
+      <td>BLK</td>
+      <td>2010</td>
+      <td>9:14 PM</td>
+      <td>4165 BROADWAY</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1365454538</td>
+      <td>NY</td>
+      <td>2/12/1976</td>
+      <td>VAN</td>
+      <td>37290</td>
+      <td>10740</td>
+      <td>10940</td>
+      <td>TOYOT</td>
+      <td>0458A</td>
+      <td>Q</td>
+      <td>BLK</td>
+      <td>2007</td>
+      <td>4:58 AM</td>
+      <td>49-11 BROADWAY</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1355329360</td>
+      <td>NY</td>
+      <td>12/9/1990</td>
+      <td>SUBN</td>
+      <td>35290</td>
+      <td>31240</td>
+      <td>31290</td>
+      <td>FORD</td>
+      <td>0902A</td>
+      <td>Q</td>
+      <td>BK</td>
+      <td>2003</td>
+      <td>9:02 AM</td>
+      <td>4402 BEACH CHANNEL DR</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1364794688</td>
+      <td>NY</td>
+      <td>1/12/1991</td>
+      <td>SUBN</td>
+      <td>27106</td>
+      <td>9340</td>
+      <td>9540</td>
+      <td>ME/BE</td>
+      <td>0223P</td>
+      <td>Q</td>
+      <td>SILVE</td>
+      <td>2005</td>
+      <td>2:23 PM</td>
+      <td>40-30 235 ST</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1357592103</td>
+      <td>NY</td>
+      <td>1/4/2000</td>
+      <td>SDN</td>
+      <td>0</td>
+      <td>40404</td>
+      <td>40404</td>
+      <td>NISSA</td>
+      <td>1045P</td>
+      <td>R</td>
+      <td>SILVE</td>
+      <td>2008</td>
+      <td>10:45 PM</td>
+      <td>140 LUDWIGE LANE</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The top 10 hydrants that collect most of the tickets. Note that the fine for hydrant parking violation is $115. So the column “fine” is the revenue generated by each hydrant and the total fine of the top 10 hydrants is $144,440.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total annual revenue of top 10 hydrants&#39;</span><span class="p">,</span> <span class="n">df_pivot</span><span class="o">.</span><span class="n">fine</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="n">df_pivot</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Total annual revenue of top 10 hydrants
+ 144440
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ticket</th>
+      <th>fine</th>
+    </tr>
+    <tr>
+      <th>Address</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>152 Forsyth St</th>
+      <td>179</td>
+      <td>20585</td>
+    </tr>
+    <tr>
+      <th>104 Forsyth St</th>
+      <td>137</td>
+      <td>15755</td>
+    </tr>
+    <tr>
+      <th>100 Overlook Ter</th>
+      <td>135</td>
+      <td>15525</td>
+    </tr>
+    <tr>
+      <th>720 Lenox Ave</th>
+      <td>127</td>
+      <td>14605</td>
+    </tr>
+    <tr>
+      <th>122 Montague St</th>
+      <td>126</td>
+      <td>14490</td>
+    </tr>
+    <tr>
+      <th>21 W 58th St</th>
+      <td>125</td>
+      <td>14375</td>
+    </tr>
+    <tr>
+      <th>2960 Fredrick Douglas Blv</th>
+      <td>119</td>
+      <td>13685</td>
+    </tr>
+    <tr>
+      <th>44 Court St</th>
+      <td>114</td>
+      <td>13110</td>
+    </tr>
+    <tr>
+      <th>1498 3rd Ave</th>
+      <td>99</td>
+      <td>11385</td>
+    </tr>
+    <tr>
+      <th>41-28 Main St</th>
+      <td>95</td>
+      <td>10925</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">axes</span> <span class="o">=</span> <span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;ticket&#39;</span><span class="p">,</span> <span class="n">autopct</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%1.1f%%</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">.</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/docs_regression_analysis_exploring_17_0.png" src="../../_images/docs_regression_analysis_exploring_17_0.png" />
+</div>
+</div>
+<p>The most “valuable” hydrant is shown in <a class="reference external" href="https://www.google.com/maps/&#64;40.7206121,-73.9917312,3a,75y,288.92h,55.77t/data=!3m6!1e1!3m4!1s_SBRnIVor2FDGiszffialA!2e0!7i13312!8i6656">google street view</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">IFrame</span><span class="p">(</span><span class="s1">&#39;https://www.google.com/maps/embed?pb=!4v1557893815788!6m8!1m7!1s_SBRnIVor2FDGiszffialA!2m2!1d40.72061441911959!2d-73.99172978854598!3f288.92!4f0!5f0.7820865974627469&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<iframe
+    width="700"
+    height="400"
+    src="https://www.google.com/maps/embed?pb=!4v1557893815788!6m8!1m7!1s_SBRnIVor2FDGiszffialA!2m2!1d40.72061441911959!2d-73.99172978854598!3f288.92!4f0!5f0.7820865974627469"
+    frameborder="0"
+    allowfullscreen
+></iframe></div>
+</div>
+<p>However, according to NYC department of transportation (DOT), this may not be considered as a parking violation. <img alt="hydrant" src="https://github.com/ming-zhao/Business-Analytics/raw/master/images/hydrant.png" /></p>
+<p>The issue is first spotted by Ben Wellington who is the author of blog <a class="reference external" href="https://iquantny.tumblr.com/">I Quant NY</a>. It certainly has impacts on NYC DOT. Today, the google street map shows</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">IFrame</span><span class="p">(</span><span class="s1">&#39;https://www.google.com/maps/embed?pb=!4v1557932957501!6m8!1m7!1s04LptdatMEwvnW3J_tjGvw!2m2!1d40.72061130331954!2d-73.99171284164994!3f264.0115330665066!4f-27.9676492146982!5f0.7820865974627469&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<iframe
+    width="700"
+    height="400"
+    src="https://www.google.com/maps/embed?pb=!4v1557932957501!6m8!1m7!1s04LptdatMEwvnW3J_tjGvw!2m2!1d40.72061130331954!2d-73.99171284164994!3f264.0115330665066!4f-27.9676492146982!5f0.7820865974627469"
+    frameborder="0"
+    allowfullscreen
+></iframe></div>
+</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="statistical_inferences.html" class="btn btn-neutral float-right" title="Statistical Inferences" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="regression.html" class="btn btn-neutral float-left" title="Applied Regression Analysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ming Zhao
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
