@@ -15,6 +15,6 @@ Applied Regression Analysis
    ./estimating_relationships.ipynb
    ./assumptions.ipynb
    ./regression_estimation.ipynb
-   ./advises.ipynb
+   ./advice.ipynb
    ./regression_analysis.ipynb
    ./regression_modeling.ipynb
