@@ -6,6 +6,7 @@ from scipy import stats
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
 from ipywidgets import *
+from IPython.display import display, HTML
 sns.set(color_codes=True)
 
 dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/regression/'
@@ -145,11 +146,12 @@ class LinRegressDisplay:
 def analysis(df, y, x, printlvl):
     result = ols(formula=y+'~'+'+'.join(x), data=df).fit()
     if printlvl>=4:
-        print(result.summary())
+        display(result.summary())
         print('\nstandard error of estimate:{:.5f}\n'.format(np.sqrt(result.scale)))
         
     if printlvl>=5:
-        print("\nANOVA Table:\n", sm.stats.anova_lm(result, typ=2))    
+        print("\nANOVA Table:\n")
+        display(sm.stats.anova_lm(result, typ=2))
     
     if printlvl>=1:
         if len(x)==1:
