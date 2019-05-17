@@ -11,6 +11,7 @@ import statsmodels.api as sm
 from statsmodels.formula.api import ols
 import pmdarima as pm
 from ipywidgets import *
+from IPython.display import display, HTML
 
 dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/time_series/'
 
@@ -108,7 +109,27 @@ def analysis(df, y, x, printlvl):
             fig.delaxes(axes[1])
             fig.delaxes(axes[2])
     plt.show()    
-    return result     
+    return result
+
+def ses_forecast(forecasts, holdouts, level, optimized):
+    from statsmodels.tsa.holtwinters import SimpleExpSmoothing
+    df_house.index.freq = 'MS'
+    plt.figure(figsize=(12, 6))
+    if holdouts==0:
+        train, test = df_house.iloc[:, 0], []
+        model = SimpleExpSmoothing(train).fit(smoothing_level=level, optimized=optimized)
+        pred = model.predict(start=train.index[0], end=train.index[-1] + forecasts*df_house.index.freq)
+    else:
+        train, test = df_house.iloc[:-holdouts, 0], df_house.iloc[-holdouts:, 0]
+        model = SimpleExpSmoothing(train).fit(smoothing_level=level, optimized=optimized)
+        pred = model.predict(start=train.index[0], end=test.index[-1] + forecasts*df_house.index.freq)
+        plt.plot(test.index, test, label='Holdouts', c='fuchsia')
+
+    plt.plot(train.index, train, label='Train', c='cornflowerblue')
+    plt.plot(pred.index, pred, label='Simple Exponential Smoothing', c='orange')
+    plt.legend(loc='best')
+    plt.title('House Sales')
+    plt.show()
     
 def stationarity_test(df_col, title=''):
     print('Test on {}:\n'.format(title))
@@ -248,7 +269,7 @@ def arima_(p, d, q):
 
     model = ARIMA(df_house.sales, order=(p, d, q))
     model_fit = model.fit(disp=0)
-    print(model_fit.summary())
+    display(model_fit.summary())
 
     # Plot residual errors
     residuals = pd.DataFrame(model_fit.resid)
@@ -288,7 +309,7 @@ def arima_validation(p, d, q):
     test = df_house.sales[-test_size:]
     model = ARIMA(train, order=(p, d, q))  
     model_fit = model.fit(disp=0)  
-    print(model_fit.summary())
+    display(model_fit.summary())
     
     residuals = pd.DataFrame(model_fit.resid)
     fig, ax = plt.subplots(1,2, figsize=(12,3))
