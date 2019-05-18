@@ -7,6 +7,8 @@ import statsmodels.api as sm
 from statsmodels.formula.api import ols
 from ipywidgets import *
 from IPython.display import display, HTML
+import warnings
+warnings.filterwarnings('ignore')
 sns.set(color_codes=True)
 
 dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/regression/'

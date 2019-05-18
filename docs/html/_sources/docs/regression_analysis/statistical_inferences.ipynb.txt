@@ -217,14 +217,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Interval estimation"
+    "## Interval Estimation"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Hypothesis testing"
+    "## Hypothesis Testing"
    ]
   }
  ],

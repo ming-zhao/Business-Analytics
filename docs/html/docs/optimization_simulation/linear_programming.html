@@ -103,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="monty_hall.html">Monty Hall Problem</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning/machine_learning.html">Introduction to Machine Learning</a></li>
 </ul>
 
             
@@ -538,19 +539,8 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.path</span> <span class="k">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="k">import</span> <span class="n">PathPatch</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="c1"># from pulp import *</span>
-
-<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="o">*</span>
+<span></span><span class="o">%</span><span class="k">run</span> ./loadoptfuncs.py
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-
 <span class="n">toggle</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -577,7 +567,7 @@ div.rendered_html tbody tr:hover {
 <p>To <strong>optimize</strong> means that you must systematically choose the values of the decision variables that make the objective as large (for maximization) or small (for minimization) as possible and cause all of the constraints to be satisfied.</p>
 <p>Any set of values of the decision variables that satisfies all of the constraints is called a <strong>feasible solution</strong>. The set of all feasible solutions is called the <strong>feasible region</strong>.</p>
 <p>As one of the fundamental prescriptive analysis method, <strong>linear programming (LP)</strong> is used in all types of organizations, often on a daily basis, to solve a wide variety of problems. More formally, linear programming is a technique for the optimization of a <strong>linear</strong> objective function, subject to <strong>linear equality and/or linear inequality</strong> constraints.</p>
-<p>A PC manufacturer assembles and then tests two models of computers, Basic and XP. There are at most 10,000 assembly hours at the cost of \$11 available and 3000 testing hours at the cost of \$15 available.</p>
+<p>A PC manufacturer assembles and then tests two models of computers, Basic and XP. There are at most 10,000 assembly hours at the cost of $11 available and 3000 testing hours at the cost of $15 available.</p>
 <div class="highlight-sas notranslate"><div class="highlight"><pre><span></span><span class="kr">data </span>ds_labor;
     <span class="k">input</span> type $ cost avail;
 <span class="k">    datalines;</span><span class="x"></span>
@@ -625,131 +615,36 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># create the plot object</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3000</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">10000</span><span class="o">/</span><span class="mi">6</span> <span class="o">-</span> <span class="mi">5</span><span class="o">*</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$5x_1 + 6x_2 \leq 10000$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="o">/</span><span class="mi">6</span> <span class="o">-</span> <span class="mi">5</span><span class="o">*</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">1500</span> <span class="o">-</span> <span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_1 + 2x_2 \leq 3000$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1500</span> <span class="o">-</span> <span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">600</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_1 \leq 600$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_betweenx</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">1200</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_2 \leq 1200$&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_betweenx</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-
-<span class="c1"># add non-negativity constraints</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_1$ non-negative&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_2$ non-negative&#39;</span><span class="p">)</span>
-
-<span class="c1"># highlight the feasible region</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">([</span>
-    <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1200.</span><span class="p">),</span>
-    <span class="p">(</span><span class="mi">560</span><span class="p">,</span> <span class="mf">1200.</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">600.</span><span class="p">,</span> <span class="mi">7000</span><span class="o">/</span><span class="mi">6</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">600.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span>
-    <span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span>
-<span class="p">])</span>
-<span class="n">patch</span> <span class="o">=</span> <span class="n">PathPatch</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;feasible region&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
-
-<span class="c1"># labels and stuff</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$ (Basic)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$ (XP)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">toggle</span><span class="p">()</span>
+<span></span><span class="n">interact</span><span class="p">(</span><span class="n">prodmix_graph</span><span class="p">,</span>
+         <span class="n">zoom</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Checkbox</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Zoom In&#39;</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">));</span>
 </pre></div>
-</div>
-</div>
-<div class="nboutput docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<img alt="../../_images/docs_optimization_simulation_linear_programming_8_0.png" src="../../_images/docs_optimization_simulation_linear_programming_8_0.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
-<div class="output_area rendered_html docutils container">
-<a href="#" onclick="code_toggle(this); return false;">show code</a></div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7e518893fdac4c9aa8e3103bb4e48a90", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">margin1</span><span class="p">,</span> <span class="n">margin2</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">10000</span><span class="o">/</span><span class="mi">6</span> <span class="o">-</span> <span class="mi">5</span><span class="o">*</span><span class="n">s</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$5x_1 + 6x_2 \leq 10000$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">1500</span> <span class="o">-</span> <span class="n">s</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_1 + 2x_2 \leq 3000$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">600</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_1 \leq 600$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">1200</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_2 \leq 1200$&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_1$ non-negative&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">s</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;$x_2$ non-negative&#39;</span><span class="p">)</span>
-
-    <span class="c1"># plot the possible (x1, x2) pairs</span>
-    <span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span> <span class="k">for</span> <span class="n">x1</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
-                    <span class="k">for</span> <span class="n">x2</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="n">x1</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="n">x2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">10000</span>
-                    <span class="ow">and</span> <span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">x2</span><span class="p">)</span>  <span class="o">&lt;=</span> <span class="mi">3000</span>
-                    <span class="ow">and</span> <span class="n">x1</span><span class="o">&lt;=</span><span class="mi">600</span> <span class="ow">and</span> <span class="n">x2</span><span class="o">&lt;=</span><span class="mi">1200</span><span class="p">]</span>
-
-    <span class="c1"># split these into our variables</span>
-    <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hsplit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pairs</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
-
-    <span class="c1"># caculate the objective function at each pair</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">margin1</span><span class="o">*</span><span class="n">x1</span> <span class="o">+</span> <span class="n">margin2</span><span class="o">*</span><span class="n">x2</span>  <span class="c1"># the objective function</span>
-
-    <span class="c1"># plot the results</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
-                <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Profit=</span><span class="si">{}</span><span class="s1"> $x_1$ + </span><span class="si">{}</span><span class="s1"> $x_2$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">margin1</span><span class="p">,</span> <span class="n">margin2</span><span class="p">),</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-
-    <span class="c1"># labels and stuff</span>
-    <span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-    <span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;profit&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$x_1$ (Basic)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$x_2$ (XP)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1500</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">interact</span><span class="p">(</span><span class="n">update</span><span class="p">,</span>
+<span></span><span class="n">interact</span><span class="p">(</span><span class="n">prodmix_obj</span><span class="p">,</span>
+         <span class="n">zoom</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Checkbox</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Zoom In&#39;</span><span class="p">,</span> <span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
          <span class="n">margin1</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=-</span><span class="mi">30</span><span class="p">,</span><span class="nb">max</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Margin Basic:&#39;</span><span class="p">,</span>
                                    <span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;description_width&#39;</span><span class="p">:</span> <span class="s1">&#39;initial&#39;</span><span class="p">}),</span>
          <span class="n">margin2</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">IntSlider</span><span class="p">(</span><span class="nb">min</span><span class="o">=-</span><span class="mi">30</span><span class="p">,</span><span class="nb">max</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span><span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">value</span><span class="o">=</span><span class="mi">129</span><span class="p">,</span><span class="n">description</span><span class="o">=</span><span class="s1">&#39;Margin XP:&#39;</span><span class="p">,</span>
-                                  <span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;description_width&#39;</span><span class="p">:</span> <span class="s1">&#39;initial&#39;</span><span class="p">}))</span>
-
-<span class="n">toggle</span><span class="p">()</span>
+                                  <span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;description_width&#39;</span><span class="p">:</span> <span class="s1">&#39;initial&#39;</span><span class="p">}));</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7a0bfb875ab8497e82c66da2f2222a8d", "version_major": 2, "version_minor": 0}</script></div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<a href="#" onclick="code_toggle(this); return false;">show code</a></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7cd451ecb06a40908c097481e39b9174", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </div>
 <div class="section" id="Sensitivity-Analysis">
@@ -797,9 +692,14 @@ div.rendered_html tbody tr:hover {
 </table>
 <ul class="simple">
 <li><p>Final Value: the optimal solution</p></li>
-<li><p>Reduced Cost: it is relevant only if the final value is equal to either 0 or its upper bound</p>
+<li><p>Reduced Cost: it is relevant only if the final value is equal to either 0 or its upper bound. It indicates how much the objective coefficient of a decision variable (which is currently 0 or at its upper bound) must change before that variable changes. For example:</p>
 <ul>
-<li></li>
+<li><p>the number of XPs will stay at 1200 unless the profit margin for XPs decreases by at least $33</p></li>
+</ul>
+</li>
+<li><p>Allowable Increase/Decrease: it indicates how much the objective coefficient could change before the optimal solution would change. For example:</p>
+<ul>
+<li><p>if the selling price of Basics stays within a range from $220 to $327.5, the optimal product mix does not change at all.</p></li>
 </ul>
 </li>
 </ul>
@@ -845,6 +745,14 @@ Hours used</p></td>
 </tr>
 </tbody>
 </table>
+<ul class="simple">
+<li><p>Final Value: the value of the left side of the constraint at the optimal solution</p></li>
+<li><p>Shadow Price: it indicates the change in the optimal value of the objective when the right side of some constraint changes by one unit. For example:</p>
+<ul>
+<li><p>If the right side of this constraint increases by one hour, from 10000 to 10001, the optimal value of the objective will increase by $16.</p></li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section" id="SAS-On-Demand">
 <h2>SAS On Demand<a class="headerlink" href="#SAS-On-Demand" title="Permalink to this headline">¶</a></h2>

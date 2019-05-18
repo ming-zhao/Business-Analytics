@@ -251,11 +251,15 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "(B) is correct. In a psychology experiment, subjects receive random series of Xs and Os and asks them to predict what the next one will be. For instance, they may see:\n",
-    "<center>\n",
-    "OXXOXOXOXOXXOOXXOXOXXXOXX\n",
-    "</center>\n",
-    "most people realize that there are slightly more Xs than Os — if you count, you'll see it's 60 percent Xs, 40 percent Os — so they guess X most of the time, but throw in some Os to reflect that balance. However, if you want to maximize your chances of a correct prediction, you would always choose X. Then you would be right 60 percent of the time. If you randomize 60/40, as most participants do, your prediction ends up being correct 52 percent of the time, only slightly better than if you had not  bothered to assess relative frequencies of Xs and Os and instead just guessed one or the other (50/50).<br><span>1. [Sixty percent of the time you choose X and are correct 60 percent of the time, while 40 percent of the time you choose O and are correct only 40 percent of the time. On average, this is $0.6^2 + 0.4^2 = 0.52$.]</span>"
+    "- B is correct. \n",
+    "\n",
+    "- An psychology experiment gives subjects a random series of Xs and Os and asks them to predict what the next one will be. For instance, they may see: <center>OXXOXOXOXOXXOOXXOXOXXXOXX</center>\n",
+    "\n",
+    "- Most people realize that there are slightly more Xs than Os — if you count, you'll see it's 60 percent Xs, 40 percent Os — so they guess X most of the time, but throw in some Os to reflect that balance. \n",
+    "\n",
+    "- However, if you want to maximize your chances of a correct prediction, you would always choose X. Then you would be right 60 percent of the time. \n",
+    "\n",
+    "- If you randomize 60/40, as most participants do, your prediction ends up being correct 52 percent of the time [Sixty percent of the time you choose X and are correct 60 percent of the time, while 40 percent of the time you choose O and are correct only 40 percent of the time. On average, this is $0.6^2 + 0.4^2 = 0.52$.], only slightly better than if you had not  bothered to assess relative frequencies of Xs and Os and instead just guessed one or the other (50/50)."
    ]
   },
   {
@@ -306,7 +310,13 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "(B) is correct. The smaller hospital is correct because the larger the number of events (in this case, births), the likelier each daily outcome will be close to the average (in this case, 50 percent). To see how this works, imagine you are flipping coins. You are more likely to get heads every time if you flip five coins than if you flip fifty coins. Thus, the smaller hospital — precisely because it has fewer births — is more likely to have more extreme outcomes away from the average."
+    "- B is correct. \n",
+    "\n",
+    "- The smaller hospital is correct because the larger the number of events (in this case, births), the likelier each daily outcome will be close to the average (in this case, 50 percent). \n",
+    "\n",
+    "- To see how this works, imagine you are flipping coins. You are more likely to get heads every time if you flip five coins than if you flip fifty coins. \n",
+    "\n",
+    "- Thus, the smaller hospital — precisely because it has fewer births — is more likely to have more extreme outcomes away from the average."
    ]
   },
   {
@@ -336,7 +346,7 @@
    "source": [
     "## Data Visualization\n",
     "\n",
-    "If your goal is to lie, cheat, manipulate, or mislead, Graphical Displays are your friend…\n",
+    "If your goal is to lie, cheat, manipulate, or mislead, **Graphical Displays** are your friend...\n",
     "\n",
     "![pie](https://github.com/ming-zhao/Business-Analytics/raw/master/images/pie.png)\n",
     "\n",
@@ -371,7 +381,7 @@
     "## [Case](https://github.com/ming-zhao/Business-Analytics/blob/master/notebooks/parking_violation.ipynb): NYC Parking Violation\n",
     "\n",
     "We consider packing violation data in NYC from August 2013 to June 2014. The [dataset](https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2014-August-/jt7v-77mi\n",
-    ") is available in [NYC Open Data](https://opendata.cityofnewyork.us/), which is a collection of 750 New York City public datasets made available by city agencies and organizations.\n",
+    ") is available in [NYC Open Data](https://opendata.cityofnewyork.us/). The website NYC Open Data is a collection of 750 New York City public datasets made available by city agencies and organizations.\n",
     "\n",
     "The original dataset has 9.1M rows and 43 columns with size more than 1G. The dataset used in this note is already filtered with only hydrant paking violations. The excel file can be downloaded from this [link](https://github.com/ming-zhao/Business-Analytics/raw/master/data/regression/Parking_Violations.xlsx)."
    ]

@@ -74,11 +74,12 @@ def boxplot(df, col_names, title=''):
 def analysis(df, y, x, printlvl):
     result = ols(formula=y+'~'+'+'.join(x), data=df).fit()
     if printlvl>=4:
-        print(result.summary())
+        display(result.summary())
         print('\nstandard error of estimate:{:.5f}\n'.format(np.sqrt(result.scale)))
         
     if printlvl>=5:
-        print("\nANOVA Table:\n", sm.stats.anova_lm(result, typ=2))    
+        print("\nANOVA Table:\n")
+        display(sm.stats.anova_lm(result, typ=2))    
     
     if printlvl>=1:
         if len(x)==1:
