@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>A Short History of AI &mdash; Business Analytics 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Current Status of Deep Learning" href="status.html" />
+    <link rel="prev" title="A First Look on Deep Learning" href="example.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Business Analytics
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Business Analytics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../regression_analysis/regression.html">Applied Regression Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Introduction to Forecasting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimization_simulation/optimization_simulation.html">Optimization and Simulation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="machine_learning.html">Introduction to Machine Learning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="example.html">A First Look on Deep Learning</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">A Short History of AI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Symbolic-AI">Symbolic AI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Expert-Systems">Expert Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Deep-Learning:-AI-Hype?">Deep Learning: AI Hype?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Machine-Learning">Machine Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Deep-Learning">Deep Learning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#The-promise">The promise</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="status.html">Current Status of Deep Learning</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Business Analytics</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="machine_learning.html">Introduction to Machine Learning</a> &raquo;</li>
+        
+      <li>A Short History of AI</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/docs/machine_learning/history.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">run</span> ../initscript.py
+<span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">&lt;div id=&quot;popup&quot; style=&quot;padding-bottom:5px; display:none;&quot;&gt;</span>
+<span class="s2">    &lt;div&gt;Enter Password:&lt;/div&gt;</span>
+<span class="s2">    &lt;input id=&quot;password&quot; type=&quot;password&quot;/&gt;</span>
+<span class="s2">    &lt;button onclick=&quot;done()&quot; style=&quot;border-radius: 12px;&quot;&gt;Submit&lt;/button&gt;</span>
+<span class="s2">&lt;/div&gt;</span>
+<span class="s2">&lt;button onclick=&quot;unlock()&quot; style=&quot;border-radius: 12px;&quot;&gt;Unclock&lt;/button&gt;</span>
+<span class="s2">&lt;a href=&quot;#&quot; onclick=&quot;code_toggle(this); return false;&quot;&gt;show code&lt;/a&gt;</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<script>
+  var password,
+      teacher_mode,
+      isHtml;
+
+  var class_output,
+      class_input,
+      class_answer;
+
+  function code_toggle(e) {
+    var orig_e = e;
+    while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {
+      e = e.closest(class_output).previousElementSibling;
+    }
+    var target = e.closest(class_output).previousElementSibling;
+    if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+      target.style.display = "none";
+      orig_e.innerHTML = 'show code';
+    }
+    else {
+      target.style.removeProperty("display");
+      orig_e.innerHTML = 'hide code';
+    }
+  }
+
+  function hide_answer(e) {
+    var target = e.closest(class_answer).nextElementSibling;
+    //e.closest(class_output).previousElementSibling.style.display = "none";
+    if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+      target.style.display = "none";
+      e.innerHTML = 'show answer';
+    }
+    else if (teacher_mode) {
+        e.innerHTML = 'hide answer';
+        target.style.removeProperty("display");
+    }
+  }
+
+  function done() {
+    document.getElementById("popup").style.display = "none";
+    var input = document.getElementById("password").value;
+    if (input==password) { teacher_mode=1; alert("Unlocked!");}
+    else { teacher_mode=0; alert("Wrong password!");}
+  };
+
+  function unlock() {
+    document.getElementById("popup").style.display = "block";
+  }
+
+  $(document).ready(function() {
+    $.ajax({
+      type: "GET",
+      url: "https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/course.csv",
+      dataType: "text",
+      success: function(data)
+      {
+        var items = data.split(',');
+        var url = window.location.pathname;
+        var filename = url.substring(url.lastIndexOf('/')+1);
+        password='123';
+        for (var i = 0, len = items.length; i < len; ++i) {
+            if (filename.includes(items[i].trim()) && i%2==0 && i<items.length) {
+                password=items[i+1].trim();
+                break;
+            }
+        }
+        var code_blocks = document.getElementsByClassName('nbinput docutils container');
+        if (code_blocks[0]==null) {
+            isHtml=0;
+            code_blocks = document.getElementsByClassName('input');
+            class_output=".output_wrapper";
+            class_input="input";
+            class_answer='.cell';
+        }
+        else {
+            isHtml=1;
+            class_output=".nboutput";
+            class_input="nbinput";
+            class_answer=".nboutput";
+        }
+
+        for (var i = 0, len = code_blocks.length; i < len; ++i) {
+          if (
+              code_blocks[i].innerHTML.indexOf("toggle") !== -1
+              || code_blocks[i].innerHTML.indexOf("button onclick") !== -1
+             ) {
+            code_blocks[i].style.display = "none";
+          }
+        }
+        for (var i = 0, len = code_blocks.length; i < len; ++i) {
+          if (code_blocks[i].innerHTML.indexOf("hide_answer") !== -1) {
+            code_blocks[i].style.display = "none";
+            if (isHtml) {
+              code_blocks[i].nextElementSibling.nextElementSibling.style.display = "none";
+            }
+            else{
+              code_blocks[i].closest(class_answer).nextElementSibling.style.display = "none";
+            }
+          }
+        }
+
+
+      }
+    });
+  });
+</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div id="popup" style="padding-bottom:5px; display:none;">
+    <div>Enter Password:</div>
+    <input id="password" type="password"/>
+    <button onclick="done()" style="border-radius: 12px;">Submit</button>
+</div>
+<button onclick="unlock()" style="border-radius: 12px;">Unclock</button>
+<a href="#" onclick="code_toggle(this); return false;">show code</a></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">run</span> loadfuncs.py
+
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="k">import</span> <span class="o">*</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">toggle</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="code_toggle(this); return false;">show code</a></div>
+</div>
+<div class="section" id="A-Short-History-of-AI">
+<h1>A Short History of AI<a class="headerlink" href="#A-Short-History-of-AI" title="Permalink to this headline">¶</a></h1>
+<p><img alt="def" src="https://www.stoodnt.com/blog/wp-content/uploads/2018/03/Deep_Learning_Machine_Learning_AI_History_Medium.png" /></p>
+<div class="section" id="Symbolic-AI">
+<h2>Symbolic AI<a class="headerlink" href="#Symbolic-AI" title="Permalink to this headline">¶</a></h2>
+<p>Artificial intelligence was proposed by a handful of pioneers from the nascent field of computer science in the 1950s. A concise definition of the field would be as follows: <em>the effort to automate intellectual tasks normally performed by humans</em>.</p>
+<p>For a fairly long time, many experts believed that human-level artificial intelligence could be achieved by having programmers handcraft a sufficiently large set of explicit rules for manipulating knowledge. This approach is known as <em>symbolic AI</em> and was the dominant paradigm in AI from the 1950s to the late 1980s.</p>
+<p>In the 1960s, people believe that “the problem of creating artificial intelligence will substantially be solved within a generation”. As these high expectations failed to materialize, researchers and government funds turned away from the field, marking the start of the first AI winter.</p>
+</div>
+<div class="section" id="Expert-Systems">
+<h2>Expert Systems<a class="headerlink" href="#Expert-Systems" title="Permalink to this headline">¶</a></h2>
+<p>In the 1980s, a new take on symbolic AI, expert systems, started gathering steam among large companies. A few initial success stories triggered a wave of investment. Around 1985, companies were spending over $1 billion each year on the technology; but by the early 1990s, these systems had proven expensive to maintain, difficult to scale, and limited in scope, and interest died down. Thus began the second AI winter.</p>
+</div>
+<div class="section" id="Deep-Learning:-AI-Hype?">
+<h2>Deep Learning: AI Hype?<a class="headerlink" href="#Deep-Learning:-AI-Hype?" title="Permalink to this headline">¶</a></h2>
+<p>Although some world-changing applications like autonomous cars are already within reach, many more are likely to remain elusive for a long time, such as believable dialogue systems, human-level machine translation across arbitrary languages, and human-level natural-language understanding. In particular, talk of <strong>human-level general intelligence shouldn’t be taken too seriously</strong>. The risk with high expectations for the short term is that, as technology fails to deliver, research investment will
+dry up, slowing progress for a long time.</p>
+<p>Although we’re still in the phase of intense optimism, we may be currently witnessing the third cycle of AI hype and disappointment.</p>
+</div>
+<div class="section" id="Machine-Learning">
+<h2>Machine Learning<a class="headerlink" href="#Machine-Learning" title="Permalink to this headline">¶</a></h2>
+<p>In classical programming, such as symbolic AI, humans input rules (a program) and data to be processed according to these rules, and out come answers:</p>
+<p><span class="math">\begin{equation}
+\text{rules $+$ data} \Rightarrow \text{classical programming} \Rightarrow \text{answers} \nonumber
+\end{equation}</span></p>
+<p>For example, an Expert System contains two main components: an inference engine and a knowledge base.</p>
+<ul class="simple">
+<li><p>Expert systems require a real human expert to input knowledge (such as all steps s/he took to make the decision, and how to handle exceptions) into the knowledge base, whereas in machine learning, no such “expert” is needed.</p></li>
+<li><p>The inference engine applies logical rules based on facts from the knowledge base. These rules are typically in the form of if-then statements. A flexible system would use the knowledge as an initial guide, and use the expert’s guidance to learn, based on feedback from the expert.</p></li>
+</ul>
+<p>Machine learning arises from the question that could a computer go beyond “what we know how to order it to perform” and learn on its own how to perform a specified task? A machine-learning system is <strong>trained</strong> rather than explicitly programmed. The programming paradigm is quite different</p>
+<p><span class="math">\begin{equation}
+\text{data $+$ answers} \Rightarrow \text{machine learning} \Rightarrow \text{rules} \nonumber
+\end{equation}</span></p>
+<p>Machine learning is a type of artificial intelligence. It can be broadly divided into <strong>supervised</strong>, <strong>unsupervised</strong>, <strong>self-supervised</strong> and <strong>reinforcement</strong> learning.</p>
+<ul class="simple">
+<li><p>In supervised learning, a computer is given a set of data and an expected result, and asked to find relationships between the data and the result. The computer can then learn how to predict the result when given new data. It’s by far the dominant form of deep learning today.</p></li>
+<li><p>In unsupervised learning, a computer has data to play with but no expected result. It is asked to find relationships between entries in the dataset to discover new patterns.</p></li>
+<li><p>Self-supervised learning is supervised learning without human-annotated labels such as autoencoders.</p></li>
+<li><p>In reinforcement learning, an agent receives information about its environment and learns to choose actions that will maximize some reward. Currently, reinforcement learning is mostly a research area and hasn’t yet had significant practical successes beyond games.</p></li>
+</ul>
+<p>Machine learning started to flourish in the 1990s and has quickly become the most popular and most successful subfield of AI.</p>
+</div>
+<div class="section" id="Deep-Learning">
+<h2>Deep Learning<a class="headerlink" href="#Deep-Learning" title="Permalink to this headline">¶</a></h2>
+<p>Deep learning is a specific subfield of machine learning: a new take on learning information from data that puts an emphasis on learning successive layers of increasingly meaningful representations.</p>
+<p><strong>The “deep” in deep learning</strong></p>
+<ul class="simple">
+<li><p>it isn’t a reference to any kind of deeper understanding achieved by the approach;</p></li>
+<li><p>it stands for the idea of successive layers of representations.</p></li>
+</ul>
+<p>Shallow learning is referring to approaches in machine learning that focus on learning only one or two layers of representations of the data.</p>
+<p>See the deep representations learned by a 4-layer neural network for digit number 4.</p>
+<p><img alt="deep_rep" src="https://dpzbhybb2pdcj.cloudfront.net/chollet/HighResolutionFigures/figure_1-6.png" /></p>
+</div>
+<div class="section" id="The-promise">
+<h2>The promise<a class="headerlink" href="#The-promise" title="Permalink to this headline">¶</a></h2>
+<p>Although we may have unrealistic short-term expectations for AI, the long-term picture is looking bright. We’re only getting started in applying deep learning in real-world applications. Right now, it may seem hard to believe that AI could have a large impact on our world, because it isn’t yet widely deployed — much as, back in 1995, it would have been difficult to believe in the future impact of the internet.</p>
+<p>Don’t believe the short-term hype, but do believe in the long-term vision. Deep learning has several properties that justify its status as an AI revolution:</p>
+<ul class="simple">
+<li><p><strong>Simplicity</strong>: Deep learning removes the need for many heavy-duty engineering preprocessing.</p></li>
+<li><p><strong>Scalability</strong>: Deep learning is highly amenable to parallelization on GPUs or TPUs. Deep-learning models are trained by iterating over small batches of data, allowing them to be trained on datasets of pretty much arbitrary size.</p></li>
+<li><p><strong>Versatility and reusability</strong>: deep-learning models can be trained on additional data without restarting from scratch. Trained deep-learning models are repurposable. For instance, it’s possible to take a deep-learning model trained for image classification and drop it into a video processing pipeline.</p></li>
+</ul>
+<p>Deep learning has only been in the spotlight for a few years, and we haven’t yet established the full scope of what it can do.</p>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {}, "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="status.html" class="btn btn-neutral float-right" title="Current Status of Deep Learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="example.html" class="btn btn-neutral float-left" title="A First Look on Deep Learning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ming Zhao
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,555 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<script>\n",
+       "  var password,\n",
+       "      teacher_mode,\n",
+       "      isHtml;\n",
+       "      \n",
+       "  var class_output,\n",
+       "      class_input,\n",
+       "      class_answer;\n",
+       "      \n",
+       "  function code_toggle(e) {\n",
+       "    var orig_e = e;\n",
+       "    while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {\n",
+       "      e = e.closest(class_output).previousElementSibling;\n",
+       "    }\n",
+       "    var target = e.closest(class_output).previousElementSibling;\n",
+       "    if (target.getAttribute(\"style\") == \"\" || target.getAttribute(\"style\") == null) {\n",
+       "      target.style.display = \"none\";\n",
+       "      orig_e.innerHTML = 'show code';\n",
+       "    }\n",
+       "    else {\n",
+       "      target.style.removeProperty(\"display\");\n",
+       "      orig_e.innerHTML = 'hide code';\n",
+       "    }\n",
+       "  }\n",
+       "  \n",
+       "  function hide_answer(e) {\n",
+       "    var target = e.closest(class_answer).nextElementSibling;\n",
+       "    //e.closest(class_output).previousElementSibling.style.display = \"none\";\n",
+       "    if (target.getAttribute(\"style\") == \"\" || target.getAttribute(\"style\") == null) {\n",
+       "      target.style.display = \"none\";\n",
+       "      e.innerHTML = 'show answer';\n",
+       "    }\n",
+       "    else if (teacher_mode) {\n",
+       "        e.innerHTML = 'hide answer';\n",
+       "        target.style.removeProperty(\"display\");\n",
+       "    }\n",
+       "  }\n",
+       "  \n",
+       "  function done() { \n",
+       "    document.getElementById(\"popup\").style.display = \"none\";\n",
+       "    var input = document.getElementById(\"password\").value;\n",
+       "    if (input==password) { teacher_mode=1; alert(\"Unlocked!\");}\n",
+       "    else { teacher_mode=0; alert(\"Wrong password!\");}       \n",
+       "  };\n",
+       "\n",
+       "  function unlock() {\n",
+       "    document.getElementById(\"popup\").style.display = \"block\";\n",
+       "  }\n",
+       "  \n",
+       "  $(document).ready(function() {\n",
+       "    $.ajax({\n",
+       "      type: \"GET\",  \n",
+       "      url: \"https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/course.csv\",\n",
+       "      dataType: \"text\",       \n",
+       "      success: function(data)  \n",
+       "      {\n",
+       "        var items = data.split(',');\n",
+       "        var url = window.location.pathname;\n",
+       "        var filename = url.substring(url.lastIndexOf('/')+1);\n",
+       "        password='123';\n",
+       "        for (var i = 0, len = items.length; i < len; ++i) {\n",
+       "            if (filename.includes(items[i].trim()) && i%2==0 && i<items.length) {\n",
+       "                password=items[i+1].trim();\n",
+       "                break;\n",
+       "            }\n",
+       "        }\n",
+       "        var code_blocks = document.getElementsByClassName('nbinput docutils container');\n",
+       "        if (code_blocks[0]==null) { \n",
+       "            isHtml=0;\n",
+       "            code_blocks = document.getElementsByClassName('input');\n",
+       "            class_output=\".output_wrapper\";\n",
+       "            class_input=\"input\";\n",
+       "            class_answer='.cell';\n",
+       "        }\n",
+       "        else { \n",
+       "            isHtml=1;\n",
+       "            class_output=\".nboutput\";\n",
+       "            class_input=\"nbinput\";\n",
+       "            class_answer=\".nboutput\";\n",
+       "        }\n",
+       "        \n",
+       "        for (var i = 0, len = code_blocks.length; i < len; ++i) {\n",
+       "          if (\n",
+       "              code_blocks[i].innerHTML.indexOf(\"toggle\") !== -1 \n",
+       "              || code_blocks[i].innerHTML.indexOf(\"button onclick\") !== -1\n",
+       "             ) {\n",
+       "            code_blocks[i].style.display = \"none\";\n",
+       "          }\n",
+       "        }\n",
+       "        for (var i = 0, len = code_blocks.length; i < len; ++i) {\n",
+       "          if (code_blocks[i].innerHTML.indexOf(\"hide_answer\") !== -1) {\n",
+       "            code_blocks[i].style.display = \"none\";\n",
+       "            if (isHtml) {\n",
+       "              code_blocks[i].nextElementSibling.nextElementSibling.style.display = \"none\";\n",
+       "            }\n",
+       "            else{\n",
+       "              code_blocks[i].closest(class_answer).nextElementSibling.style.display = \"none\";\n",
+       "            }            \n",
+       "          }\n",
+       "        }\n",
+       "        \n",
+       "        \n",
+       "      }\n",
+       "    });\n",
+       "  });\n",
+       "</script>"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "<div id=\"popup\" style=\"padding-bottom:5px; display:none;\">\n",
+       "    <div>Enter Password:</div>\n",
+       "    <input id=\"password\" type=\"password\"/>\n",
+       "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
+       "</div>\n",
+       "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n",
+       "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n"
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 1,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "%run ../initscript.py\n",
+    "HTML(\"\"\"\n",
+    "<div id=\"popup\" style=\"padding-bottom:5px; display:none;\">\n",
+    "    <div>Enter Password:</div>\n",
+    "    <input id=\"password\" type=\"password\"/>\n",
+    "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
+    "</div>\n",
+    "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n",
+    "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n",
+    "\"\"\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Forecasting Methods"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Forecasting methods can be generally divided into:\n",
+    "\n",
+    "- [Judgmental methods](https://otexts.com/fpp2/judgmental.html)\n",
+    "\n",
+    "- Econometric methods\n",
+    "\n",
+    "- Time series methods"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Judgmental Forecasts"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Forecasting using judgment is common in practice. In many cases, judgmental forecasting is the only option, such as when there is a complete lack of historical data, or when a new product is being launched, or when a new competitor enters the market, or during completely new and unique market conditions.\n",
+    "\n",
+    "Judgmental methods are basically nonquantitative and will not be discussed here. Instead, we will talk about some simple forecasting strategies based on Bayes rule."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Bayes Rule"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Bayes Rule can be simply expressed as\n",
+    "\n",
+    "\\begin{align*}\n",
+    "\\text{posterior} \\propto \\text{likelihood} \\times \\text{prior}\n",
+    "\\end{align*}\n",
+    "\n",
+    "In other words, prediction $\\approx$ observations $\\times$ prior knowledge."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Example**:\n",
+    "J. Richard Gott III. took a trip to Europe in 1969 and saw the stark symbol of the Cold War — Berlin Wall which had been built eight years earlier in 1961. A question in his mind is \"how much longer it would continue to divide the East and West?\".\n",
+    "\n",
+    "This may sounds like an absurd prediction. Even setting aside the impossibility of forecasting geopolitics, the question seems mathematically impossible: he needs to make a prediction from a single data point. But as ridiculous as this might seem on its face, we make such predictions all the time by necessity.\n",
+    "\n",
+    "![wall0](https://media.architecturaldigest.com/photos/56bd1375202b83b31f120f67/16:9/w_1280%2Cc_limit/bridge-of-spies-movie-sets-001.jpg)\n",
+    "\n",
+    "- [John Richard Gott III](https://en.wikipedia.org/wiki/J._Richard_Gott) is a professor of astrophysical sciences at Princeton University.\n",
+    "\n",
+    "- He is known for developing and advocating two cosmological theories: Time travel and the Doomsday theory. \n",
+    "\n",
+    "- Gott first thought of his **\"Copernicus method\"** of lifetime estimation in 1969 when stopping at the Berlin Wall and wondering how long it would stand."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "hide_answer()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- Why it is called the Copernican principle (method)?\n",
+    "\n",
+    "    - In about 1510, the astronomer Nicolaus Copernicus was obsessed by questions: Where are we? Where in the universe is the Earth? Copernicus made a radical imagining at his time that the Earth was not the center of the universe, but, in fact, nowhere special in particular.\n",
+    "\n",
+    "    - When Gott arrived at the Berlin Wall, he asked himself the same question: Where am I? That is to say, where in the total life span of this artifact have I happened to arrive? In a way, he was asking the temporal version of the spatial question that had proposed by Copernicus four hundred years earlier. Gott decided to take the same step with regard to time.\n",
+    "<br>\n",
+    "\n",
+    "- He made the assumption that the moment when he encountered the Berlin Wall was not special. My visit should be located at some random point between the Wall's beginning and its end. \n",
+    "    ![wall1](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall1.png)\n",
+    "   \n",
+    "- We can divide that timeline up into quarters, like so.\n",
+    "    ![wall2](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall2.png)\n",
+    "    \n",
+    "- Gott reasoned that his visit, because it was not special in any way, could be located anywhere on that timeline. From the standpoint of probability, that meant there was a 50 percent chance that it was somewhere in the middle portion of the wall's timeline — the middle two quarters, or 50 percent, of its existence.\n",
+    "    ![wall3](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall3.png)\n",
+    "    \n",
+    "- When Gott visited in 1969, the Wall had been standing for eight years. If his visit took place at the very beginning of that middle portion of the Wall’s existence, Gott reasoned, that eight years would represent exactly one quarter of the way into its history. That would mean the Wall would exist for another 24 years, coming down in 1993.\n",
+    "    ![wall4](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall4.png)\n",
+    "    \n",
+    "- If, on the other hand, his visit happened at the very end of the middle portion, then the eight years would represent exactly three quarters of the way into the Wall’s history. Each quarter would represent just 2.66 years, meaning that the wall could fall as early as 1971.\n",
+    "    ![wall5](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall5.png)\n",
+    "    \n",
+    "- So by that logic, there was a 50 percent chance that the Wall would come down between 1971 (2.66, or 8/3 years into the future) and 1993 (24, or 8 x 3 years into the future). In reality, the Wall fell in 1989, well within his predicted range.    \n",
+    "    ![wall6](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall6.png)\n",
+    "    \n",
+    "- What if we need a single number prediction instead of a range?\n",
+    "\n",
+    "- Recall that Gott made the assumption that the moment when he encountered the Berlin Wall wasn't special--that it was equally likely to be any moment in the wall's total lifetime. And if any moment was equally likely, then on average his arrival should have come precisely at the halfway point (Why? since it was 50% likely to fall before halfway and 50% likely to fall after). \n",
+    "\n",
+    "- More generally, unless we know better we can expect to have shown up precisely halfway into the duration of any given phenomenon. And if we assume that we're arriving precisely halfway into the duration, the best guess we can make for how long it will last into the future becomes obvious: exactly as long as it's lasted already. Since Gott saw Berlin Wall eight years after it was built, so his best guess was that it would stand for eight years more.\n",
+    "    ![wall7](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/belinwall7.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Example**: You arrive at a bus stop in a foreign city and learn, perhaps, that the other tourist standing there has been waiting **7 minutes**. When is the next bus likely to arrive? Is it worthwhile to wait — and if so, how long should you do so before giving up?\n",
+    "![bus](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/bus_waiting.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Example**: A friend of yours has been dating somebody for ONE Month and wants your advice: is it too soon to invite them along to an upcoming family wedding? The relationship is off to a good start, but how far ahead is it safe to make plans?\n",
+    "![quest](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/relationship_quest.png)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "One thing in common for all these examples is that we don’t have much information, or even we have some information, how should we incorporate our information into forecasting. Let’s hold those forecasting questions in mind, and start with some simple math."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "**Example**:\n",
+    "There are two different coins. One is a fair coin with a 50–50 chance of heads and tails; the other is a two-headed coin. I drop them into a bag and then pull one out at random. Then I flip it once: head. Which coin do you think I flipped? \n",
+    "![coin1](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/coin1.png)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "hide_answer()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "There is 100% change to get head for two-headed coin, but only 50% for the normal coin. Thus we can assert confidently that it's exactly twice as probable, that the friend had pulled out the two headed coin."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now I show you 9 fair coins and 1 two-headed coin, puts all ten into a bag, draws one at random, and flips it: head. Now what do you suppose? Is it a fair coin or the two-headed one?\n",
+    "![coin2](https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/images/coin2.png)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "hide_answer()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- As before, a fair coin is exactly half as likely to come up heads as a two-headed coin. \n",
+    "- But now, a fair coin is also 9 times as likely to have been drawn in the first place.\n",
+    "- Its exactly 4.5 times more likely that your friend is holding a fair coin than the two-headed one.\n",
+    "- The number of coins and its probability of showing head are our priors. The outcome of a flip is our observation. We have different predictions when our priors are different."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Is the Copernican Principle Right?"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "After Gott published his conjecture in *Nature*, the journal received a flurry of critical correspondence. And it's easy to see why when we try to apply the rule to some more familiar examples. If you meet a 90-year-old man, the Copernican Principle predicts he will live to 180. Every 6-year-old boy, meanwhile, is predicted to face an early death at the age of 12.\n",
+    "\n",
+    "The Copernican Principle is exactly the Bayes Rule by using an uninformative prior. The question is what prior we should use."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Simple Prediction Rules"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- **Average Rule**: If our prior information follows normal distribution (things that tend toward or cluster around some kind of natural value), we use the distribution's \"natural\" average — its single, specific scale — as your guide.\n",
+    "    - For example, average life span for men in US is 76 years. So, for a 6-year-old boy, the prediction is 77. He gets a tiny edge over the population average of 76 by virtue of having made it through infancy: we know he is not in the distribution's left tail.\n",
+    "    \n",
+    "- **Multiplicative Rule**: If our prior information shows that the rare events have tremendous impact (power-law distribution),<br><div><center>![power](https://github.com/ming-zhao/Business-Analytics/raw/master/images/power.png)</center></div><br> then multiply the quantity observed so far by some constant factor. \n",
+    "    - For example, movie box-office grosses do not cluster to a \"natural\" center. Instead, most movies don't make much money at all, but the occasional Titanic makes titanic amounts. Income (or money in general) is also follows the power-laws (the rich get richer).\n",
+    "    \n",
+    "    - For the grosses of movies, the multiplier happens to be 1.4. So if you hear a movie has made <span>&dollar;</span>6 million so far, you can guess it will make about <span>&dollar;</span>8.4 million overall.\n",
+    "    \n",
+    "    - This multiplicative rule is a direct consequence of the fact that power-law distributions do not specify (or you are uninformative on) a natural scale for the phenomenon they are describing. It is possible that a movie that is grossed <span>&dollar;</span>6 million is actually a blockbuster in its first hour of release, but it is far more likely to be just a single-digit-millions kind of movie.\n",
+    "    \n",
+    "    \n",
+    "In summary, something normally distributed that's gone on seemingly too long is bound to end shortly; but the longer something in a power-law distribution has gone on, the longer you can expect it to keep going.\n",
+    "\n",
+    "There's a third category of things in life: those that are neither more nor less likely to end just because they have gone on for a while.\n",
+    "\n",
+    "- **Additive Rule**: If the prior follows [Erlang distributions](https://en.wikipedia.org/wiki/Erlang_distribution) (e.g. exponential or gamma distributions), then we should always predict that things will go on just a constant amount longer. It is a memoryless prediction.\n",
+    "\n",
+    "    - Additive rule is suitable for events that are completely independent from one another and the intervals between them thus fall on Erlang distribution.\n",
+    "\n",
+    "If you wait for a win at the roulette wheel, what is your strategy?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 5,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "hide_answer()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- Suppose a win at the roulette wheel were characterized by a normal distribution, then the Average Rule would apply: after a run of bad luck, it'd tell you that your number should be coming any second, probably followed by more losing spins. The strategy is to quit after winning.\n",
+    "\n",
+    "- If, instead, the wait for a win obeyed a power-law distribution, then the Multiplicative Rule would tell you that winning spins follow quickly after one another, but the longer a drought had gone on the longer it would probably continue. The strategy is keep playing for a while after any win, but give up after a losing streak.\n",
+    "\n",
+    "- If it is a memoryless distribution, then you're stuck. The Additive Rule tells you the chance of a win now is the same as it was an hour ago, and the same as it will be an hour from now. Nothing ever changes. You're not rewarded for sticking it out and ending on a high note; neither is there a tipping point when you should just cut your losses. For a memoryless distribution, there is no right time to quit. This may in part explain these games’ addictiveness.\n",
+    "\n",
+    "- **In summary**, knowing what distribution you're up against (i.e. having a correct prior knowledge) can make all the difference."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Small Data is Big Data in Disguise"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Many behavior studies show that the predictions that people had made were extremely close to those produced by Bayes Rule.\n",
+    "\n",
+    "The reason we can often make good predictions from a small number of observations — or just a single one — is that our priors are so rich. \n",
+    "\n",
+    "Behavior studies show that we actually carry around in our heads surprisingly accurate priors.\n",
+    "\n",
+    "However, the challenge has increased with the development of the printing press, the nightly news, and social media. Those innovations allow us to spread information mechanically which may affect our priors.\n",
+    "\n",
+    "As sociologist Barry Glassner notes, the murder rate in the United States declined by 20% over the course of the 1990s, yet during that time period the presence of gun violence on American news increased by 600%.\n",
+    "\n",
+    "If you want to naturally make good predictions by following your intuitions, without having to think about what kind of prediction rule is appropriate, you need to protect your priors. Counter-intuitively, that might mean turning off the news."
+   ]
+  }
+ ],
+ "metadata": {
+  "hide_input": false,
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  },
+  "widgets": {
+   "application/vnd.jupyter.widget-state+json": {
+    "state": {},
+    "version_major": 2,
+    "version_minor": 0
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
