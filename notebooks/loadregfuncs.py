@@ -170,7 +170,7 @@ def analysis(df, y, x, printlvl):
     if printlvl>=2:
         fig, axes = plt.subplots(1,3,figsize=(20,6))
         axes[0].relim()
-        sns.residplot(result.fittedvalues, result.resid , lowess=False, scatter_kws={"s": 80},
+        sns.residplot(result.fittedvalues, result.resid, lowess=False, scatter_kws={"s": 80},
                       line_kws={'color':'r', 'lw':1}, ax=axes[0])
         axes[0].set_title('Residual plot')
         axes[0].set_xlabel('Fitted values')
@@ -184,6 +184,8 @@ def analysis(df, y, x, printlvl):
             fig.delaxes(axes[1])
             fig.delaxes(axes[2])
     plt.show()    
+    if printlvl>2:
+        display(stats.kstest(result.resid, 'norm'))
     return result  
 
 def draw_sample(flag=1, id=1):
