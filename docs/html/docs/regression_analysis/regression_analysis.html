@@ -866,7 +866,7 @@ H_a:& \quad \beta_i \neq 0 \text{ for at least one } i \in \{1,2,3\}. \nonumber
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 The F-value is 16.431 and p-value is 0.000. Reject null hypothesis.
-At least one variable in {&#39;X3&#39;, &#39;Area&#39;, &#39;X2&#39;} has nonzero slope.
+At least one variable in {&#39;Area&#39;, &#39;X2&#39;, &#39;X3&#39;} has nonzero slope.
 </pre></div></div>
 </div>
 <p>This is also called a test for the overall fit. The F-statistics and its p value are also available from the <code class="docutils literal notranslate"><span class="pre">fvalue</span></code> and <code class="docutils literal notranslate"><span class="pre">f_pvalue</span></code> properties of the regression result in <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code>.</p>
@@ -890,7 +890,7 @@ H_a:& \quad \beta_i \neq 0 \text{ for at least one } i \in \{2,3\}. \nonumber
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 The F-value is 8.590 and p-value is 0.001. Reject null hypothesis.
-At least one variable in {&#39;X3&#39;, &#39;X2&#39;} has nonzero slope.
+At least one variable in {&#39;X2&#39;, &#39;X3&#39;} has nonzero slope.
 </pre></div></div>
 </div>
 </div>
@@ -1087,7 +1087,7 @@ Validation StErr of Est:        5032.718
 <span class="n">VIF</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
 <span class="n">VIF</span><span class="p">[</span><span class="s2">&quot;VIF Factor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">variance_inflation_factor</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
 <span class="n">VIF</span><span class="p">[</span><span class="s2">&quot;Features&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Intercept&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">VIF</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">VIF</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">calculate_vif_</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
     <span class="n">cols</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span>
@@ -1115,14 +1115,59 @@ Validation StErr of Est:        5032.718
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>VIF Factor</th>
+      <th>Features</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.001383</td>
+      <td>gender[T.Male]</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>31.503655</td>
+      <td>age</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>38.153090</td>
+      <td>experience</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5.594549</td>
+      <td>seniority</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-   VIF Factor        Features
-0    1.001383  gender[T.Male]
-1   31.503655             age
-2   38.153090      experience
-3    5.594549       seniority
-
 dropping &#39;experience&#39; at index: 2
 dropping &#39;age&#39; at index: 1
 Remaining variables:

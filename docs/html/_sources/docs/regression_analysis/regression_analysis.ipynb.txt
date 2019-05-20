@@ -668,7 +668,7 @@
      "output_type": "stream",
      "text": [
       "The F-value is 16.431 and p-value is 0.000. Reject null hypothesis.              \n",
-      "At least one variable in {'X3', 'Area', 'X2'} has nonzero slope.\n"
+      "At least one variable in {'Area', 'X2', 'X3'} has nonzero slope.\n"
      ]
     }
    ],
@@ -705,7 +705,7 @@
      "output_type": "stream",
      "text": [
       "The F-value is 8.590 and p-value is 0.001. Reject null hypothesis.              \n",
-      "At least one variable in {'X3', 'X2'} has nonzero slope.\n"
+      "At least one variable in {'X2', 'X3'} has nonzero slope.\n"
      ]
     }
    ],
@@ -991,15 +991,70 @@
    "metadata": {},
    "outputs": [
     {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>VIF Factor</th>\n",
+       "      <th>Features</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>1.001383</td>\n",
+       "      <td>gender[T.Male]</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>31.503655</td>\n",
+       "      <td>age</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>38.153090</td>\n",
+       "      <td>experience</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>5.594549</td>\n",
+       "      <td>seniority</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   VIF Factor        Features\n",
+       "0    1.001383  gender[T.Male]\n",
+       "1   31.503655             age\n",
+       "2   38.153090      experience\n",
+       "3    5.594549       seniority"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    },
+    {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "   VIF Factor        Features\n",
-      "0    1.001383  gender[T.Male]\n",
-      "1   31.503655             age\n",
-      "2   38.153090      experience\n",
-      "3    5.594549       seniority \n",
-      "\n",
       "dropping 'experience' at index: 2\n",
       "dropping 'age' at index: 1\n",
       "Remaining variables:\n",
@@ -1032,7 +1087,7 @@
     "VIF = pd.DataFrame()\n",
     "VIF[\"VIF Factor\"] = [variance_inflation_factor(X.values, i) for i in range(1,X.shape[1])]\n",
     "VIF[\"Features\"] = X.drop(columns=['Intercept']).columns\n",
-    "print(VIF,'\\n')\n",
+    "display(VIF)\n",
     "\n",
     "def calculate_vif_(X, thresh=5.0):\n",
     "    cols = X.columns\n",

@@ -159,8 +159,6 @@
    "source": [
     "# Advice to Managers\n",
     "\n",
-    "Generally, statistical inferences are of two types: *confidence interval estimation* and *hypothesis testing*.\n",
-    "\n",
     "**An old statistics joke**\n",
     "\n",
     "A physicist, an engineer, and a statistician are on a hunting trip. They are walking through the woods when they spot a deer in the clearing. \n",
