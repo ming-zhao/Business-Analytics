@@ -539,6 +539,32 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="section" id="Advice-to-Managers">
 <h1>Advice to Managers<a class="headerlink" href="#Advice-to-Managers" title="Permalink to this headline">¶</a></h1>
+<p>Generally, statistical inferences are of two types: <em>confidence interval estimation</em> and <em>hypothesis testing</em>.</p>
+<p><strong>An old statistics joke</strong></p>
+<p>A physicist, an engineer, and a statistician are on a hunting trip. They are walking through the woods when they spot a deer in the clearing.</p>
+<p>The physicist calculates the distance to the target, the velocity and drop of the bullet, adjusts, and fires, missing the deer by <strong>five feet to the left</strong>.</p>
+<p>The engineer looks frustrated. “You forgot to account for the wind. Give it here.” After licking a finger to determine the wind speed and direction, the engineer snatches the rifle and fires, missing the deer by <strong>five feet to the right</strong>.</p>
+<p>Suddenly, without firing a shot, the statistician cheers, “Woo hoo! We got it!”</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">hide_answer</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
+</div>
+<ul class="simple">
+<li><p>Being precisely perfect on average can mean being actually wrong each time. Regression can keep missing several feet to the left or several feet to the right. Even if it averages out to the correct answer, regression can mean never actually hitting the target.</p></li>
+<li><p>Unlike regression, machine learning predictions might be wrong on average, but when the predictions miss, they often don’t miss by much. Statisticians describe this as allowing some bias in exchange for reducing variance.</p></li>
+</ul>
 <div class="section" id="Correlation-vs-Causation">
 <h2>Correlation vs Causation<a class="headerlink" href="#Correlation-vs-Causation" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">

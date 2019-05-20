@@ -166,51 +166,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Generally, statistical inferences are of two types: *confidence interval estimation* and *hypothesis testing*.\n",
-    "\n",
-    "**An old statistics joke**\n",
-    "\n",
-    "A physicist, an engineer, and a statistician are on a hunting trip. They are walking through the woods when they spot a deer in the clearing. \n",
-    "\n",
-    "The physicist calculates the distance to the target, the velocity and drop of the bullet, adjusts, and fires, missing the deer by **five feet to the left**. \n",
-    "\n",
-    "The engineer looks frustrated. \"You forgot to account for the wind. Give it here.\" After licking a finger to determine the wind speed and direction, the engineer snatches the rifle and fires, missing the deer by **five feet to the right**. \n",
-    "\n",
-    "Suddenly, without firing a shot, the statistician cheers, \"Woo hoo! We got it!\""
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 2,
-   "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/html": [
-       "\n",
-       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
-       "    "
-      ],
-      "text/plain": [
-       "<IPython.core.display.HTML object>"
-      ]
-     },
-     "execution_count": 2,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
-   "source": [
-    "hide_answer()"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "- Being precisely perfect on average can mean being actually wrong each time. Regression can keep missing several feet to the left or several feet to the right. Even if it averages out to the correct answer, regression can mean never actually hitting the target. \n",
-    "\n",
-    "- Unlike regression, machine learning predictions might be wrong on average, but when the predictions miss, they often don't miss by much. Statisticians describe this as allowing some bias in exchange for reducing variance."
+    "Generally, statistical inferences are of two types: *confidence interval estimation* and *hypothesis testing*."
    ]
   },
   {
