@@ -12,6 +12,10 @@ from statsmodels.formula.api import ols
 import pmdarima as pm
 from ipywidgets import *
 from IPython.display import display, HTML
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+import warnings
+warnings.filterwarnings('ignore')
 
 dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/time_series/'
 
@@ -28,6 +32,72 @@ df_drink['year'] = [d.year for d in df_drink.index]
 df_drink['quarter'] = ['Q'+str(d.month//3) for d in df_drink.index]
 
 
+def sinusoidal(x):
+    return np.sin(2 * np.pi * x)
+
+def create_data(func, sample_size, std, domain=[0, 1]):
+    x = np.linspace(*domain, sample_size)
+    np.random.shuffle(x)
+    t = func(x) + np.random.normal(scale=std, size=x.shape)
+    return x, t
+
+def training_data(show):
+    np.random.seed(124)
+    x_train, t_train = create_data(sinusoidal, 12, 0.25)
+    plt.scatter(x_train, t_train, facecolor="none", edgecolor="b", s=50, label="training data")
+    if show:
+        plt.plot(x_test, t_test, c="g", label="$\sin(2\pi x)$")
+    plt.ylim(-1.5, 1.5)
+    plt.legend(loc=1)
+    plt.show()
+    
+def poly_fit(show):
+    np.random.seed(11223)
+    x_train, t_train = create_data(sinusoidal, 13, 0.25)
+
+    x_test = np.linspace(0, 1, 100)
+    t_test = sinusoidal(x_test)
+
+    fig = plt.figure(figsize=(15, 4))
+    for i, degree in enumerate([1, 3, 9]):
+        plt.subplot(1, 3, i+1)
+        poly = PolynomialFeatures(degree=degree, include_bias=True)
+        model = LinearRegression()
+        model.fit(poly.fit_transform(x_train[:,None]),t_train[:,None])
+        t = model.predict(poly.fit_transform(x_test[:,None]))
+        plt.scatter(x_train, t_train, facecolor="none", edgecolor="b", s=50, label="training data")
+        if show:
+            plt.plot(x_test, t_test, c="g", label="$\sin(2\pi x)$")
+        plt.plot(x_test, t, c="r", label="fitting")
+        plt.ylim(-1.5, 1.5)
+        plt.legend(loc=1)
+        plt.title("polynomial fitting with dregree {}".format(degree))
+    plt.show()
+    
+def poly_fit_holdout(show, train):
+    np.random.seed(11223)
+    x_train, t_train = create_data(sinusoidal, 13, 0.25)
+
+    x_test = np.linspace(0, 1, 100)
+    t_test = sinusoidal(x_test)
+
+    fig = plt.figure(figsize=(15, 4))
+    for i, degree in enumerate([1, 3, 9]):
+        plt.subplot(1, 3, i+1)
+        poly = PolynomialFeatures(degree=degree, include_bias=True)
+        model = LinearRegression()
+        model.fit(poly.fit_transform(x_train[:-3,None]),t_train[:-3,None])
+        t = model.predict(poly.fit_transform(x_test[:,None]))
+        if train:
+            plt.scatter(x_train[:-3], t_train[:-3], facecolor="none", edgecolor="b", s=50, label="training data")
+        plt.scatter(x_train[-3:], t_train[-3:], facecolor="none", edgecolor="orange", s=50, label="testing data")
+        if show:
+            plt.plot(x_test, t_test, c="g", label="$\sin(2\pi x)$")
+        plt.plot(x_test, t, c="r", label="fitting")
+        plt.ylim(-1.5, 1.5)
+        plt.legend(loc=1)
+        plt.title("polynomial fitting with dregree {}".format(degree))
+    plt.show()    
 
 noise = pd.Series(np.random.randn(200))
 def randomwalk(drift):
@@ -70,6 +140,26 @@ def boxplot(df, col_names, title=''):
     axes[0].set_title('Year-wise Box Plot for {}\n(The Trend)'.format(title), fontsize=14); 
     axes[1].set_title('Month-wise Box Plot for {}\n(The Seasonality)'.format(title), fontsize=14)
     plt.show()
+    
+def moving_average(span):
+    fig, ax = plt.subplots(1, 1, figsize = (12,6))
+    df_ma = df_house.sales.rolling(span).mean()
+    df_ma.plot(ax=ax, title='Moving Average ({})'.format(span), c='red')
+    df_house.sales.plot(ax=ax, c='teal')
+    ax.legend(labels=['Moving Average', 'Original'])
+    fig.canvas.draw()
+    plt.show()
+    
+def lowess_smooth(frac=0.05):
+    from statsmodels.nonparametric.smoothers_lowess import lowess
+    fig, ax = plt.subplots(1, 1, figsize = (12,6))
+    df_loess= pd.DataFrame(lowess(df_house.sales, np.arange(len(df_house.sales)), frac=frac)[:, 1], 
+                          index=df_house.index, columns=['value'])
+    df_loess['value'].plot(ax=ax, title='Loess Smoothed {}%'.format(frac*100), c='red')
+    df_house.sales.plot(ax=ax, c='teal')
+    ax.legend(labels=['Lowess Smooth', 'Original'])
+    fig.canvas.draw()
+    plt.show()
 
 def analysis(df, y, x, printlvl):
     result = ols(formula=y+'~'+'+'.join(x), data=df).fit()
@@ -109,7 +199,9 @@ def analysis(df, y, x, printlvl):
         if printlvl==2:
             fig.delaxes(axes[1])
             fig.delaxes(axes[2])
-    plt.show()    
+    plt.show()
+    if printlvl>2:
+        display(stats.kstest(result.resid, 'norm')) 
     return result
 
 def ses_forecast(forecasts, holdouts, level, optimized):
