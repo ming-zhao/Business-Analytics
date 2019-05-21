@@ -175,12 +175,8 @@
     }
    ],
    "source": [
-    "%run loadtsfuncs.py\n",
-    "from ipywidgets import *\n",
+    "%run ../../notebooks/loadtsfuncs.py\n",
     "%matplotlib inline\n",
-    "import warnings\n",
-    "warnings.filterwarnings('ignore')\n",
-    "\n",
     "toggle()"
    ]
   },
