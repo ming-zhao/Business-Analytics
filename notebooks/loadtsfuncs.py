@@ -99,9 +99,15 @@ def poly_fit_holdout(show, train):
         plt.title("polynomial fitting with dregree {}".format(degree))
     plt.show()    
 
-noise = pd.Series(np.random.randn(200))
-def randomwalk(drift):
-    return pd.Series(np.cumsum(np.random.uniform(-1,1,(200,1)) + drift*np.ones((200,1))))
+# noise = pd.Series(np.random.randn(200))
+# def randomwalk(drift):
+#     return pd.Series(np.cumsum(np.random.uniform(-1,1,(200,1)) + drift*np.ones((200,1))))
+
+def random_walk(drift):
+    np.random.seed(123)
+#     randomwalk(drift).plot(title='Random Walk')
+    pd.Series(np.cumsum(np.random.uniform(-1,1,(200,1)) + drift*np.ones((200,1)))).plot(title='Random Walk')
+    plt.show()
 
 def plot_time_series(df, col_name, freq='Month', title=''):
     ax = df.plot(y=col_name, figsize=(15,6), x_compat=True)
