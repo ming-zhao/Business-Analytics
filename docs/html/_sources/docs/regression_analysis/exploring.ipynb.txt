@@ -162,7 +162,7 @@
    "source": [
     "# Exploring Data\n",
     "\n",
-    "Data and information are so prevalent in our lives today, that it is known as the \"Information Age\". Being literate today means not just being able to read, but being able to understand the massive amount of information thrown at us every day – much of it on the computer. Statistics is the science of making effective use of numerical data. It deals with all aspects of data, including the collection, analysis and interpretation of data. However, it can be easily misinterpreted and manipulated. As Mark Twain said\n",
+    "Data and information are so prevalent in our lives today, that it is known as the \"Information Age\". Being literate today means not just being able to read, but being able to understand the massive amount of information thrown at us every day – much of it on the computer. Statistics is the science of making effective use of numerical data. It deals with all aspects of data, including the collection, analysis and interpretation of data. However, it can be easily misinterpreted and manipulated if we don't do it carefully. As Mark Twain said\n",
     "\n",
     "<center>\n",
     "\"There are lies, damned lies, and statistics.\"\n",
