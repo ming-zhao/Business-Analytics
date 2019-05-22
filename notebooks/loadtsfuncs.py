@@ -363,6 +363,24 @@ def differencing(df, col_name, title='', period=2):
     plt.title(title)
     plt.show()
     
+def house_drink_lag(house_lag, drink_lag):
+    fig, axes = plt.subplots(1, 2, figsize=(12,4), dpi=100)
+    lag_plot(df_house.sales, lag=house_lag, ax=axes[0], c='firebrick')
+    axes[0].set_title('House Sales Lag Plot')
+    lag_plot(df_drink.sales, lag=drink_lag, ax=axes[1], c='firebrick')
+    axes[1].set_title('Drink Sales Lag Plot')
+    plt.show()    
+    
+def noise_rndwalk_lag(noise_lag, rndwalk_lag):
+    noise = pd.Series(np.random.randn(200))
+    fig, axes = plt.subplots(1, 2, figsize=(12,4), dpi=100)
+    lag_plot(noise, lag=noise_lag, ax=axes[0], c='firebrick')
+    axes[0].set_title('White noise Lag Plot')
+    lag_plot(pd.Series(np.cumsum(np.random.uniform(-1,1,(200,1)) + 0.01*np.ones((200,1)))),
+             lag=rndwalk_lag, ax=axes[1], c='firebrick')
+    axes[1].set_title('Random Walk Lag Plot')
+    plt.show()    
+    
 def arima_(p, d, q):
     from statsmodels.tsa.arima_model import ARIMA
 
