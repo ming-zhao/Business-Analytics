@@ -1,0 +1,25 @@
+.. Business Analytics documentation master file, created by
+   sphinx-quickstart on Tue Apr  9 19:11:20 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+======================
+
+All notebooks at the `GitHub Repository <https://github.com/ming-zhao/Business-Analytics>`_.
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Business Analytics
+ 
+   docs/regression_analysis/regression.rst
+   docs/forecasting/forecasting.rst
+   docs/optimization_simulation/optimization_simulation.rst
+   docs/machine_learning/machine_learning.rst
+   
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

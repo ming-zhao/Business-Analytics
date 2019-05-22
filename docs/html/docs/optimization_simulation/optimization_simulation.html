@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Optimization and Simulation &mdash; Business Analytics 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Linear Programming" href="linear_programming.html" />
+    <link rel="prev" title="Case Study" href="../forecasting/cases.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Business Analytics
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Business Analytics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../regression_analysis/regression.html">Applied Regression Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../forecasting/forecasting.html">Introduction to Forecasting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Optimization and Simulation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_programming.html">Linear Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixed-integer_programming.html">Mixed-Integer Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nonlinear_programming.html">Nonlinear Programming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="monty_hall.html">Monty Hall Problem</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../machine_learning/machine_learning.html">Introduction to Machine Learning</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Business Analytics</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Optimization and Simulation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/docs/optimization_simulation/optimization_simulation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="optimization-and-simulation">
+<h1>Optimization and Simulation<a class="headerlink" href="#optimization-and-simulation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="linear_programming.html">Linear Programming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linear_programming.html#Modeling">Modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_programming.html#Graphical-solution">Graphical solution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_programming.html#Sensitivity-Analysis">Sensitivity Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_programming.html#SAS-On-Demand">SAS On Demand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linear_programming.html#SAS-proc-optmodel">SAS <code class="docutils literal notranslate"><span class="pre">proc</span> <span class="pre">optmodel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mixed-integer_programming.html">Mixed-Integer Programming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mixed-integer_programming.html#Branch-and-Bound-Algorithm">Branch and Bound Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mixed-integer_programming.html#Modeling-with-Binary-Variables">Modeling with Binary Variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nonlinear_programming.html">Nonlinear Programming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nonlinear_programming.html#Gradient-Decent-Algorithm">Gradient Decent Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nonlinear_programming.html#Genetic-Algorithms">Genetic Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nonlinear_programming.html#Traveling-salesman-problem">Traveling salesman problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nonlinear_programming.html#Summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="monty_hall.html">Monty Hall Problem</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="linear_programming.html" class="btn btn-neutral float-right" title="Linear Programming" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../forecasting/cases.html" class="btn btn-neutral float-left" title="Case Study" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ming Zhao
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
