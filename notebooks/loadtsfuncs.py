@@ -42,7 +42,11 @@ def create_data(func, sample_size, std, domain=[0, 1]):
     return x, t
 
 def training_data(show):
-    np.random.seed(124)
+    np.random.seed(11223)
+    x_train, t_train = create_data(sinusoidal, 13, 0.25)
+
+    x_test = np.linspace(0, 1, 100)
+    t_test = sinusoidal(x_test)
     x_train, t_train = create_data(sinusoidal, 12, 0.25)
     plt.scatter(x_train, t_train, facecolor="none", edgecolor="b", s=50, label="training data")
     if show:
