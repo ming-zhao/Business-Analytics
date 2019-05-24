@@ -47,7 +47,7 @@ def training_data(show):
 
     x_test = np.linspace(0, 1, 100)
     t_test = sinusoidal(x_test)
-    x_train, t_train = create_data(sinusoidal, 12, 0.25)
+
     plt.scatter(x_train, t_train, facecolor="none", edgecolor="b", s=50, label="training data")
     if show:
         plt.plot(x_test, t_test, c="g", label="$\sin(2\pi x)$")
