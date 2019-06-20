@@ -78,7 +78,7 @@ def poly_fit(show):
         plt.title("polynomial fitting with dregree {}".format(degree))
     plt.show()
     
-def poly_fit_holdout(show, train):
+def poly_fit_holdout(show, train, test):
     np.random.seed(11223)
     x_train, t_train = create_data(sinusoidal, 13, 0.25)
 
@@ -94,7 +94,8 @@ def poly_fit_holdout(show, train):
         t = model.predict(poly.fit_transform(x_test[:,None]))
         if train:
             plt.scatter(x_train[:-3], t_train[:-3], facecolor="none", edgecolor="b", s=50, label="training data")
-        plt.scatter(x_train[-3:], t_train[-3:], facecolor="none", edgecolor="orange", s=50, label="testing data")
+        if test:
+            plt.scatter(x_train[-3:], t_train[-3:], facecolor="none", edgecolor="orange", s=50, label="testing data")
         if show:
             plt.plot(x_test, t_test, c="g", label="$\sin(2\pi x)$")
         plt.plot(x_test, t, c="r", label="fitting")
