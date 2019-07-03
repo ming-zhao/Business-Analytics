@@ -171,6 +171,7 @@ def step(x_new, x_prev, precision, l_r):
     plt.show()
     
 def montyhall(sample_size):
+    np.random.seed(1234)
     prizes = [np.append(np.random.permutation(prizes),[1,1])\
               for prizes in np.tile(['goat', 'goat', 'car'], (sample_size,1))]
     prizes = [np.append(r,np.where(r=='car')[0]+1) for r in prizes]
@@ -194,3 +195,43 @@ def montyhall(sample_size):
     ax.spines['top'].set_visible(False)
     plt.show()
     display(df.head(10))
+    
+def successful_rate(num_candidates,
+                    num_reject,
+                    num_sim = 5000,
+                    printtable = False):
+    np.random.seed(1234)
+    candidates = [np.random.choice(range(100), num_candidates, replace=False) for i in range(num_sim)]
+    df = pd.DataFrame(candidates, columns=['person'+str(i+1) for i in range(num_candidates)])
+    df['best_score'] = df[df.columns[:num_candidates]].max(axis=1)
+    df['best'] = df[df.columns[:num_candidates]].idxmax(axis=1)
+
+    rate = dict.fromkeys(num_reject)
+    
+    for r in num_reject:
+        df['best_at_stop'] = df[df.columns[:r]].max(axis=1)
+        df_rest = df[df.columns[r:num_candidates]]
+        df['hired_score'] = np.where(df_rest.gt(df['best_at_stop'], axis=0).any(axis=1),
+                                     df_rest[df_rest.gt(df['best_at_stop'],
+                                                        axis=0)].stack(dropna=False).groupby(level=0).first(),
+                                     df[df.columns[num_candidates-1]]).astype('int64')
+        df['hired'] = np.where(df_rest.gt(df['best_at_stop'], axis=0).any(axis=1), 
+                               df_rest.gt(df['best_at_stop'], axis=0).idxmax(axis=1),
+                               'person'+str(num_candidates))
+        rate[r] = np.sum(df.best==df.hired)/num_sim*100
+        
+    if printtable == True:
+        print('The best candidate is hired {} times in {} trials with {} rejection'.format(np.sum(df.best==df.hired), 
+                                                                                           num_sim, 
+                                                                                           r))
+        display(df.head(10))
+    return rate
+
+def secretary(n):
+    rate = successful_rate(n, range(1,n))
+    lists = sorted(rate.items())
+    x, y = zip(*lists)
+    plt.plot(x, y)
+    plt.show()
+    print('optimal rejection is {} with {}% chance to hire the best candidate'.\
+          format(max(rate, key=rate.get), round(max(rate.values())),2))
