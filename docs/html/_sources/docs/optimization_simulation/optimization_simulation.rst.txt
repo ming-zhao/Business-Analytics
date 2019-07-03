@@ -13,3 +13,4 @@ Optimization and Simulation
    ./mixed-integer_programming.ipynb
    ./nonlinear_programming.ipynb
    ./monty_hall.ipynb
+   ./secretary.ipynb

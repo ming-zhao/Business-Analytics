@@ -622,7 +622,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "7430b0f5f0eb4698988b3450daa071c1", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "222d539c911a45c79a52410ec8230110", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -642,7 +642,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "f4095c5b5dbc4acb9eb23c6141d3c505", "version_major": 2, "version_minor": 0}</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "4bcd52733305472281f219f4560a2cc7", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 </div>
 <div class="section" id="Sensitivity-Analysis">
@@ -764,94 +764,109 @@ Hours used</p></td>
 </div>
 <div class="section" id="SAS-proc-optmodel">
 <h2>SAS <code class="docutils literal notranslate"><span class="pre">proc</span> <span class="pre">optmodel</span></code><a class="headerlink" href="#SAS-proc-optmodel" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-sas notranslate"><div class="highlight"><pre><span></span><span class="kr">proc optmodel;</span>
-<span class="c">/*read in data to set and arrays */</span>
-    <span class="k">set</span>&lt;str&gt; LABORS;
-    num cost{LABORS}, avail{LABORS};
-    read data ds_labor <span class="k">into</span> LABORS=[type] cost avail;
-
-    <span class="k">set</span>&lt;str&gt; MODELS;
-    num price{MODELS}, hours{MODELS,LABORS}, mdl_cost{MODELS}, max_sale{MODELS};
-    read data ds_model <span class="k">into</span> MODELS=[model] {l <span class="k">in</span> LABORS}&lt;hours[model,l]=col(l)&gt; mdl_cost=cost price max_sale;
-
-    num margin{i <span class="k">in</span> MODELS}
-        = price[i] - mdl_cost[i] - sum{l <span class="k">in</span> LABORS} cost[l] * hours[i,l];
-
-<span class="c">/* *** build model *** */</span>
-    var Produce{i <span class="k">in</span> MODELS} &gt;=<span class="m">0</span>;
-
-    con Maximal_Sales{i <span class="k">in</span> MODELS}:
-        Produce[i] &lt;= max_sale[i];
-
-    con Avail_Labor{l <span class="k">in</span> LABORS}:
-        sum{i <span class="k">in</span> MODELS} hours[i,l]*Produce[i] &lt;= avail[l];
-
-    max Profit=sum{i <span class="k">in</span> MODELS} margin[i] * Produce[i];
-
-    solve;
-
-    <span class="k">create</span> data solution <span class="k">from</span> [i]=MODELS Produce[i]<span class="kr">;</span>
-<span class="kr">quit;</span>
-</pre></div>
-</div>
-<p>Comparing to spreadsheet modeling, SAS modeling language allows user to separate modeling and solution reporting from data management.</p>
-<div class="highlight-sas notranslate"><div class="highlight"><pre><span></span><span class="kr">data </span>ds_labor;
+<p><strong>Datasets for a simple product mix problem</strong></p>
+<div class="highlight-sas notranslate"><div class="highlight"><pre><span></span><span class="kr">data </span>ds_assemble;
     <span class="k">input</span> type $ cost avail;
 <span class="k">    datalines;</span><span class="x"></span>
-<span class="x">    assemble 11 20000</span>
-<span class="x">    test1    19 5000</span>
-<span class="x">    test2    17 6000</span>
+<span class="x">assemble 11 10000</span>
+<span class="x">;</span>
+<span class="x">run;</span>
+
+<span class="x">data ds_test;</span>
+<span class="x">    input type $ cost avail;</span>
+<span class="x">    datalines;</span>
+<span class="x">test 15 3000</span>
+<span class="x">;</span>
+<span class="x">run;</span>
+
+<span class="x">data ds_model;</span>
+<span class="x">    input model $ assemble test cost price max_sale;</span>
+<span class="x">    datalines;</span>
+<span class="x">Basic 5 1 150 300 600</span>
+<span class="x">XP 6 2 225 450 1200</span>
+<span class="x">;</span>
+<span class="kr">run;</span>
+</pre></div>
+</div>
+<p><strong>Datasets for a larger product mix problem</strong></p>
+<div class="highlight-sas notranslate"><div class="highlight"><pre><span></span><span class="kr">data </span>ds_assemble;
+    <span class="k">input</span> type $ cost avail;
+<span class="k">    datalines;</span><span class="x"></span>
+<span class="x">assemble 11 20000</span>
+<span class="x">;</span>
+<span class="x">run;</span>
+
+<span class="x">data ds_test;</span>
+<span class="x">    input type $ cost avail;</span>
+<span class="x">    datalines;</span>
+<span class="x">test1 19 5000</span>
+<span class="x">test2 17 6000</span>
 <span class="x">;</span>
 <span class="x">run;</span>
 
 <span class="x">data ds_model;</span>
 <span class="x">    input model $ assemble test1 test2 cost price max_sale;</span>
 <span class="x">    datalines;</span>
-<span class="x">    Model1 4   1.5 2   150 350 1500</span>
-<span class="x">    Model2 5   2   2.5 225 450 1250</span>
-<span class="x">    Model3 5   2   2.5 225 460 1250</span>
-<span class="x">    Model4 5   2   2.5 225 470 1250</span>
-<span class="x">    Model5 5.5 2.5 3   250 500 1000</span>
-<span class="x">    Model6 5.5 2.5 3   250 525 1000</span>
-<span class="x">    Model7 5.5 2.5 3.5 250 530 1000</span>
-<span class="x">    Model8 6   3   3.5 300 600 800</span>
+<span class="x">Model1 4   1.5 2   150 350 1500</span>
+<span class="x">Model2 5   2   2.5 225 450 1250</span>
+<span class="x">Model3 5   2   2.5 225 460 1250</span>
+<span class="x">Model4 5   2   2.5 225 470 1250</span>
+<span class="x">Model5 5.5 2.5 3   250 500 1000</span>
+<span class="x">Model6 5.5 2.5 3   250 525 1000</span>
+<span class="x">Model7 5.5 2.5 3.5 250 530 1000</span>
+<span class="x">Model8 6   3   3.5 300 600 800</span>
 <span class="x">;</span>
 <span class="kr">run;</span>
 </pre></div>
 </div>
-<div class="highlight-sas notranslate"><div class="highlight"><pre><span></span><span class="kr">proc optmodel;</span>
-<span class="c">/*read in data to set and arrays */</span>
-    <span class="k">set</span>&lt;str&gt; LABORS;
-    num cost{LABORS}, avail{LABORS};
-    read data ds_labor <span class="k">into</span> LABORS=[type] cost avail;
+<p>Comparing to spreadsheet modeling, SAS modeling language allows user to separate modeling and solution reporting from data management.</p>
+<div class="highlight-sas notranslate"><div class="highlight"><pre><span></span>proc optmodel;
+/*read in data to set and arrays */
+    set&lt;str&gt; ASSEMBLE_LINES;
+    num assemble_cost{ASSEMBLE_LINES}, assemble_avail{ASSEMBLE_LINES};
+    read data ds_assemble into ASSEMBLE_LINES=[type] assemble_cost=cost assemble_avail=avail;
 
-    <span class="k">set</span> TESTS = {l <span class="k">in</span> LABORS: find(l,<span class="s">&#39;test&#39;</span>)&gt;<span class="m">0</span>};
+    set&lt;str&gt; TEST_LINES;
+    num test_cost{TEST_LINES}, test_avail{TEST_LINES};
+    read data ds_test into TEST_LINES=[type] test_cost=cost test_avail=avail;
 
-    <span class="k">set</span>&lt;str&gt; MODELS;
-    num price{MODELS}, hours{MODELS, LABORS}, mdl_cost{MODELS}, max_sale{MODELS};
-    read data ds_model <span class="k">into</span> MODELS=[model] {l <span class="k">in</span> LABORS}&lt;hours[model,l]=col(l)&gt; mdl_cost=cost price max_sale;
+    set&lt;str&gt; LABORS = ASSEMBLE_LINES union TEST_LINES;
 
-    num margin{i <span class="k">in</span> MODELS, t <span class="k">in</span> TESTS}
-        = price[i] - mdl_cost[i] - sum{l <span class="k">in</span> LABORS: l=<span class="s">&#39;assemble&#39;</span> <span class="k">or</span> l=t} cost[l] * hours[i,l];
+    set&lt;str&gt; MODELS;
+    num price{MODELS}, hours{MODELS,LABORS} , cost{MODELS}, max_sale{MODELS};
+    read data ds_model into MODELS=[model] {l in LABORS}&lt;hours[model,l]=col(l)&gt; cost price max_sale;
 
-<span class="c">/* *** build model *** */</span>
-    var Produce{i <span class="k">in</span> MODELS, t <span class="k">in</span> TESTS} &gt;=<span class="m">0</span>;
+    num margin{m in MODELS, t in TEST_LINES}
+        = price[m] - cost[m] - sum{a in ASSEMBLE_LINES} assemble_cost[a]*hours[m,a] - test_cost[t]*hours[m,t];
 
-    con Maximal_Sales{i <span class="k">in</span> MODELS}:
-        sum{t <span class="k">in</span> TESTS} Produce[i,t] &lt;= max_sale[i];
+    put margin[*];
 
-    con Avail_Assemble{l <span class="k">in</span> LABORS: l=<span class="s">&#39;assemble&#39;</span>}:
-        sum{i <span class="k">in</span> MODELS} (hours[i,l]*sum{t <span class="k">in</span> TESTS} Produce[i,t]) &lt;= avail[l];
+/* *********** * * * * * * *********** */
+/* *********** build model *********** */
+/* *********** * * * * * * *********** */
 
-    con Avail_Test{l <span class="k">in</span> LABORS: find(l,<span class="s">&#39;test&#39;</span>)&gt;<span class="m">0</span>}:
-            sum{i <span class="k">in</span> MODELS} hours[i,l]*Produce[i,l] &lt;= avail[l];
+    var Produce{m in MODELS, t in TEST_LINES} &gt;=0;
+        /* production for each model in each testing line */
 
-    max Profit=sum{i <span class="k">in</span> MODELS, t <span class="k">in</span> TESTS} margin[i,t] * Produce[i,t];
+    impvar Production_of_Model{m in MODELS} = sum{t in TEST_LINES} Produce[m,t];
+        /* implied variable: production for each model */
+
+    con Maximal_Sales{m in MODELS}:
+        Production_of_Model[m] &lt;= max_sale[m];
+        /* total production for each model in all testing lines */
+
+    con Avail_Assemble{a in ASSEMBLE_LINES}:
+        sum{m in MODELS} hours[m,a]*Production_of_Model[m] &lt;= assemble_avail[a];
+
+    con Avail_Test{t in TEST_LINES}:
+        sum{m in MODELS} hours[m,t]*Produce[m,t] &lt;= test_avail[t];
+
+    max Profit=sum{m in MODELS, t in TEST_LINES} margin[m,t] * Produce[m,t];
 
     solve;
 
-    <span class="k">create</span> data solution <span class="k">from</span> [t]=TESTS {m <span class="k">in</span> MODELS}&lt;col(m)=Produce[m,t]&gt;<span class="kr">;</span>
-<span class="kr">quit;</span>
+    create data solution from [t]=TEST_LINES {m in MODELS}&lt;col(m)=Produce[m,t]&gt;;
+quit;
 </pre></div>
 </div>
 <script type="application/vnd.jupyter.widget-state+json">

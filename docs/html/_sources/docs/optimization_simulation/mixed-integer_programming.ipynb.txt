@@ -587,6 +587,73 @@
    "source": [
     "## Modeling with Binary Variables"
    ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Facility Location\n",
+    "\n",
+    "Consider the classic facility location problem. Given \n",
+    "\n",
+    "- a set $L$ of customer locations and \n",
+    "\n",
+    "- a set $F$ of candidate facility sites\n",
+    "\n",
+    "you must decide on which sites to build facilities and assign coverage of customer demand to these sites so as to minimize cost. \n",
+    "\n",
+    "All customer demand $d_ i$ must be satisfied, and each facility has a demand capacity limit $C$. \n",
+    "\n",
+    "The total cost is the sum of the distances $c_{ij}$ between facility $j$ and its assigned customer $i$, plus a fixed charge $f_ j$ for building a facility at site $j$. \n",
+    "\n",
+    "- Let $y_ j = 1$ represent choosing site $j$ to build a facility, and 0 otherwise. \n",
+    "\n",
+    "- Also, let $x_{ij} = 1$ represent the assignment of customer i to facility j, and 0 otherwise.\n",
+    "\n",
+    "This model can be formulated as the following integer linear program:\n",
+    "\n",
+    "Constraint (assign_def) ensures that each customer is assigned to exactly one site. Constraint (link) forces a facility to be built if any customer has been assigned to that facility. Finally, constraint (capacity) enforces the capacity limit at each site.\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\\begin{align}\n",
+    "\\min & \\quad \\sum_{i \\in L} \\sum_{j \\in F} c_{ij} x_{ij} + \\sum_{j \\in F} f_j y_j \\\\\n",
+    "\\text{s.t.} & \\quad \\sum_{j \\in F} x_{ij} = 1 && \\forall i \\in L \\\\\n",
+    "& \\quad x_{ij} \\leq y_j && \\forall i \\in L, j \\in F \\\\\n",
+    "& \\quad \\sum_{i \\in L} d_i x_{ij} \\le C y_j && \\forall j \\in F \\\\\n",
+    "& \\quad x_{ij} \\in \\{0,1\\}, y_j \\in \\{0,1\\} && \\forall i \\in L, j \\in F\n",
+    "\\end{align}"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "```sas\n",
+    " NOTE: The Branch and Cut algorithm is using up to 2 threads.\n",
+    "           Node   Active   Sols    BestInteger      BestBound      Gap    Time\n",
+    "              0        1      5  13138.9827130              0    13139       0\n",
+    "              0        1      5  13138.9827130   9946.2514269   32.10%       0\n",
+    "              0        1      5  13138.9827130   9964.0867656   31.86%       0\n",
+    "              0        1      5  13138.9827130   9972.4224200   31.75%       0\n",
+    "              0        1      7  11165.8124056   9975.2866538   11.93%       0\n",
+    "              0        1      7  11165.8124056   9977.8057106   11.91%       0\n",
+    "              0        1      7  11165.8124056   9978.9372347   11.89%       0\n",
+    "              0        1      7  11165.8124056   9980.8568737   11.87%       0\n",
+    "              0        1      9  10974.7644641   9982.4953533    9.94%       0\n",
+    " NOTE: The MILP solver added 17 cuts with 492 cut coefficients at the root.\n",
+    "            100       37     10  10961.8123535  10380.2158229    5.60%       0\n",
+    "            121       44     11  10954.3760034  10938.0514190    0.15%       0\n",
+    "            131       48     12  10951.0805543  10941.1165997    0.09%       0\n",
+    "            139       49     13  10948.4603465  10941.1165997    0.07%       0\n",
+    "            187        8     13  10948.4603465  10947.3813808    0.01%       0\n",
+    " NOTE: Optimal within relative gap.\n",
+    " NOTE: Objective = 10948.460347.\n",
+    "```"
+   ]
   }
  ],
  "metadata": {
