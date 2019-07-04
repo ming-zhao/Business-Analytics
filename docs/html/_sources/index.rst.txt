@@ -12,8 +12,8 @@ All notebooks at the `GitHub Repository <https://github.com/ming-zhao/Business-A
    :caption: Business Analytics
  
    docs/regression_analysis/regression.rst
-   docs/forecasting/forecasting.rst
-   docs/optimization_simulation/optimization_simulation.rst
+   docs/time_series/time_series.rst
+   docs/optimization/optimization.rst
    docs/machine_learning/machine_learning.rst
    
 
