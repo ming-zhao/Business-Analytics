@@ -1,0 +1,1371 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Naive Bayes &mdash; Business Analytics 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.14.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="A First Look on Deep Learning" href="example.html" />
+    <link rel="prev" title="Logistic Regression" href="logistic_regression.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Business Analytics
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Business Analytics</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../regression_analysis/regression.html">Applied Regression Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../time_series/time_series.html">Time Series Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../optimization/optimization.html">Optimization</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="machine_learning.html">Introduction to Machine Learning</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="logistic_regression.html">Logistic Regression</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Naive Bayes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Bayesian-Classification">Bayesian Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Bernoulli-Naive-Bayes">Bernoulli Naive Bayes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Multinomial-Naive-Bayes">Multinomial Naive Bayes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Example:-Classifying-Text">Example: Classifying Text</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="example.html">A First Look on Deep Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="history.html">A Short History of AI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="status.html">Current Status of Deep Learning</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Business Analytics</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="machine_learning.html">Introduction to Machine Learning</a> &raquo;</li>
+        
+      <li>Naive Bayes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/docs/machine_learning/naive_bayes.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">run</span> loadmlfuncs.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="Naive-Bayes">
+<h1>Naive Bayes<a class="headerlink" href="#Naive-Bayes" title="Permalink to this headline">¶</a></h1>
+<p>Naive Bayes models are a group of extremely fast and simple classification algorithms that are often suitable for very high-dimensional datasets. Because they are so fast and have so few tunable parameters, they end up being very useful as a quick-and-dirty baseline for a classification problem. This section will focus on an intuitive explanation of how naive Bayes classifiers work, followed by a couple examples of them in action on some datasets.</p>
+<div class="section" id="Bayesian-Classification">
+<h2>Bayesian Classification<a class="headerlink" href="#Bayesian-Classification" title="Permalink to this headline">¶</a></h2>
+<p>Naive Bayes classifiers are built on Bayesian classification methods. These rely on Bayes’s theorem, which is an equation describing the relationship of conditional probabilities of statistical quantities. In Bayesian classification, we’re interested in finding the probability of a label given some observed features, which we can write as <span class="math notranslate nohighlight">\(P(L~|~{\rm features})\)</span>. Bayes’s theorem tells us how to express this in terms of quantities we can compute more directly:</p>
+<div class="math notranslate nohighlight">
+\[P(L~|~{\rm features}) = \frac{P({\rm features}~|~L)P(L)}{P({\rm features})}\]</div>
+<p>If we are trying to decide between two labels—let’s call them <span class="math notranslate nohighlight">\(L_1\)</span> and <span class="math notranslate nohighlight">\(L_2\)</span>—then one way to make this decision is to compute the ratio of the posterior probabilities for each label:</p>
+<div class="math notranslate nohighlight">
+\[\frac{P(L_1~|~{\rm features})}{P(L_2~|~{\rm features})} = \frac{P({\rm features}~|~L_1)}{P({\rm features}~|~L_2)}\frac{P(L_1)}{P(L_2)}\]</div>
+<p>All we need now is some model by which we can compute <span class="math notranslate nohighlight">\(P({\rm features}~|~L_i)\)</span> for each label. Such a model is called a <em>generative model</em> because it specifies the hypothetical random process that generates the data. Specifying this generative model for each label is the main piece of the training of such a Bayesian classifier. The general version of such a training step is a very difficult task, but we can make it simpler through the use of some simplifying assumptions about the form of
+this model.</p>
+<p>This is where the “naive” in “naive Bayes” comes in: if we make very naive assumptions about the generative model for each label, we can find a rough approximation of the generative model for each class, and then proceed with the Bayesian classification. Different types of naive Bayes classifiers rest on different naive assumptions about the data, and we will examine a few of these in the following sections.</p>
+</div>
+<div class="section" id="Bernoulli-Naive-Bayes">
+<h2>Bernoulli Naive Bayes<a class="headerlink" href="#Bernoulli-Naive-Bayes" title="Permalink to this headline">¶</a></h2>
+<p>There are 856 people who have either tried or not tried a company’s new frozen lasagna product. The data includes the categorical dependent variable <code class="docutils literal notranslate"><span class="pre">tried</span></code> and several other explanatory variables.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_lasagna</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dataurl</span><span class="o">+</span><span class="s1">&#39;lasagna.csv&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="s1">&#39;person&#39;</span><span class="p">)</span>
+<span class="n">df_lasagna</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>weight</th>
+      <th>income</th>
+      <th>car_value</th>
+      <th>debt</th>
+      <th>mall_trips</th>
+      <th>gender</th>
+      <th>alone</th>
+      <th>dwell</th>
+      <th>pay_type</th>
+      <th>nbhd</th>
+      <th>tried</th>
+    </tr>
+    <tr>
+      <th>person</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>48</td>
+      <td>175</td>
+      <td>65500</td>
+      <td>2190</td>
+      <td>3510</td>
+      <td>7</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Home</td>
+      <td>Hourly</td>
+      <td>East</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>33</td>
+      <td>202</td>
+      <td>29100</td>
+      <td>2110</td>
+      <td>740</td>
+      <td>4</td>
+      <td>Female</td>
+      <td>No</td>
+      <td>Condo</td>
+      <td>Hourly</td>
+      <td>East</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>51</td>
+      <td>188</td>
+      <td>32200</td>
+      <td>5140</td>
+      <td>910</td>
+      <td>1</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Condo</td>
+      <td>Salaried</td>
+      <td>East</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>56</td>
+      <td>244</td>
+      <td>19000</td>
+      <td>700</td>
+      <td>1620</td>
+      <td>3</td>
+      <td>Female</td>
+      <td>No</td>
+      <td>Home</td>
+      <td>Hourly</td>
+      <td>West</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>28</td>
+      <td>218</td>
+      <td>81400</td>
+      <td>26620</td>
+      <td>600</td>
+      <td>3</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Apt</td>
+      <td>Salaried</td>
+      <td>West</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>For the Naive Bayes method, numeric predictors must be binned, i.e., made categorical. For this example, each numeric variable has been binned by its quartiles, shown below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_quantile</span> <span class="o">=</span> <span class="n">df_lasagna</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">75</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">df_quantile</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>weight</th>
+      <th>income</th>
+      <th>car_value</th>
+      <th>debt</th>
+      <th>mall_trips</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.00</th>
+      <td>22.0</td>
+      <td>142.0</td>
+      <td>2600.0</td>
+      <td>130.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>0.25</th>
+      <td>31.0</td>
+      <td>174.0</td>
+      <td>24475.0</td>
+      <td>2110.0</td>
+      <td>560.0</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>0.50</th>
+      <td>37.5</td>
+      <td>190.0</td>
+      <td>39950.0</td>
+      <td>4175.0</td>
+      <td>1020.0</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>0.75</th>
+      <td>46.0</td>
+      <td>210.0</td>
+      <td>58225.0</td>
+      <td>7717.5</td>
+      <td>1972.5</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>1.00</th>
+      <td>64.0</td>
+      <td>258.0</td>
+      <td>190500.0</td>
+      <td>33870.0</td>
+      <td>8960.0</td>
+      <td>17.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_lasagna</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">df_lasagna</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtypes</span> <span class="o">==</span> <span class="s1">&#39;int64&#39;</span><span class="p">:</span>
+        <span class="n">df_lasagna</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df_lasagna</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="n">df_quantile</span><span class="p">[</span><span class="n">col</span><span class="p">])</span><span class="o">-</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df_lasagna</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>weight</th>
+      <th>income</th>
+      <th>car_value</th>
+      <th>debt</th>
+      <th>mall_trips</th>
+      <th>gender</th>
+      <th>alone</th>
+      <th>dwell</th>
+      <th>pay_type</th>
+      <th>nbhd</th>
+      <th>tried</th>
+    </tr>
+    <tr>
+      <th>person</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Home</td>
+      <td>Hourly</td>
+      <td>East</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Female</td>
+      <td>No</td>
+      <td>Condo</td>
+      <td>Hourly</td>
+      <td>East</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Condo</td>
+      <td>Salaried</td>
+      <td>East</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>Female</td>
+      <td>No</td>
+      <td>Home</td>
+      <td>Hourly</td>
+      <td>West</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Apt</td>
+      <td>Salaried</td>
+      <td>West</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>We partition data into training and testing datasets.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_lasagna_train</span> <span class="o">=</span> <span class="n">df_lasagna</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">700</span><span class="p">]</span>
+<span class="n">df_lasagna_test</span> <span class="o">=</span> <span class="n">df_lasagna</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">700</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<p>We fit a frequency count based on the training data, which provides the probability of a feature given an individual’s class. For example,</p>
+<ul class="simple">
+<li><p>(‘No’, ‘Home’): 0.468 shows that, if a customer did not try the lasagna product, the probability of his/her dwell type being Home is 0.468, i.e.,</p></li>
+</ul>
+<p><span class="math">\begin{align}
+p(\text{Home}|\text{No}) = 0.468 \nonumber
+\end{align}</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">frequency_count</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">normalize</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">df_lasagna_train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;tried&#39;</span><span class="p">)[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">))</span>
+
+<span class="n">interact</span><span class="p">(</span><span class="n">frequency_count</span><span class="p">,</span>
+         <span class="n">col</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Dropdown</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">df_lasagna_train</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;dwell&#39;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;column:&#39;</span><span class="p">,</span><span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+         <span class="n">normalize</span><span class="o">=</span><span class="n">widgets</span><span class="o">.</span><span class="n">Checkbox</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;normalize&#39;</span><span class="p">,</span><span class="n">disabled</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fcf89b8c51994d8dbba43ed62f38d6a7", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<p>The we calculate <span class="math notranslate nohighlight">\(p(\text{feature}|\text{No})\)</span> and <span class="math notranslate nohighlight">\(p(\text{feature}|\text{Yes})\)</span> for each customer. For example, for the first person</p>
+<p><span class="math">\begin{align}
+p(\text{features of person 1}|\text{No}) = p(\text{age}=3|\text{No}) \times p(\text{weight}=1|\text{No}) \times \cdots \times p(\text{nbhd $=$ East}|\text{No}) \nonumber
+\end{align}</span></p>
+<p>and</p>
+<p><span class="math">\begin{align}
+p(\text{features of person 1}|\text{Yes}) = p(\text{age}=3|\text{Yes}) \times p(\text{weight}=1|\text{Yes}) \times \cdots \times p(\text{nbhd $=$ East}|\text{Yes}) \nonumber
+\end{align}</span></p>
+<p>Here we assume all features are independent so that simple multiplication can be applied. The probability <span class="math notranslate nohighlight">\(p(\text{features of person 1}|\text{No})\)</span> can be interpret as</p>
+<ul class="simple">
+<li><p>if a person did not want to try the lasagna product, s/he has probability <span class="math notranslate nohighlight">\(p(\text{features of person 1}|\text{No})\)</span> being person 1.</p></li>
+</ul>
+<p>Therefore, our prediction is as simple as follows:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(p(\text{features of person 1}|\text{No}) &gt; p(\text{features of person 1}|\text{Yes})\)</span> then we prediction the person will <strong>not</strong> try the production</p></li>
+<li><p>Otherwise, we prediction the person will try the production</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;No&#39;</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">([</span><span class="n">frequency_count</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="kc">True</span><span class="p">)[(</span><span class="s1">&#39;No&#39;</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">])]</span>
+                   <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;tried&#39;</span><span class="p">,</span><span class="s1">&#39;prediction&#39;</span><span class="p">]])</span> <span class="o">&gt;</span> \
+           <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">([</span><span class="n">frequency_count</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="kc">True</span><span class="p">)[(</span><span class="s1">&#39;Yes&#39;</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">])]</span>
+                   <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;tried&#39;</span><span class="p">,</span><span class="s1">&#39;prediction&#39;</span><span class="p">]])</span>\
+        <span class="k">else</span> <span class="s1">&#39;Yes&#39;</span>
+                   <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+
+<span class="n">predict</span><span class="p">(</span><span class="n">df_lasagna_train</span><span class="p">)</span>
+<span class="n">df_lasagna_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>weight</th>
+      <th>income</th>
+      <th>car_value</th>
+      <th>debt</th>
+      <th>mall_trips</th>
+      <th>gender</th>
+      <th>alone</th>
+      <th>dwell</th>
+      <th>pay_type</th>
+      <th>nbhd</th>
+      <th>tried</th>
+      <th>prediction</th>
+    </tr>
+    <tr>
+      <th>person</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>3</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Home</td>
+      <td>Hourly</td>
+      <td>East</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>Female</td>
+      <td>No</td>
+      <td>Condo</td>
+      <td>Hourly</td>
+      <td>East</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Condo</td>
+      <td>Salaried</td>
+      <td>East</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>Female</td>
+      <td>No</td>
+      <td>Home</td>
+      <td>Hourly</td>
+      <td>West</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0</td>
+      <td>3</td>
+      <td>3</td>
+      <td>3</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Male</td>
+      <td>No</td>
+      <td>Apt</td>
+      <td>Salaried</td>
+      <td>West</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The classification matrix of training data is</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_lasagna_train</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;prediction&#39;</span><span class="p">,</span><span class="s1">&#39;tried&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>tried</th>
+      <th>No</th>
+      <th>Yes</th>
+    </tr>
+    <tr>
+      <th>prediction</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>No</th>
+      <td>250</td>
+      <td>81</td>
+    </tr>
+    <tr>
+      <th>Yes</th>
+      <td>49</td>
+      <td>320</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The frequency count can be used in testing data and the classification matrix is</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">predict</span><span class="p">(</span><span class="n">df_lasagna_test</span><span class="p">)</span>
+<span class="n">df_lasagna_test</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;prediction&#39;</span><span class="p">,</span><span class="s1">&#39;tried&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>tried</th>
+      <th>No</th>
+      <th>Yes</th>
+    </tr>
+    <tr>
+      <th>prediction</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>No</th>
+      <td>56</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>Yes</th>
+      <td>6</td>
+      <td>73</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Multinomial-Naive-Bayes">
+<h2>Multinomial Naive Bayes<a class="headerlink" href="#Multinomial-Naive-Bayes" title="Permalink to this headline">¶</a></h2>
+<p>The Gaussian assumption just described is by no means the only simple assumption that could be used to specify the generative distribution for each label. Another useful example is multinomial naive Bayes, where the features are assumed to be generated from a simple multinomial distribution. The multinomial distribution describes the probability of observing counts among a number of categories, and thus multinomial naive Bayes is most appropriate for features that represent counts or count
+rates.</p>
+<p>The idea is precisely the same as before, except that instead of modeling the data distribution with the best-fit Gaussian, we model the data distribuiton with a best-fit multinomial distribution.</p>
+<div class="section" id="Example:-Classifying-Text">
+<h3>Example: Classifying Text<a class="headerlink" href="#Example:-Classifying-Text" title="Permalink to this headline">¶</a></h3>
+<p>One place where multinomial naive Bayes is often used is in text classification, where the features are related to word counts or frequencies within the documents to be classified.</p>
+<p>here we will use the sparse word count features from the 20 Newsgroups corpus to show how we might classify these short documents into categories.</p>
+<p>Let’s download the data and take a look at the target names:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="k">import</span> <span class="n">fetch_20newsgroups</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">target_names</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Downloading 20news dataset. This may take a few minutes.
+Downloading dataset from https://ndownloader.figshare.com/files/5975967 (14 MB)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>[&#39;alt.atheism&#39;,
+ &#39;comp.graphics&#39;,
+ &#39;comp.os.ms-windows.misc&#39;,
+ &#39;comp.sys.ibm.pc.hardware&#39;,
+ &#39;comp.sys.mac.hardware&#39;,
+ &#39;comp.windows.x&#39;,
+ &#39;misc.forsale&#39;,
+ &#39;rec.autos&#39;,
+ &#39;rec.motorcycles&#39;,
+ &#39;rec.sport.baseball&#39;,
+ &#39;rec.sport.hockey&#39;,
+ &#39;sci.crypt&#39;,
+ &#39;sci.electronics&#39;,
+ &#39;sci.med&#39;,
+ &#39;sci.space&#39;,
+ &#39;soc.religion.christian&#39;,
+ &#39;talk.politics.guns&#39;,
+ &#39;talk.politics.mideast&#39;,
+ &#39;talk.politics.misc&#39;,
+ &#39;talk.religion.misc&#39;]
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;talk.religion.misc&#39;</span><span class="p">,</span> <span class="s1">&#39;soc.religion.christian&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;sci.space&#39;</span><span class="p">,</span> <span class="s1">&#39;comp.graphics&#39;</span><span class="p">]</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="k">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="k">import</span> <span class="n">MultinomialNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">make_pipeline</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">TfidfVectorizer</span><span class="p">(),</span> <span class="n">MultinomialNB</span><span class="p">())</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">train</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">confusion_matrix</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">square</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">xticklabels</span><span class="o">=</span><span class="n">train</span><span class="o">.</span><span class="n">target_names</span><span class="p">,</span> <span class="n">yticklabels</span><span class="o">=</span><span class="n">train</span><span class="o">.</span><span class="n">target_names</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;true label&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;predicted label&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/docs_machine_learning_naive_bayes_25_0.png" src="../../_images/docs_machine_learning_naive_bayes_25_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">predict_category</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="n">train</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">([</span><span class="n">s</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">train</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">pred</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">predict_category</span><span class="p">(</span><span class="s1">&#39;discussing islam vs atheism&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;soc.religion.christian&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">predict_category</span><span class="p">(</span><span class="s1">&#39;determining the screen resolution&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;comp.graphics&#39;
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">predict_category</span><span class="p">(</span><span class="s1">&#39;that movie was a bomb&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>&#39;sci.space&#39;
+</pre></div>
+</div>
+</div>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state": {"030c487009d1410d8ced064dd107565d": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_3b8552f9a2824a95bdb5ea78b829ee67", "outputs": [{"data": {"text/plain": "{('No', 'Home'): 0.4682274247491639,\n ('No', 'Condo'): 0.3010033444816054,\n ('No', 'Apt'): 0.23076923076923078,\n ('Yes', 'Home'): 0.4463840399002494,\n ('Yes', 'Apt'): 0.2817955112219451,\n ('Yes', 'Condo'): 0.2718204488778055}"}, "metadata": {}, "output_type": "display_data"}]}}, "088e80d27aa94dc5845bae94e1ba505c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DropdownModel", "state": {"_options_labels": ["age", "weight", "income", "car_value", "debt", "mall_trips", "gender", "alone", "dwell", "pay_type", "nbhd", "tried", "prediction"], "description": "Column:", "index": 10, "layout": "IPY_MODEL_c1fdc4bd8e414f5eba6b721dd735eaec", "style": "IPY_MODEL_78ec677b4ffd43999ab44d7173b2b98d"}}, "088eef9a400947bb8f1bd62367c8414a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "09372641f0eb4e51a972acf2a2edd5ab": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DropdownModel", "state": {"_options_labels": ["age", "weight", "income", "car_value", "debt", "mall_trips", "gender", "alone", "dwell", "pay_type", "nbhd", "tried", "prediction"], "description": "column:", "index": 8, "layout": "IPY_MODEL_eb8e6a4e902944fb8ae7a8a8be64d533", "style": "IPY_MODEL_c895cab4be9c4e2d9b4bd8677f48eb8f"}}, "0e5e5d3db5a94ca5be9f31b97541103e": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_5d70dac643644120a45f9e9b7d1c65e1", "outputs": [{"data": {"text/plain": "{('No', 0): 114,\n ('No', 1): 84,\n ('No', 2): 60,\n ('No', 3): 41,\n ('Yes', 3): 133,\n ('Yes', 2): 118,\n ('Yes', 1): 96,\n ('Yes', 0): 54}"}, "metadata": {}, "output_type": "display_data"}]}}, "11f30440d26e49aa897d4ca9450b4b1c": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "144c023c6db448e4900de9b761cf3d72": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "270809a559ab4649ab560cb5df432a5a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "2996961fca8f4a8ab512f184a1a4aa27": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "VBoxModel", "state": {"_dom_classes": ["widget-interact"], "children": ["IPY_MODEL_3efeb61257ac496282bd1937d7bb8967", "IPY_MODEL_642d0764a4894e73900e4c3ab936de3d"], "layout": "IPY_MODEL_ff11d81ca5094e0a9e39eaee11232930"}}, "2a72908e9f86469381708572f49031f3": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "2d78545b9cac485eb3f5dd443add87f8": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "39b23b35de654b61b0e337f7143f1994": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "CheckboxModel", "state": {"description": "normalize", "disabled": false, "layout": "IPY_MODEL_b3c811a701d54294bc88364048ce1c35", "style": "IPY_MODEL_88f062c326c64eaea7096b150784fc98", "value": true}}, "3b8552f9a2824a95bdb5ea78b829ee67": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "3efeb61257ac496282bd1937d7bb8967": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DropdownModel", "state": {"_options_labels": ["age", "weight", "income", "car_value", "debt", "mall_trips", "gender", "alone", "dwell", "pay_type", "nbhd", "tried", "prediction"], "description": "Column:", "index": 0, "layout": "IPY_MODEL_cd750e09a5164090945128e2ca4a7dc5", "style": "IPY_MODEL_eb27b3528d114714947314686216cd37"}}, "4a6b7e7cb6454ac8b7c9e2d7f91a5822": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "5a74a4e44b3e4dc7aefdc49c2353bab8": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "VBoxModel", "state": {"_dom_classes": ["widget-interact"], "children": ["IPY_MODEL_09372641f0eb4e51a972acf2a2edd5ab", "IPY_MODEL_b21f64157ea84696b46fb2d5b8b7194a", "IPY_MODEL_e8e75fbeecf64b1ea52b5042160f7512"], "layout": "IPY_MODEL_f6055c98e8d94d229f27f3b524db9478"}}, "5d70dac643644120a45f9e9b7d1c65e1": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "5ec1d2f33c8a4188b69629a028b84ff1": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "VBoxModel", "state": {"_dom_classes": ["widget-interact"], "children": ["IPY_MODEL_9431d8c583cf42308c2aabf9bc75dd6b", "IPY_MODEL_67d6b88db7f24e16965191027c13da78"], "layout": "IPY_MODEL_72f1ecfe3218403792b0a794fa6c056a"}}, "642d0764a4894e73900e4c3ab936de3d": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_6e618252456c4b19b326e7ce3c8c113b", "outputs": [{"ename": "TypeError", "evalue": "'dict' object is not callable", "output_type": "error", "traceback": ["\u001b[1;31m---------------------------------------------------------------------------\u001b[0m", "\u001b[1;31mTypeError\u001b[0m                                 Traceback (most recent call last)", "\u001b[1;32m~\\AppData\\Local\\Continuum\\anaconda3\\envs\\bzan\\lib\\site-packages\\ipywidgets\\widgets\\interaction.py\u001b[0m in \u001b[0;36mupdate\u001b[1;34m(self, *args)\u001b[0m\n\u001b[0;32m    249\u001b[0m                     \u001b[0mvalue\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mwidget\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mget_interact_value\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    250\u001b[0m                     \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[1;33m[\u001b[0m\u001b[0mwidget\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0m_kwarg\u001b[0m\u001b[1;33m]\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mvalue\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 251\u001b[1;33m                 \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mresult\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mf\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m**\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    252\u001b[0m                 \u001b[0mshow_inline_matplotlib_plots\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    253\u001b[0m                 \u001b[1;32mif\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mauto_display\u001b[0m \u001b[1;32mand\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mresult\u001b[0m \u001b[1;32mis\u001b[0m \u001b[1;32mnot\u001b[0m \u001b[1;32mNone\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n", "\u001b[1;31mTypeError\u001b[0m: 'dict' object is not callable"]}]}}, "67d6b88db7f24e16965191027c13da78": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_b4328f18e86e4d72a4068793c13ece74", "outputs": [{"ename": "TypeError", "evalue": "'dict' object is not callable", "output_type": "error", "traceback": ["\u001b[1;31m---------------------------------------------------------------------------\u001b[0m", "\u001b[1;31mTypeError\u001b[0m                                 Traceback (most recent call last)", "\u001b[1;32m~\\AppData\\Local\\Continuum\\anaconda3\\envs\\bzan\\lib\\site-packages\\ipywidgets\\widgets\\interaction.py\u001b[0m in \u001b[0;36mupdate\u001b[1;34m(self, *args)\u001b[0m\n\u001b[0;32m    249\u001b[0m                     \u001b[0mvalue\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mwidget\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mget_interact_value\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    250\u001b[0m                     \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[1;33m[\u001b[0m\u001b[0mwidget\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0m_kwarg\u001b[0m\u001b[1;33m]\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mvalue\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 251\u001b[1;33m                 \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mresult\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mf\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m**\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    252\u001b[0m                 \u001b[0mshow_inline_matplotlib_plots\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    253\u001b[0m                 \u001b[1;32mif\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mauto_display\u001b[0m \u001b[1;32mand\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mresult\u001b[0m \u001b[1;32mis\u001b[0m \u001b[1;32mnot\u001b[0m \u001b[1;32mNone\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n", "\u001b[1;31mTypeError\u001b[0m: 'dict' object is not callable"]}]}}, "699e5a8612e0429b8e7efe5c65e303ee": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "6e618252456c4b19b326e7ce3c8c113b": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "72f1ecfe3218403792b0a794fa6c056a": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "76247d988f024141ad8c6b4c4f2acae2": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_4a6b7e7cb6454ac8b7c9e2d7f91a5822", "outputs": [{"data": {"text/plain": "{('No', 'No'): 271, ('No', 'Yes'): 28, ('Yes', 'No'): 306, ('Yes', 'Yes'): 95}"}, "metadata": {}, "output_type": "display_data"}]}}, "764e1914c53d40f3a26c342600141489": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "VBoxModel", "state": {"_dom_classes": ["widget-interact"], "children": ["IPY_MODEL_ed1b5a26f6f243daa0246888d8869c1c", "IPY_MODEL_76247d988f024141ad8c6b4c4f2acae2"], "layout": "IPY_MODEL_270809a559ab4649ab560cb5df432a5a"}}, "78ec677b4ffd43999ab44d7173b2b98d": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "7b411561029345079a41649012effcb0": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DropdownModel", "state": {"_options_labels": ["age", "weight", "income", "car_value", "debt", "mall_trips", "gender", "alone", "dwell", "pay_type", "nbhd", "tried", "prediction"], "description": "Column:", "index": 0, "layout": "IPY_MODEL_2d78545b9cac485eb3f5dd443add87f8", "style": "IPY_MODEL_d78cdb09f41a43758b95b09831cd9835"}}, "7d4de20a63604446acd409ff62f1c238": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "VBoxModel", "state": {"_dom_classes": ["widget-interact"], "children": ["IPY_MODEL_088e80d27aa94dc5845bae94e1ba505c", "IPY_MODEL_de09e4d8e77a4f3bad53753e5d0a7cfd"], "layout": "IPY_MODEL_b87eebbeb0c04c54af3cedca133b8870"}}, "8291685d395749cb9a6d3759d17a6c77": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "88f062c326c64eaea7096b150784fc98": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "8fc99cc858434a259e2fec8ea0cea8b7": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "9431d8c583cf42308c2aabf9bc75dd6b": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DropdownModel", "state": {"_options_labels": ["age", "weight", "income", "car_value", "debt", "mall_trips", "gender", "alone", "dwell", "pay_type", "nbhd", "tried", "prediction"], "description": "Column:", "index": 0, "layout": "IPY_MODEL_8291685d395749cb9a6d3759d17a6c77", "style": "IPY_MODEL_088eef9a400947bb8f1bd62367c8414a"}}, "aeba3057a6b24107831fd5b470a04517": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "b21f64157ea84696b46fb2d5b8b7194a": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "CheckboxModel", "state": {"description": "normalize", "disabled": false, "layout": "IPY_MODEL_fa0058d26d0d4e31a42909bc3bb43623", "style": "IPY_MODEL_144c023c6db448e4900de9b761cf3d72", "value": false}}, "b3c811a701d54294bc88364048ce1c35": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "b3d9f949872b402c85e0fce3675fe20e": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "b4328f18e86e4d72a4068793c13ece74": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "b87eebbeb0c04c54af3cedca133b8870": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "bf8a81c9928b4799ae11b36481639f05": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "c1fdc4bd8e414f5eba6b721dd735eaec": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "c895cab4be9c4e2d9b4bd8677f48eb8f": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "cc1cf31782fb40258841bb7c775c4fda": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "cd750e09a5164090945128e2ca4a7dc5": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "d78cdb09f41a43758b95b09831cd9835": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "d8ca7b7c246a4308ad76a66c40217169": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "VBoxModel", "state": {"_dom_classes": ["widget-interact"], "children": ["IPY_MODEL_f77f421297434875804ee8629253445e", "IPY_MODEL_0e5e5d3db5a94ca5be9f31b97541103e"], "layout": "IPY_MODEL_bf8a81c9928b4799ae11b36481639f05"}}, "de09e4d8e77a4f3bad53753e5d0a7cfd": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_b3d9f949872b402c85e0fce3675fe20e", "outputs": [{"data": {"text/plain": "{('No', 'East'): 159,\n ('No', 'South'): 76,\n ('No', 'West'): 64,\n ('Yes', 'West'): 239,\n ('Yes', 'South'): 86,\n ('Yes', 'East'): 76}"}, "metadata": {}, "output_type": "display_data"}]}}, "e669e836fea040c6936a349c9c1b0cde": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DropdownModel", "state": {"_options_labels": ["age", "weight", "income", "car_value", "debt", "mall_trips", "gender", "alone", "dwell", "pay_type", "nbhd", "tried"], "description": "column:", "index": 8, "layout": "IPY_MODEL_699e5a8612e0429b8e7efe5c65e303ee", "style": "IPY_MODEL_cc1cf31782fb40258841bb7c775c4fda"}}, "e8e75fbeecf64b1ea52b5042160f7512": {"model_module": "@jupyter-widgets/output", "model_module_version": "1.0.0", "model_name": "OutputModel", "state": {"layout": "IPY_MODEL_11f30440d26e49aa897d4ca9450b4b1c", "outputs": [{"data": {"text/plain": "{('No', 'Home'): 140,\n ('No', 'Condo'): 90,\n ('No', 'Apt'): 69,\n ('Yes', 'Home'): 179,\n ('Yes', 'Apt'): 113,\n ('Yes', 'Condo'): 109}"}, "metadata": {}, "output_type": "display_data"}]}}, "e933b13a16aa47adaf3913ff73c750d7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "eb27b3528d114714947314686216cd37": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "eb8e6a4e902944fb8ae7a8a8be64d533": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "ed1b5a26f6f243daa0246888d8869c1c": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DropdownModel", "state": {"_options_labels": ["age", "weight", "income", "car_value", "debt", "mall_trips", "gender", "alone", "dwell", "pay_type", "nbhd", "tried", "prediction"], "description": "Column:", "index": 7, "layout": "IPY_MODEL_aeba3057a6b24107831fd5b470a04517", "style": "IPY_MODEL_e933b13a16aa47adaf3913ff73c750d7"}}, "f6055c98e8d94d229f27f3b524db9478": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "f6605a5a327b495eac0d85a679f1f961": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DescriptionStyleModel", "state": {"description_width": ""}}, "f77f421297434875804ee8629253445e": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "DropdownModel", "state": {"_options_labels": ["age", "weight", "income", "car_value", "debt", "mall_trips", "gender", "alone", "dwell", "pay_type", "nbhd", "tried", "prediction"], "description": "Column:", "index": 4, "layout": "IPY_MODEL_2a72908e9f86469381708572f49031f3", "style": "IPY_MODEL_f6605a5a327b495eac0d85a679f1f961"}}, "fa0058d26d0d4e31a42909bc3bb43623": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}, "fcf89b8c51994d8dbba43ed62f38d6a7": {"model_module": "@jupyter-widgets/controls", "model_module_version": "1.4.0", "model_name": "VBoxModel", "state": {"_dom_classes": ["widget-interact"], "children": ["IPY_MODEL_e669e836fea040c6936a349c9c1b0cde", "IPY_MODEL_39b23b35de654b61b0e337f7143f1994", "IPY_MODEL_030c487009d1410d8ced064dd107565d"], "layout": "IPY_MODEL_8fc99cc858434a259e2fec8ea0cea8b7"}}, "ff11d81ca5094e0a9e39eaee11232930": {"model_module": "@jupyter-widgets/base", "model_module_version": "1.1.0", "model_name": "LayoutModel", "state": {}}}, "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="example.html" class="btn btn-neutral float-right" title="A First Look on Deep Learning" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="logistic_regression.html" class="btn btn-neutral float-left" title="Logistic Regression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Ming Zhao
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
