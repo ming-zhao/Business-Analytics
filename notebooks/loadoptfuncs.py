@@ -97,6 +97,77 @@ def prodmix_obj(zoom, margin1, margin2):
         plt.ylim(-0.5, 1500)
     plt.legend(fontsize=18)
     ax.legend(loc='upper right', bbox_to_anchor=(1.8, 1))
+    plt.show()
+    
+def show_integer_feasregion():
+    fig, ax = plt.subplots(figsize=(9, 8))
+    s = np.linspace(0, 50)
+
+    plt.plot(s, 45 - 5*s/7, lw=3, label='$7x_1 + 5x_2 \leq 45$')
+    plt.plot(s, -25 + 1.9*s, lw=3, label='$1.9x_1 - x_2 \geq 25$')
+    plt.plot(s, 15.5 + 5*s/9, lw=3, label='$-5x_1 + 9x_2 \leq 15.5$')
+    plt.plot(16 * np.ones_like(s), s, lw=3, label='$x_1 \geq 16$')
+    plt.plot(s, 18 * np.ones_like(s), lw=3, label='$x_2 \geq 18$')
+
+    # plot the possible (x1, x2) pairs
+    pairs = [(x1, x2) for x1 in np.arange(start=15, stop=31, step=1)
+                    for x2 in np.arange(start=15, stop=31, step=1)
+                    if (5*x1 + 6*x2) <= 10000
+                    and (x1 + 2*x2)  <= 3000
+                    and x1<=600 and x2<=1200]
+
+    # split these into our variables
+    x1, x2 = np.hsplit(np.array(pairs), 2)
+
+    # plot the results
+    plt.scatter(x1, x2, c=0*x1 + 0*x2, cmap='jet', zorder=3)
+
+    plt.xlim(15-0.5, 30)
+    plt.ylim(15-0.5, 30)
+    plt.xlabel('$x_1$', fontsize=16)
+    plt.ylabel('$x_2$', fontsize=16)
+
+    lppath = Path([
+        (16., 18.),
+        (16., 24.4),
+        (23.3, 28.4),
+        (26.8, 25.8),
+        (22.6, 18.),
+        (16., 18.),
+    ])
+    lppatch = PathPatch(lppath, label='LP feasible region', alpha=0.3)
+    ax.add_patch(lppatch)
+
+    mippath = Path([
+        (16., 18.),
+        (16., 24),
+        (19, 26),
+        (23, 28),
+        (25, 27),
+        (26, 26),
+        (26, 25),
+        (23, 19),
+        (22, 18.),
+        (16., 18.),
+    ])
+    mippatch = PathPatch(mippath, label='Integer feasible region', alpha=0.5)
+    ax.add_patch(mippatch)
+    plt.legend(fontsize=18)
+    ax.legend(loc='upper right', bbox_to_anchor=(1.4, 1))
+
+    plt.show()
+    
+def draw_local_global_opt():
+    function = lambda x: (x-1)*(x-2)*(x-3)*(x-4)*(x-5)*(x-6)*(x-7)
+    x = np.linspace(1,7,500)
+    plt.figure(figsize=(12,7))
+    plt.plot(x, function(x), label='$f(x)$')
+    globalx = 1.32
+    localx = 3.45
+    plt.scatter(globalx, function(globalx), s=30, c='r', label='global opt')
+    plt.scatter(localx, function(localx), s=30, c='orange', label='local opt')
+    plt.axhline(linewidth=2, color='black')
+    plt.legend()
     plt.show()    
     
 def showconvex(values):
