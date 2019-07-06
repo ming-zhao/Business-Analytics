@@ -188,7 +188,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Watch the video to see the problem description and [play](https://ming-zhao.github.io/sim/montyhall/index.html) the simulation game."
+    "The problem is well described by this movie (\"21\") clip. The simulation game can be played in this [link](https://ming-zhao.github.io/sim/montyhall/index.html)."
    ]
   },
   {
@@ -199,7 +199,7 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "bf89a8206a2241cb8b765a0894e61ffe",
+       "model_id": "131771d2b959440da2c5966194dbcafe",
        "version_major": 2,
        "version_minor": 0
       },
@@ -219,7 +219,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In order to simplify the simulation, we assume that the player always selects door 1 at the beginning of the game. After running a simulation with sample size 100, it is clear to see that the \"switch\" strategy gets higher probability to win the car."
+    "Without loss of generality, we assume that the player always selects door 1 at the beginning of the game. The simulation shows that the \"switch\" strategy achieves a higher probability for winning the car."
    ]
   },
   {
@@ -232,7 +232,7 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "e87bed8a54c24f35aa9a201cb91357aa",
+       "model_id": "94ed9294c32745f2aefc6d98aa6f9a61",
        "version_major": 2,
        "version_minor": 0
       },
@@ -292,6 +292,16 @@
       "model_module_version": "1.1.0",
       "model_name": "LayoutModel",
       "state": {}
+     },
+     "131771d2b959440da2c5966194dbcafe": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "HTMLModel",
+      "state": {
+       "layout": "IPY_MODEL_6ee6bdd95c4a4a4aa8f3c930fa3ccd98",
+       "style": "IPY_MODEL_a6303c93c2dc410e8f6dc4a057c3c457",
+       "value": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/cXqDIFUB7YU\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+      }
      },
      "1786edf506e7417fab56d8d49a18fe91": {
       "model_module": "@jupyter-widgets/controls",
@@ -407,7 +417,19 @@
        "style": "IPY_MODEL_76612dda3aaf4a0a8385a6bb49901671"
       }
      },
+     "4a27d5164de44465a0c1601f8a9d7816": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
      "54ca2072367c42c9bc4aa95ca3be0d30": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "56cbe08fddb3471d9ef374445f2a6d7e": {
       "model_module": "@jupyter-widgets/base",
       "model_module_version": "1.1.0",
       "model_name": "LayoutModel",
@@ -420,6 +442,12 @@
       "state": {}
      },
      "5dcf358c74854fcb9e4d6c416dd9a095": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "5f318eca01ba4111ba99c9ba45f5b180": {
       "model_module": "@jupyter-widgets/base",
       "model_module_version": "1.1.0",
       "model_name": "LayoutModel",
@@ -501,6 +529,20 @@
        "value": 10
       }
      },
+     "6cc59707e2de47f7b0ebfa379182a3aa": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "6ee6bdd95c4a4a4aa8f3c930fa3ccd98": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
      "73767bb3f5684dfca4687da7ecd8da81": {
       "model_module": "@jupyter-widgets/controls",
       "model_module_version": "1.4.0",
@@ -577,6 +619,34 @@
        ]
       }
      },
+     "8ee328877d3248d3af8937a9b8c0dad8": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_56cbe08fddb3471d9ef374445f2a6d7e",
+       "outputs": [
+        {
+         "data": {
+          "image/png": "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\n",
+          "text/plain": "<Figure size 864x432 with 1 Axes>"
+         },
+         "metadata": {
+          "needs_background": "light"
+         },
+         "output_type": "display_data"
+        },
+        {
+         "data": {
+          "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>door1</th>\n      <th>door2</th>\n      <th>door3</th>\n      <th>select</th>\n      <th>keep</th>\n      <th>prize</th>\n      <th>open</th>\n      <th>switch</th>\n      <th>win</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>goat</td>\n      <td>goat</td>\n      <td>car</td>\n      <td>1</td>\n      <td>1</td>\n      <td>3</td>\n      <td>2</td>\n      <td>3</td>\n      <td>switch</td>\n    </tr>\n    <tr>\n      <th>1</th>\n      <td>goat</td>\n      <td>car</td>\n      <td>goat</td>\n      <td>1</td>\n      <td>1</td>\n      <td>2</td>\n      <td>3</td>\n      <td>2</td>\n      <td>switch</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>car</td>\n      <td>goat</td>\n      <td>goat</td>\n      <td>1</td>\n      <td>1</td>\n      <td>1</td>\n      <td>3</td>\n      <td>2</td>\n      <td>keep</td>\n    </tr>\n    <tr>\n      <th>3</th>\n      <td>goat</td>\n      <td>car</td>\n      <td>goat</td>\n      <td>1</td>\n      <td>1</td>\n      <td>2</td>\n      <td>3</td>\n      <td>2</td>\n      <td>switch</td>\n    </tr>\n    <tr>\n      <th>4</th>\n      <td>car</td>\n      <td>goat</td>\n      <td>goat</td>\n      <td>1</td>\n      <td>1</td>\n      <td>1</td>\n      <td>3</td>\n      <td>2</td>\n      <td>keep</td>\n    </tr>\n    <tr>\n      <th>5</th>\n      <td>goat</td>\n      <td>goat</td>\n      <td>car</td>\n      <td>1</td>\n      <td>1</td>\n      <td>3</td>\n      <td>2</td>\n      <td>3</td>\n      <td>switch</td>\n    </tr>\n    <tr>\n      <th>6</th>\n      <td>goat</td>\n      <td>goat</td>\n      <td>car</td>\n      <td>1</td>\n      <td>1</td>\n      <td>3</td>\n      <td>2</td>\n      <td>3</td>\n      <td>switch</td>\n    </tr>\n    <tr>\n      <th>7</th>\n      <td>goat</td>\n      <td>car</td>\n      <td>goat</td>\n      <td>1</td>\n      <td>1</td>\n      <td>2</td>\n      <td>3</td>\n      <td>2</td>\n      <td>switch</td>\n    </tr>\n    <tr>\n      <th>8</th>\n      <td>goat</td>\n      <td>goat</td>\n      <td>car</td>\n      <td>1</td>\n      <td>1</td>\n      <td>3</td>\n      <td>2</td>\n      <td>3</td>\n      <td>switch</td>\n    </tr>\n    <tr>\n      <th>9</th>\n      <td>goat</td>\n      <td>car</td>\n      <td>goat</td>\n      <td>1</td>\n      <td>1</td>\n      <td>2</td>\n      <td>3</td>\n      <td>2</td>\n      <td>switch</td>\n    </tr>\n  </tbody>\n</table>\n</div>",
+          "text/plain": "  door1 door2 door3 select keep prize open switch     win\n0  goat  goat   car      1    1     3    2      3  switch\n1  goat   car  goat      1    1     2    3      2  switch\n2   car  goat  goat      1    1     1    3      2    keep\n3  goat   car  goat      1    1     2    3      2  switch\n4   car  goat  goat      1    1     1    3      2    keep\n5  goat  goat   car      1    1     3    2      3  switch\n6  goat  goat   car      1    1     3    2      3  switch\n7  goat   car  goat      1    1     2    3      2  switch\n8  goat  goat   car      1    1     3    2      3  switch\n9  goat   car  goat      1    1     2    3      2  switch"
+         },
+         "metadata": {},
+         "output_type": "display_data"
+        }
+       ]
+      }
+     },
      "90fb9fcd21cf448f85f04561531d2f26": {
       "model_module": "@jupyter-widgets/base",
       "model_module_version": "1.1.0",
@@ -589,11 +659,35 @@
       "model_name": "ButtonStyleModel",
       "state": {}
      },
+     "94ed9294c32745f2aefc6d98aa6f9a61": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_d7b3234b7dfe43e8920e325b80ce34ae",
+        "IPY_MODEL_fde809f0a9634502a231f22d78fa056e",
+        "IPY_MODEL_8ee328877d3248d3af8937a9b8c0dad8"
+       ],
+       "layout": "IPY_MODEL_5f318eca01ba4111ba99c9ba45f5b180"
+      }
+     },
      "9f2368f8519340a7a62ef9c26e8f7ca7": {
       "model_module": "@jupyter-widgets/base",
       "model_module_version": "1.1.0",
       "model_name": "LayoutModel",
       "state": {}
+     },
+     "a6303c93c2dc410e8f6dc4a057c3c457": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
      },
      "a78894ef8f3a48b0a948eaad2f092385": {
       "model_module": "@jupyter-widgets/base",
@@ -653,6 +747,31 @@
       "state": {}
      },
      "d1269451e2194a04b6995a971c06a77c": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "d6e17c8f889d446f8fe5315a92ba2bf4": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "ButtonStyleModel",
+      "state": {}
+     },
+     "d7b3234b7dfe43e8920e325b80ce34ae": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "BoundedIntTextModel",
+      "state": {
+       "description": "Sample Size:",
+       "layout": "IPY_MODEL_4a27d5164de44465a0c1601f8a9d7816",
+       "max": 10000,
+       "min": 100,
+       "style": "IPY_MODEL_6cc59707e2de47f7b0ebfa379182a3aa",
+       "value": 100
+      }
+     },
+     "d9b6ff0601e649c3a3f5c2cf88cbb7d3": {
       "model_module": "@jupyter-widgets/base",
       "model_module_version": "1.1.0",
       "model_name": "LayoutModel",
@@ -753,6 +872,16 @@
        "layout": "IPY_MODEL_efa7d525883942e78cd3074bd928c6eb",
        "style": "IPY_MODEL_77f0295e734645a29015190601dc8432",
        "value": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/cXqDIFUB7YU\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+      }
+     },
+     "fde809f0a9634502a231f22d78fa056e": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "ButtonModel",
+      "state": {
+       "description": "Run Simulation",
+       "layout": "IPY_MODEL_d9b6ff0601e649c3a3f5c2cf88cbb7d3",
+       "style": "IPY_MODEL_d6e17c8f889d446f8fe5315a92ba2bf4"
       }
      }
     },
