@@ -10,6 +10,13 @@ warnings.filterwarnings('ignore')
 dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/data_mining/'
 
 def net_compare(nNodes, train_size_pct):
+    from keras.datasets import mnist
+    from keras import models
+    from keras import layers
+    from keras.utils import to_categorical
+    
+    (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+    
     network = models.Sequential()
     network.add(layers.Dense(nNodes, activation='relu', input_shape=(28 * 28,)))
     network.add(layers.Dense(10, activation='softmax'))
