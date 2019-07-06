@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 1,
    "metadata": {
     "scrolled": true
    },
@@ -135,7 +135,7 @@
        "<IPython.core.display.HTML object>"
       ]
      },
-     "execution_count": 16,
+     "execution_count": 1,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -155,7 +155,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
@@ -169,7 +169,7 @@
        "<IPython.core.display.HTML object>"
       ]
      },
-     "execution_count": 18,
+     "execution_count": 2,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -189,7 +189,7 @@
    "source": [
     "# Logistic Regression\n",
     "\n",
-    "Logistic regression is a popular method for classifying individuals, given the values of a set of explanatory variables. It estimates the probability that an individual is in a particular category."
+    "Logistic regression is a popular method for classifying individuals (although we call it regression), given the values of a set of explanatory variables. It estimates the probability that an individual is in a particular category. We will demonstrate the method by considering a book club case."
    ]
   },
   {
@@ -198,12 +198,12 @@
    "source": [
     "## Book Club\n",
     "\n",
-    "A new title, \"The Art History of Florence\", is ready for release. A book club has sent promotion mails to a sample of customers from its customer base in two different times. Each time it randomly select 1000 customers."
+    "In a book club, a new title, \"The Art History of Florence\", is ready for release. The book club has sent promotion mails to a sample of customers from its customer base in two different times. Each time it randomly select 1000 customers."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 3,
    "metadata": {
     "scrolled": true
    },
@@ -285,7 +285,7 @@
        "5            15         0          1"
       ]
      },
-     "execution_count": 2,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -296,7 +296,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -376,7 +376,7 @@
        "1005          4         1          0"
       ]
      },
-     "execution_count": 3,
+     "execution_count": 4,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -389,7 +389,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Book club has collected data several variables for all 2000 customers as follows:\n",
+    "Book club has collected several variables for all 2000 customers as follows:\n",
     "\n",
     "- month: months to the customer's last purchase when promotion mail is sent\n",
     "\n",
@@ -397,12 +397,12 @@
     "\n",
     "- purchased: if s/he paid for the new title \"The Art History of Florence\"\n",
     "\n",
-    "It costs the book club <span>&#36;</span>1 for sending a mail and generates <span>&#36;</span>7 profit for selling the book. After two promotions, an analyst in the book club realize that it actually lost money in both promotions."
+    "It costs the book club <span>&#36;</span>1 for sending a mail and generates <span>&#36;</span>7 profit for selling the book. After two promotions, an analyst in the book club realizes that the store actually lost money in both promotions."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -439,12 +439,12 @@
     "\n",
     "- uses `month` and `art_book` to predict `purchased`\n",
     "\n",
-    "A regression equation `purchased` $\\sim$ `month` $+$ `art_book` sounds possible. However, the $y$ variable `purchased` is either 0 or 1, and a scatter plot between `purchased` and `month` ($y$ vs $x$) shows as follows"
+    "which suggests a regression equation `purchased` $\\sim$ `month` $+$ `art_book`. However, the $y$ variable `purchased` is either 0 or 1, and a scatter plot between `purchased` and `month` ($y$ vs $x$) shows as follows"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 5,
+   "execution_count": 6,
    "metadata": {
     "scrolled": true
    },
@@ -471,22 +471,27 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The graph is again many linear regression assumptions:\n",
+    "The graph is against many linear regression assumptions:\n",
     "\n",
-    "- there is no linear relationship between independent and dependent variables\n",
+    "- there is no linear relationship between independent and dependent variables.\n",
     "\n",
-    "- error term is not going to be normally distributed"
+    "- error term is probably not normally distributed."
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Fitting\n",
+    "## The Model\n",
     "\n",
-    "Instead of using binary (purchased or not) as dependent variable, we predict its probability $p$, which is now continuous.\n",
+    "Instead of using the binary variable (purchased or not), we may consider purchasing probability $p$ as dependent variable in a regression equation such as\n",
     "\n",
-    "We still cannot run a linear regression on $p$  because it is bounded in range $[0,1]$. In linear regression, we also need dependent variable to be in range $[-\\infty, +\\infty]$.\n",
+    "\\begin{align}\n",
+    "p &= \\beta_0 + \\beta_1 \\times \\text{month} + \\beta_2 \\times \\text{art_book}\n",
+    "\\end{align}\n",
+    "\n",
+    "\n",
+    "Although $p$ is continuous, we still cannot run a linear regression on $p$ because it is bounded in range $[0,1]$. In linear regression, the dependent variable should be able to take any value in range $[-\\infty, +\\infty]$.\n",
     "\n",
     "We introduce **odds** and **utility**\n",
     "\n",
@@ -504,7 +509,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [
     {
@@ -518,6 +523,21 @@
       "needs_background": "light"
      },
      "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
     }
    ],
    "source": [
@@ -536,19 +556,20 @@
     "plt.xlabel('$p$')\n",
     "plt.ylabel('utility')\n",
     "\n",
-    "plt.show()"
+    "plt.show()\n",
+    "toggle()"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In practice, we can simply use a typical type of regression, logistic regression, with binary variable as dependent variable. Statistical tools will perform all the transformation for us. In python, we can use either `statmodels` which provides statistical summary or `sklearn` package."
+    "In practice, we can simply use a typical type of regression, logistic regression, with binary dependent variable. Statistical tools will perform all the transformation for us. In python, we can use either use `statmodels` which provides statistical summary or `sklearn` package."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 7,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
@@ -575,10 +596,10 @@
        "  <th>Method:</th>               <td>MLE</td>       <th>  Df Model:          </th>  <td>     2</td>  \n",
        "</tr>\n",
        "<tr>\n",
-       "  <th>Date:</th>          <td>Mon, 01 Jul 2019</td> <th>  Pseudo R-squ.:     </th>  <td>0.1206</td>  \n",
+       "  <th>Date:</th>          <td>Fri, 05 Jul 2019</td> <th>  Pseudo R-squ.:     </th>  <td>0.1206</td>  \n",
        "</tr>\n",
        "<tr>\n",
-       "  <th>Time:</th>              <td>18:35:28</td>     <th>  Log-Likelihood:    </th> <td> -251.45</td> \n",
+       "  <th>Time:</th>              <td>21:07:00</td>     <th>  Log-Likelihood:    </th> <td> -251.45</td> \n",
        "</tr>\n",
        "<tr>\n",
        "  <th>converged:</th>           <td>True</td>       <th>  LL-Null:           </th> <td> -285.95</td> \n",
@@ -610,8 +631,8 @@
        "Dep. Variable:              purchased   No. Observations:                  999\n",
        "Model:                          Logit   Df Residuals:                      996\n",
        "Method:                           MLE   Df Model:                            2\n",
-       "Date:                Mon, 01 Jul 2019   Pseudo R-squ.:                  0.1206\n",
-       "Time:                        18:35:28   Log-Likelihood:                -251.45\n",
+       "Date:                Fri, 05 Jul 2019   Pseudo R-squ.:                  0.1206\n",
+       "Time:                        21:07:00   Log-Likelihood:                -251.45\n",
        "converged:                       True   LL-Null:                       -285.95\n",
        "                                        LLR p-value:                 1.044e-15\n",
        "==============================================================================\n",
@@ -624,7 +645,7 @@
        "\"\"\""
       ]
      },
-     "execution_count": 7,
+     "execution_count": 8,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -640,7 +661,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
@@ -669,7 +690,7 @@
    "source": [
     "## Validation\n",
     "\n",
-    "After we have obtained $\\beta_0, \\beta_1$ and $\\beta_2$, we can use equation $(1)$ for our validation data to evaluate utility. Then, the probability is derived\n",
+    "After we have obtained $\\beta_0, \\beta_1$ and $\\beta_2$, we can use equation $(2)$ in our validation data to evaluate utility. Then, the probability is derived by\n",
     "\n",
     "\\begin{align}\n",
     "p = \\frac{\\exp(\\text{utility})}{1+\\exp(\\text{utility})} \\nonumber\n",
@@ -678,9 +699,9 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 10,
    "metadata": {
-    "scrolled": true
+    "scrolled": false
    },
    "outputs": [
     {
@@ -694,6 +715,21 @@
       "needs_background": "light"
      },
      "output_type": "display_data"
+    },
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
     }
    ],
    "source": [
@@ -704,23 +740,24 @@
     "plt.plot(utility, p)\n",
     "plt.xlabel('utility')\n",
     "plt.ylabel('$p$')\n",
-    "plt.show()"
+    "plt.show()\n",
+    "toggle()"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Generally, our decision can be made based on a threshold value 0.5. If the probability that a customer may purchase the book is greater than 0.5, we send a mail.\n",
+    "Generally, our decision can be made based on a threshold value 0.5. That is, if the probability that a customer may purchase the book is greater than 0.5, we send a mail.\n",
     "\n",
-    "However, in the book club case, it has a simple breakeven point which is cost over profit $1/7$. So, our decision is that if the probability that a customer may purchase the book is greater than 1/7, we send a mail, otherwise we do not.\n",
+    "However, in the book club case, it has a simple breakeven point where the cost-profit ratio is $1/7$. Therefore, our strategy is based on this ratio that if the probability that a customer may purchase the book is greater than $1/7$, we send a mail, otherwise we do not.\n",
     "\n",
     "We prefer to use `sklearn` because it provides capability to predict the probability directly."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [
     {
@@ -814,7 +851,7 @@
        "1005          4         1          0       0.179479   True"
       ]
      },
-     "execution_count": 9,
+     "execution_count": 11,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -827,7 +864,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [
     {
@@ -837,6 +874,21 @@
       "Based on our prediction model, we should send 128 mails.\n",
       "We would expect receiving 38 orders and profit is $138.\n"
      ]
+    },
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
     }
    ],
    "source": [
@@ -844,7 +896,8 @@
     "num_purchased = df_book_part2[df_book_part2['send'] & df_book_part2['purchased'] == 1].shape[0]\n",
     "profit = num_purchased * 7 - num_mail_send\n",
     "print('Based on our prediction model, we should send {} mails.'.format(num_mail_send))\n",
-    "print('We would expect receiving {} orders and profit is ${}.'.format(num_purchased, profit))"
+    "print('We would expect receiving {} orders and profit is ${}.'.format(num_purchased, profit))\n",
+    "toggle()"
    ]
   }
  ],
