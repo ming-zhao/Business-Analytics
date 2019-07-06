@@ -1,0 +1,2118 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%run loadmlfuncs.py"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Naive Bayes\n",
+    "\n",
+    "Naive Bayes models are a group of extremely fast and simple classification algorithms that are often suitable for very high-dimensional datasets. Because they are so fast and have so few tunable parameters, they end up being very useful as a quick-and-dirty baseline for a classification problem. This section will focus on an intuitive explanation of how naive Bayes classifiers work."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Bayesian Classification\n",
+    "\n",
+    "Naive Bayes classifiers are built on Bayesian classification methods. These rely on Bayes's theorem, which is an equation describing the relationship of conditional probabilities of statistical quantities. \n",
+    "\n",
+    "In Bayesian classification, we're interested in finding the probability of a label given some observed features, which we can write as $P(C~|~{\\rm features})$. Bayes's theorem tells us how to express this in terms of quantities we can compute more directly:\n",
+    "\n",
+    "$$\n",
+    "P(C~|~{\\rm features}) = \\frac{P({\\rm features}~|~C)P(C)}{P({\\rm features})}\n",
+    "$$\n",
+    "\n",
+    "If we are trying to decide between two labels — let's call them $C_1$ and $C_2$ — then one way to make this decision is to compute the ratio of the posterior probabilities for each label:\n",
+    "\n",
+    "$$\n",
+    "\\frac{P(C_1~|~{\\rm features})}{P(C_2~|~{\\rm features})} = \\frac{P({\\rm features}~|~C_1)}{P({\\rm features}~|~C_2)}\\frac{P(C_1)}{P(C_2)}\n",
+    "$$\n",
+    "\n",
+    "All we need now is some model by which we can compute $P({\\rm features}~|~C_i)$ for each label. Such a model is called a *generative model* because it specifies the hypothetical random process that generates the data.\n",
+    "\n",
+    "Specifying this generative model for each label is the main piece of the training of such a Bayesian classifier. The general version of such a training step is a very difficult task, but we can make it simpler through the use of some simplifying assumptions about the form of this model.\n",
+    "\n",
+    "This is where the \"naive\" in \"naive Bayes\" comes in: if we make very naive assumptions about the generative model for each label, we can find a rough approximation of the generative model for each class, and then proceed with the Bayesian classification."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Bernoulli Naive Bayes"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "There are 856 people who have either tried or not tried a company's new frozen lasagna product. The data includes the categorical dependent variable `tried` and several other explanatory variables."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>age</th>\n",
+       "      <th>weight</th>\n",
+       "      <th>income</th>\n",
+       "      <th>car_value</th>\n",
+       "      <th>debt</th>\n",
+       "      <th>mall_trips</th>\n",
+       "      <th>gender</th>\n",
+       "      <th>alone</th>\n",
+       "      <th>dwell</th>\n",
+       "      <th>pay_type</th>\n",
+       "      <th>nbhd</th>\n",
+       "      <th>tried</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>person</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>48</td>\n",
+       "      <td>175</td>\n",
+       "      <td>65500</td>\n",
+       "      <td>2190</td>\n",
+       "      <td>3510</td>\n",
+       "      <td>7</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Home</td>\n",
+       "      <td>Hourly</td>\n",
+       "      <td>East</td>\n",
+       "      <td>No</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>33</td>\n",
+       "      <td>202</td>\n",
+       "      <td>29100</td>\n",
+       "      <td>2110</td>\n",
+       "      <td>740</td>\n",
+       "      <td>4</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Condo</td>\n",
+       "      <td>Hourly</td>\n",
+       "      <td>East</td>\n",
+       "      <td>Yes</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>51</td>\n",
+       "      <td>188</td>\n",
+       "      <td>32200</td>\n",
+       "      <td>5140</td>\n",
+       "      <td>910</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Condo</td>\n",
+       "      <td>Salaried</td>\n",
+       "      <td>East</td>\n",
+       "      <td>No</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>56</td>\n",
+       "      <td>244</td>\n",
+       "      <td>19000</td>\n",
+       "      <td>700</td>\n",
+       "      <td>1620</td>\n",
+       "      <td>3</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Home</td>\n",
+       "      <td>Hourly</td>\n",
+       "      <td>West</td>\n",
+       "      <td>No</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>28</td>\n",
+       "      <td>218</td>\n",
+       "      <td>81400</td>\n",
+       "      <td>26620</td>\n",
+       "      <td>600</td>\n",
+       "      <td>3</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Apt</td>\n",
+       "      <td>Salaried</td>\n",
+       "      <td>West</td>\n",
+       "      <td>Yes</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        age  weight  income  car_value  debt  mall_trips  gender alone  dwell  \\\n",
+       "person                                                                          \n",
+       "1        48     175   65500       2190  3510           7    Male    No   Home   \n",
+       "2        33     202   29100       2110   740           4  Female    No  Condo   \n",
+       "3        51     188   32200       5140   910           1    Male    No  Condo   \n",
+       "4        56     244   19000        700  1620           3  Female    No   Home   \n",
+       "5        28     218   81400      26620   600           3    Male    No    Apt   \n",
+       "\n",
+       "        pay_type  nbhd tried  \n",
+       "person                        \n",
+       "1         Hourly  East    No  \n",
+       "2         Hourly  East   Yes  \n",
+       "3       Salaried  East    No  \n",
+       "4         Hourly  West    No  \n",
+       "5       Salaried  West   Yes  "
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df_lasagna = pd.read_csv(dataurl+'lasagna.csv', header=0, index_col='person')\n",
+    "df_lasagna.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For the Naive Bayes method, numeric predictors must be binned, i.e., made categorical. For this example, each numeric variable has been binned by its quartiles as shown below."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>age</th>\n",
+       "      <th>weight</th>\n",
+       "      <th>income</th>\n",
+       "      <th>car_value</th>\n",
+       "      <th>debt</th>\n",
+       "      <th>mall_trips</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0.00</th>\n",
+       "      <td>22.0</td>\n",
+       "      <td>142.0</td>\n",
+       "      <td>2600.0</td>\n",
+       "      <td>130.0</td>\n",
+       "      <td>0.0</td>\n",
+       "      <td>0.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.25</th>\n",
+       "      <td>31.0</td>\n",
+       "      <td>174.0</td>\n",
+       "      <td>24475.0</td>\n",
+       "      <td>2110.0</td>\n",
+       "      <td>560.0</td>\n",
+       "      <td>3.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.50</th>\n",
+       "      <td>37.5</td>\n",
+       "      <td>190.0</td>\n",
+       "      <td>39950.0</td>\n",
+       "      <td>4175.0</td>\n",
+       "      <td>1020.0</td>\n",
+       "      <td>4.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>0.75</th>\n",
+       "      <td>46.0</td>\n",
+       "      <td>210.0</td>\n",
+       "      <td>58225.0</td>\n",
+       "      <td>7717.5</td>\n",
+       "      <td>1972.5</td>\n",
+       "      <td>7.0</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1.00</th>\n",
+       "      <td>64.0</td>\n",
+       "      <td>258.0</td>\n",
+       "      <td>190500.0</td>\n",
+       "      <td>33870.0</td>\n",
+       "      <td>8960.0</td>\n",
+       "      <td>17.0</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       age  weight    income  car_value    debt  mall_trips\n",
+       "0.00  22.0   142.0    2600.0      130.0     0.0         0.0\n",
+       "0.25  31.0   174.0   24475.0     2110.0   560.0         3.0\n",
+       "0.50  37.5   190.0   39950.0     4175.0  1020.0         4.0\n",
+       "0.75  46.0   210.0   58225.0     7717.5  1972.5         7.0\n",
+       "1.00  64.0   258.0  190500.0    33870.0  8960.0        17.0"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df_quantile = df_lasagna.quantile([0, .25, .5, .75, 1])\n",
+    "df_quantile"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>age</th>\n",
+       "      <th>weight</th>\n",
+       "      <th>income</th>\n",
+       "      <th>car_value</th>\n",
+       "      <th>debt</th>\n",
+       "      <th>mall_trips</th>\n",
+       "      <th>gender</th>\n",
+       "      <th>alone</th>\n",
+       "      <th>dwell</th>\n",
+       "      <th>pay_type</th>\n",
+       "      <th>nbhd</th>\n",
+       "      <th>tried</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>person</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3</td>\n",
+       "      <td>3</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Home</td>\n",
+       "      <td>Hourly</td>\n",
+       "      <td>East</td>\n",
+       "      <td>No</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>1</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>2</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Condo</td>\n",
+       "      <td>Hourly</td>\n",
+       "      <td>East</td>\n",
+       "      <td>Yes</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Condo</td>\n",
+       "      <td>Salaried</td>\n",
+       "      <td>East</td>\n",
+       "      <td>No</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>3</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Home</td>\n",
+       "      <td>Hourly</td>\n",
+       "      <td>West</td>\n",
+       "      <td>No</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>0</td>\n",
+       "      <td>3</td>\n",
+       "      <td>3</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Apt</td>\n",
+       "      <td>Salaried</td>\n",
+       "      <td>West</td>\n",
+       "      <td>Yes</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        age  weight  income  car_value  debt  mall_trips  gender alone  dwell  \\\n",
+       "person                                                                          \n",
+       "1         3       1       3          1     3           3    Male    No   Home   \n",
+       "2         1       2       1          1     1           2  Female    No  Condo   \n",
+       "3         3       1       1          2     1           0    Male    No  Condo   \n",
+       "4         3       3       0          0     2           1  Female    No   Home   \n",
+       "5         0       3       3          3     1           1    Male    No    Apt   \n",
+       "\n",
+       "        pay_type  nbhd tried  \n",
+       "person                        \n",
+       "1         Hourly  East    No  \n",
+       "2         Hourly  East   Yes  \n",
+       "3       Salaried  East    No  \n",
+       "4         Hourly  West    No  \n",
+       "5       Salaried  West   Yes  "
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "for col in df_lasagna.columns:\n",
+    "    if df_lasagna[col].dtypes == 'int64': \n",
+    "        df_lasagna[col] = pd.cut(df_lasagna[col], bins=round(df_quantile[col])-[1,1,1,1,0], labels=False)\n",
+    "df_lasagna.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We partition data into training and testing datasets."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df_lasagna_train = df_lasagna.iloc[:700]\n",
+    "df_lasagna_test = df_lasagna.iloc[700:]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "We fit a frequency count based on the training data, which provides the probability of a feature given an individual's class. For example, \n",
+    "\n",
+    "- ('No', 'Home'): 0.468 shows that, if a customer did not try the lasagna product, the probability of his/her dwell type being Home is 0.468, i.e.,\n",
+    "\n",
+    "\\begin{align}\n",
+    "p(\\text{Home}|\\text{No}) = 0.468 \\nonumber\n",
+    "\\end{align}"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "application/vnd.jupyter.widget-view+json": {
+       "model_id": "eef45a9504ef4f3cbc13b5479622d855",
+       "version_major": 2,
+       "version_minor": 0
+      },
+      "text/plain": [
+       "interactive(children=(Dropdown(description='column:', index=8, options=('age', 'weight', 'income', 'car_value'…"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "def frequency_count(col, normalize):\n",
+    "    return dict(df_lasagna_train.groupby('tried')[col].value_counts(normalize=normalize))\n",
+    "\n",
+    "interact(frequency_count,\n",
+    "         col=widgets.Dropdown(options=df_lasagna_train.columns, value='dwell', description='column:',disabled=False),\n",
+    "         normalize=widgets.Checkbox(value=True, description='normalize',disabled=False)\n",
+    "        );"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Then we calculate $p(\\text{feature}|\\text{No})$ and $p(\\text{feature}|\\text{Yes})$ for each customer. For example, for the first person\n",
+    "\n",
+    "\\begin{align}\n",
+    "p(\\text{features of person 1}|\\text{No}) = & p(\\text{age}=3|\\text{No}) \\times p(\\text{weight}=1|\\text{No}) \\times \\cdots \\times\\nonumber \\\\\n",
+    "& p(\\text{pay_type $=$ hourly}|\\text{No}) \\times p(\\text{nbhd $=$ East}|\\text{No}) \\nonumber\n",
+    "\\end{align}\n",
+    "\n",
+    "and\n",
+    "\n",
+    "\\begin{align}\n",
+    "p(\\text{features of person 1}|\\text{Yes}) = & p(\\text{age}=3|\\text{Yes}) \\times p(\\text{weight}=1|\\text{Yes}) \\times \\cdots \\times \\nonumber \\\\\n",
+    "& p(\\text{pay_type $=$ hourly}|\\text{Yes}) \\times p(\\text{nbhd $=$ East}|\\text{Yes}) \\nonumber\n",
+    "\\end{align}\n",
+    "\n",
+    "Here we assume all the features are independent so that a simple multiplication can be applied. The probability $p(\\text{features of person 1}|\\text{No})$ can be interpret as\n",
+    "\n",
+    "- if a person did not want to try the lasagna product, s/he has probability $p(\\text{features of person 1}|\\text{No})$ being person 1.\n",
+    "\n",
+    "Therefore, our prediction is as simple as follows:\n",
+    "\n",
+    "- If $p(\\text{features of person 1}|\\text{No}) > p(\\text{features of person 1}|\\text{Yes})$ then we prediction the person will **not** try the production\n",
+    "\n",
+    "- Otherwise, we prediction the person will try the production"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>age</th>\n",
+       "      <th>weight</th>\n",
+       "      <th>income</th>\n",
+       "      <th>car_value</th>\n",
+       "      <th>debt</th>\n",
+       "      <th>mall_trips</th>\n",
+       "      <th>gender</th>\n",
+       "      <th>alone</th>\n",
+       "      <th>dwell</th>\n",
+       "      <th>pay_type</th>\n",
+       "      <th>nbhd</th>\n",
+       "      <th>tried</th>\n",
+       "      <th>prediction</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>person</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3</td>\n",
+       "      <td>3</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Home</td>\n",
+       "      <td>Hourly</td>\n",
+       "      <td>East</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Yes</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>1</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>2</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Condo</td>\n",
+       "      <td>Hourly</td>\n",
+       "      <td>East</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>No</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>0</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Condo</td>\n",
+       "      <td>Salaried</td>\n",
+       "      <td>East</td>\n",
+       "      <td>No</td>\n",
+       "      <td>No</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>3</td>\n",
+       "      <td>3</td>\n",
+       "      <td>0</td>\n",
+       "      <td>0</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Female</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Home</td>\n",
+       "      <td>Hourly</td>\n",
+       "      <td>West</td>\n",
+       "      <td>No</td>\n",
+       "      <td>No</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>0</td>\n",
+       "      <td>3</td>\n",
+       "      <td>3</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>Male</td>\n",
+       "      <td>No</td>\n",
+       "      <td>Apt</td>\n",
+       "      <td>Salaried</td>\n",
+       "      <td>West</td>\n",
+       "      <td>Yes</td>\n",
+       "      <td>Yes</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "        age  weight  income  car_value  debt  mall_trips  gender alone  dwell  \\\n",
+       "person                                                                          \n",
+       "1         3       1       3          1     3           3    Male    No   Home   \n",
+       "2         1       2       1          1     1           2  Female    No  Condo   \n",
+       "3         3       1       1          2     1           0    Male    No  Condo   \n",
+       "4         3       3       0          0     2           1  Female    No   Home   \n",
+       "5         0       3       3          3     1           1    Male    No    Apt   \n",
+       "\n",
+       "        pay_type  nbhd tried prediction  \n",
+       "person                                   \n",
+       "1         Hourly  East    No        Yes  \n",
+       "2         Hourly  East   Yes         No  \n",
+       "3       Salaried  East    No         No  \n",
+       "4         Hourly  West    No         No  \n",
+       "5       Salaried  West   Yes        Yes  "
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "def predict(df):\n",
+    "    df['prediction'] = ['No' \n",
+    "        if np.prod([frequency_count(col, True)[('No',df.iloc[row][col])]\n",
+    "                   for col in df.columns if col not in ['tried','prediction']]) > \\\n",
+    "           np.prod([frequency_count(col, True)[('Yes',df.iloc[row][col])]\n",
+    "                   for col in df.columns if col not in ['tried','prediction']])\\\n",
+    "        else 'Yes'\n",
+    "                   for row in range(df.shape[0])]\n",
+    "\n",
+    "predict(df_lasagna_train)\n",
+    "df_lasagna_train.head()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The classification matrix of training data is"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {
+    "scrolled": false
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th>tried</th>\n",
+       "      <th>No</th>\n",
+       "      <th>Yes</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>prediction</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>No</th>\n",
+       "      <td>250</td>\n",
+       "      <td>81</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Yes</th>\n",
+       "      <td>49</td>\n",
+       "      <td>320</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "tried        No  Yes\n",
+       "prediction          \n",
+       "No          250   81\n",
+       "Yes          49  320"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df_lasagna_train.groupby(['prediction','tried']).size().unstack(level=1, fill_value=0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The frequency count can be used in testing data and the classification matrix is"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th>tried</th>\n",
+       "      <th>No</th>\n",
+       "      <th>Yes</th>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>prediction</th>\n",
+       "      <th></th>\n",
+       "      <th></th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>No</th>\n",
+       "      <td>56</td>\n",
+       "      <td>21</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>Yes</th>\n",
+       "      <td>6</td>\n",
+       "      <td>73</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "tried       No  Yes\n",
+       "prediction         \n",
+       "No          56   21\n",
+       "Yes          6   73"
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "predict(df_lasagna_test)\n",
+    "df_lasagna_test.groupby(['prediction','tried']).size().unstack(level=1, fill_value=0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Multinomial Naive Bayes\n",
+    "\n",
+    "In multinomial naive Bayes, the features are assumed to be generated from a simple multinomial distribution. \n",
+    "\n",
+    "The multinomial distribution describes the probability of observing counts among a number of categories, and thus multinomial naive Bayes is most appropriate for features that represent counts or count rates.\n",
+    "\n",
+    "The idea is precisely the same as before, except that instead of modeling the data distribution with the best-fit Gaussian, we model the data distribution with a best-fit multinomial distribution."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Example: Classifying Text\n",
+    "\n",
+    "One place where multinomial naive Bayes is often used is in text classification, where the features are related to word counts or frequencies within the documents to be classified.\n",
+    "\n",
+    "Here we will use the sparse word count features from the 20 Newsgroups corpus to show how we might classify these short documents into categories."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['alt.atheism',\n",
+       " 'comp.graphics',\n",
+       " 'comp.os.ms-windows.misc',\n",
+       " 'comp.sys.ibm.pc.hardware',\n",
+       " 'comp.sys.mac.hardware',\n",
+       " 'comp.windows.x',\n",
+       " 'misc.forsale',\n",
+       " 'rec.autos',\n",
+       " 'rec.motorcycles',\n",
+       " 'rec.sport.baseball',\n",
+       " 'rec.sport.hockey',\n",
+       " 'sci.crypt',\n",
+       " 'sci.electronics',\n",
+       " 'sci.med',\n",
+       " 'sci.space',\n",
+       " 'soc.religion.christian',\n",
+       " 'talk.politics.guns',\n",
+       " 'talk.politics.mideast',\n",
+       " 'talk.politics.misc',\n",
+       " 'talk.religion.misc']"
+      ]
+     },
+     "metadata": {},
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "from sklearn.datasets import fetch_20newsgroups\n",
+    "\n",
+    "data = fetch_20newsgroups()\n",
+    "display(data.target_names)\n",
+    "\n",
+    "# choose a subset categories to learn\n",
+    "categories = ['talk.religion.misc', \n",
+    "              'soc.religion.christian',\n",
+    "              'sci.space',\n",
+    "              'comp.graphics']\n",
+    "\n",
+    "train = fetch_20newsgroups(subset='train', categories=categories)\n",
+    "test = fetch_20newsgroups(subset='test', categories=categories)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Here is a representative entry from the data:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "From: dmcgee@uluhe.soest.hawaii.edu (Don McGee)\n",
+      "Subject: Federal Hearing\n",
+      "Originator: dmcgee@uluhe\n",
+      "Organization: School of Ocean and Earth Science and Technology\n",
+      "Distribution: usa\n",
+      "Lines: 10\n",
+      "\n",
+      "\n",
+      "Fact or rumor....?  Madalyn Murray O'Hare an atheist who eliminated the\n",
+      "use of the bible reading and prayer in public schools 15 years ago is now\n",
+      "going to appear before the FCC with a petition to stop the reading of the\n",
+      "Gospel on the airways of America.  And she is also campaigning to remove\n",
+      "Christmas programs, songs, etc from the public schools.  If it is true\n",
+      "then mail to Federal Communications Commission 1919 H Street Washington DC\n",
+      "20054 expressing your opposition to her request.  Reference Petition number\n",
+      "\n",
+      "2493.\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(train.data[5])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "image/png": "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\n",
+      "text/plain": [
+       "<Figure size 432x288 with 1 Axes>"
+      ]
+     },
+     "metadata": {
+      "needs_background": "light"
+     },
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "from sklearn.feature_extraction.text import TfidfVectorizer\n",
+    "from sklearn.naive_bayes import MultinomialNB\n",
+    "from sklearn.pipeline import make_pipeline\n",
+    "from sklearn.metrics import confusion_matrix\n",
+    "\n",
+    "# Fit the model and show the classification matrix\n",
+    "#convert the content of each string into a vector of numbers\n",
+    "model = make_pipeline(TfidfVectorizer(), MultinomialNB()) \n",
+    "model.fit(train.data, train.target)\n",
+    "labels = model.predict(test.data)\n",
+    "mat = confusion_matrix(test.target, labels)\n",
+    "sns.heatmap(mat.T, square=True, annot=True, fmt='d', cbar=False,\n",
+    "            xticklabels=train.target_names, yticklabels=train.target_names)\n",
+    "plt.xlabel('true label')\n",
+    "plt.ylabel('predicted label');\n",
+    "\n",
+    "def predict_category(s, train=train, model=model):\n",
+    "    pred = model.predict([s])\n",
+    "    return train.target_names[pred[0]]"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Evidently, even this very simple classifier can successfully separate space talk from computer talk, but it gets confused between talk about religion and talk about Christianity. This is perhaps an expected area of confusion!\n",
+    "\n",
+    "The very cool thing here is that we now have the tools to determine the category for any string, using the predict() method of this pipeline. Here's a quick utility function that will return the prediction for a single string:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'soc.religion.christian'"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "predict_category('discussing islam vs atheism')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'comp.graphics'"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "predict_category('determining the screen resolution')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "'sci.space'"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "predict_category('sending a payload to the ISS')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## When to Use Naive Bayes\n",
+    "Because naive Bayesian classifiers make such stringent assumptions about data, they will generally not perform as well as a more complicated model. That said, they have several advantages:\n",
+    "\n",
+    "- They are extremely fast for both training and prediction\n",
+    "\n",
+    "- They provide straightforward probabilistic prediction\n",
+    "\n",
+    "- They are often very easily interpretable\n",
+    "\n",
+    "- They have very few (if any) tunable parameters\n",
+    "\n",
+    "These advantages mean a naive Bayesian classifier is often a good choice as an initial baseline classification."
+   ]
+  }
+ ],
+ "metadata": {
+  "hide_input": false,
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  },
+  "toc": {
+   "base_numbering": 1,
+   "nav_menu": {},
+   "number_sections": true,
+   "sideBar": true,
+   "skip_h1_title": false,
+   "title_cell": "Table of Contents",
+   "title_sidebar": "Contents",
+   "toc_cell": false,
+   "toc_position": {},
+   "toc_section_display": true,
+   "toc_window_display": false
+  },
+  "widgets": {
+   "application/vnd.jupyter.widget-state+json": {
+    "state": {
+     "02ac26b46a814828a9b81f8972dbdec4": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "030c487009d1410d8ced064dd107565d": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_3b8552f9a2824a95bdb5ea78b829ee67",
+       "outputs": [
+        {
+         "data": {
+          "text/plain": "{('No', 'Home'): 0.4682274247491639,\n ('No', 'Condo'): 0.3010033444816054,\n ('No', 'Apt'): 0.23076923076923078,\n ('Yes', 'Home'): 0.4463840399002494,\n ('Yes', 'Apt'): 0.2817955112219451,\n ('Yes', 'Condo'): 0.2718204488778055}"
+         },
+         "metadata": {},
+         "output_type": "display_data"
+        }
+       ]
+      }
+     },
+     "0805c7226a944433b98e728a24de7ea8": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "088e80d27aa94dc5845bae94e1ba505c": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried",
+        "prediction"
+       ],
+       "description": "Column:",
+       "index": 10,
+       "layout": "IPY_MODEL_c1fdc4bd8e414f5eba6b721dd735eaec",
+       "style": "IPY_MODEL_78ec677b4ffd43999ab44d7173b2b98d"
+      }
+     },
+     "088eef9a400947bb8f1bd62367c8414a": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "09372641f0eb4e51a972acf2a2edd5ab": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried",
+        "prediction"
+       ],
+       "description": "column:",
+       "index": 8,
+       "layout": "IPY_MODEL_eb8e6a4e902944fb8ae7a8a8be64d533",
+       "style": "IPY_MODEL_c895cab4be9c4e2d9b4bd8677f48eb8f"
+      }
+     },
+     "0e5e5d3db5a94ca5be9f31b97541103e": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_5d70dac643644120a45f9e9b7d1c65e1",
+       "outputs": [
+        {
+         "data": {
+          "text/plain": "{('No', 0): 114,\n ('No', 1): 84,\n ('No', 2): 60,\n ('No', 3): 41,\n ('Yes', 3): 133,\n ('Yes', 2): 118,\n ('Yes', 1): 96,\n ('Yes', 0): 54}"
+         },
+         "metadata": {},
+         "output_type": "display_data"
+        }
+       ]
+      }
+     },
+     "11f30440d26e49aa897d4ca9450b4b1c": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "144c023c6db448e4900de9b761cf3d72": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "1cda8df16a4b4528ad5d3ae8cd4ddffe": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "CheckboxModel",
+      "state": {
+       "description": "normalize",
+       "disabled": false,
+       "layout": "IPY_MODEL_02ac26b46a814828a9b81f8972dbdec4",
+       "style": "IPY_MODEL_cc655065fa1049d299b25adf9c0cbaaf",
+       "value": true
+      }
+     },
+     "270809a559ab4649ab560cb5df432a5a": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "2996961fca8f4a8ab512f184a1a4aa27": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_3efeb61257ac496282bd1937d7bb8967",
+        "IPY_MODEL_642d0764a4894e73900e4c3ab936de3d"
+       ],
+       "layout": "IPY_MODEL_ff11d81ca5094e0a9e39eaee11232930"
+      }
+     },
+     "2a72908e9f86469381708572f49031f3": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "2d78545b9cac485eb3f5dd443add87f8": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "39b23b35de654b61b0e337f7143f1994": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "CheckboxModel",
+      "state": {
+       "description": "normalize",
+       "disabled": false,
+       "layout": "IPY_MODEL_b3c811a701d54294bc88364048ce1c35",
+       "style": "IPY_MODEL_88f062c326c64eaea7096b150784fc98",
+       "value": true
+      }
+     },
+     "3b8552f9a2824a95bdb5ea78b829ee67": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "3c53e85e17a0446ca9c55e0b2dcde09a": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "3efeb61257ac496282bd1937d7bb8967": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried",
+        "prediction"
+       ],
+       "description": "Column:",
+       "index": 0,
+       "layout": "IPY_MODEL_cd750e09a5164090945128e2ca4a7dc5",
+       "style": "IPY_MODEL_eb27b3528d114714947314686216cd37"
+      }
+     },
+     "47a18e42bd944e718eef3d006b88cadc": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried"
+       ],
+       "description": "column:",
+       "index": 8,
+       "layout": "IPY_MODEL_0805c7226a944433b98e728a24de7ea8",
+       "style": "IPY_MODEL_4a001a68e9884711837d7dd083b21c92"
+      }
+     },
+     "4a001a68e9884711837d7dd083b21c92": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "4a6b7e7cb6454ac8b7c9e2d7f91a5822": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "4dbf12a6fd314bc78df778c0482c909a": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_aa296f6feae644168faf07401265e631",
+       "outputs": [
+        {
+         "data": {
+          "text/plain": "{('No', 'Home'): 0.4682274247491639,\n ('No', 'Condo'): 0.3010033444816054,\n ('No', 'Apt'): 0.23076923076923078,\n ('Yes', 'Home'): 0.4463840399002494,\n ('Yes', 'Apt'): 0.2817955112219451,\n ('Yes', 'Condo'): 0.2718204488778055}"
+         },
+         "metadata": {},
+         "output_type": "display_data"
+        }
+       ]
+      }
+     },
+     "5a74a4e44b3e4dc7aefdc49c2353bab8": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_09372641f0eb4e51a972acf2a2edd5ab",
+        "IPY_MODEL_b21f64157ea84696b46fb2d5b8b7194a",
+        "IPY_MODEL_e8e75fbeecf64b1ea52b5042160f7512"
+       ],
+       "layout": "IPY_MODEL_f6055c98e8d94d229f27f3b524db9478"
+      }
+     },
+     "5d70dac643644120a45f9e9b7d1c65e1": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "5ec1d2f33c8a4188b69629a028b84ff1": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_9431d8c583cf42308c2aabf9bc75dd6b",
+        "IPY_MODEL_67d6b88db7f24e16965191027c13da78"
+       ],
+       "layout": "IPY_MODEL_72f1ecfe3218403792b0a794fa6c056a"
+      }
+     },
+     "642d0764a4894e73900e4c3ab936de3d": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_6e618252456c4b19b326e7ce3c8c113b",
+       "outputs": [
+        {
+         "ename": "TypeError",
+         "evalue": "'dict' object is not callable",
+         "output_type": "error",
+         "traceback": [
+          "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+          "\u001b[1;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+          "\u001b[1;32m~\\AppData\\Local\\Continuum\\anaconda3\\envs\\bzan\\lib\\site-packages\\ipywidgets\\widgets\\interaction.py\u001b[0m in \u001b[0;36mupdate\u001b[1;34m(self, *args)\u001b[0m\n\u001b[0;32m    249\u001b[0m                     \u001b[0mvalue\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mwidget\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mget_interact_value\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    250\u001b[0m                     \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[1;33m[\u001b[0m\u001b[0mwidget\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0m_kwarg\u001b[0m\u001b[1;33m]\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mvalue\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 251\u001b[1;33m                 \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mresult\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mf\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m**\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    252\u001b[0m                 \u001b[0mshow_inline_matplotlib_plots\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    253\u001b[0m                 \u001b[1;32mif\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mauto_display\u001b[0m \u001b[1;32mand\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mresult\u001b[0m \u001b[1;32mis\u001b[0m \u001b[1;32mnot\u001b[0m \u001b[1;32mNone\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+          "\u001b[1;31mTypeError\u001b[0m: 'dict' object is not callable"
+         ]
+        }
+       ]
+      }
+     },
+     "67d6b88db7f24e16965191027c13da78": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_b4328f18e86e4d72a4068793c13ece74",
+       "outputs": [
+        {
+         "ename": "TypeError",
+         "evalue": "'dict' object is not callable",
+         "output_type": "error",
+         "traceback": [
+          "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+          "\u001b[1;31mTypeError\u001b[0m                                 Traceback (most recent call last)",
+          "\u001b[1;32m~\\AppData\\Local\\Continuum\\anaconda3\\envs\\bzan\\lib\\site-packages\\ipywidgets\\widgets\\interaction.py\u001b[0m in \u001b[0;36mupdate\u001b[1;34m(self, *args)\u001b[0m\n\u001b[0;32m    249\u001b[0m                     \u001b[0mvalue\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mwidget\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mget_interact_value\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    250\u001b[0m                     \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[1;33m[\u001b[0m\u001b[0mwidget\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0m_kwarg\u001b[0m\u001b[1;33m]\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mvalue\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 251\u001b[1;33m                 \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mresult\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mf\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m**\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    252\u001b[0m                 \u001b[0mshow_inline_matplotlib_plots\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    253\u001b[0m                 \u001b[1;32mif\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mauto_display\u001b[0m \u001b[1;32mand\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mresult\u001b[0m \u001b[1;32mis\u001b[0m \u001b[1;32mnot\u001b[0m \u001b[1;32mNone\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+          "\u001b[1;31mTypeError\u001b[0m: 'dict' object is not callable"
+         ]
+        }
+       ]
+      }
+     },
+     "699e5a8612e0429b8e7efe5c65e303ee": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "69fadb5f1be144aca26068b917e484cb": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "6e618252456c4b19b326e7ce3c8c113b": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "7131ec3ca9be4eea9005b10690209803": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_e85bff0461da470d83ad7ce1056fa4e9",
+       "outputs": [
+        {
+         "data": {
+          "text/plain": "{('No', 'Home'): 0.4682274247491639,\n ('No', 'Condo'): 0.3010033444816054,\n ('No', 'Apt'): 0.23076923076923078,\n ('Yes', 'Home'): 0.4463840399002494,\n ('Yes', 'Apt'): 0.2817955112219451,\n ('Yes', 'Condo'): 0.2718204488778055}"
+         },
+         "metadata": {},
+         "output_type": "display_data"
+        }
+       ]
+      }
+     },
+     "72f1ecfe3218403792b0a794fa6c056a": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "751f3f104ed741cf8219e833a390bc0e": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "CheckboxModel",
+      "state": {
+       "description": "normalize",
+       "disabled": false,
+       "layout": "IPY_MODEL_afcc7df3490345be88c1139c9711bd3a",
+       "style": "IPY_MODEL_c8682019f5fe47fdbc64c0fc3f5edaac",
+       "value": true
+      }
+     },
+     "76247d988f024141ad8c6b4c4f2acae2": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_4a6b7e7cb6454ac8b7c9e2d7f91a5822",
+       "outputs": [
+        {
+         "data": {
+          "text/plain": "{('No', 'No'): 271, ('No', 'Yes'): 28, ('Yes', 'No'): 306, ('Yes', 'Yes'): 95}"
+         },
+         "metadata": {},
+         "output_type": "display_data"
+        }
+       ]
+      }
+     },
+     "764e1914c53d40f3a26c342600141489": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_ed1b5a26f6f243daa0246888d8869c1c",
+        "IPY_MODEL_76247d988f024141ad8c6b4c4f2acae2"
+       ],
+       "layout": "IPY_MODEL_270809a559ab4649ab560cb5df432a5a"
+      }
+     },
+     "78ec677b4ffd43999ab44d7173b2b98d": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "7b411561029345079a41649012effcb0": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried",
+        "prediction"
+       ],
+       "description": "Column:",
+       "index": 0,
+       "layout": "IPY_MODEL_2d78545b9cac485eb3f5dd443add87f8",
+       "style": "IPY_MODEL_d78cdb09f41a43758b95b09831cd9835"
+      }
+     },
+     "7d4de20a63604446acd409ff62f1c238": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_088e80d27aa94dc5845bae94e1ba505c",
+        "IPY_MODEL_de09e4d8e77a4f3bad53753e5d0a7cfd"
+       ],
+       "layout": "IPY_MODEL_b87eebbeb0c04c54af3cedca133b8870"
+      }
+     },
+     "8291685d395749cb9a6d3759d17a6c77": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "88f062c326c64eaea7096b150784fc98": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "8fc99cc858434a259e2fec8ea0cea8b7": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "9431d8c583cf42308c2aabf9bc75dd6b": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried",
+        "prediction"
+       ],
+       "description": "Column:",
+       "index": 0,
+       "layout": "IPY_MODEL_8291685d395749cb9a6d3759d17a6c77",
+       "style": "IPY_MODEL_088eef9a400947bb8f1bd62367c8414a"
+      }
+     },
+     "a1302bbf978c469382d4c47f8e6591a6": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_e789edfeedd34d74b9b6ac28872c83ce",
+        "IPY_MODEL_751f3f104ed741cf8219e833a390bc0e",
+        "IPY_MODEL_7131ec3ca9be4eea9005b10690209803"
+       ],
+       "layout": "IPY_MODEL_69fadb5f1be144aca26068b917e484cb"
+      }
+     },
+     "aa296f6feae644168faf07401265e631": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "aeba3057a6b24107831fd5b470a04517": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "afcc7df3490345be88c1139c9711bd3a": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "b21f64157ea84696b46fb2d5b8b7194a": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "CheckboxModel",
+      "state": {
+       "description": "normalize",
+       "disabled": false,
+       "layout": "IPY_MODEL_fa0058d26d0d4e31a42909bc3bb43623",
+       "style": "IPY_MODEL_144c023c6db448e4900de9b761cf3d72",
+       "value": false
+      }
+     },
+     "b3c811a701d54294bc88364048ce1c35": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "b3d9f949872b402c85e0fce3675fe20e": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "b4328f18e86e4d72a4068793c13ece74": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "b77026796d6c4ef1a84839a30502f9e0": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "b87eebbeb0c04c54af3cedca133b8870": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "bf8a81c9928b4799ae11b36481639f05": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "c1fdc4bd8e414f5eba6b721dd735eaec": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "c8682019f5fe47fdbc64c0fc3f5edaac": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "c895cab4be9c4e2d9b4bd8677f48eb8f": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "cc1cf31782fb40258841bb7c775c4fda": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "cc655065fa1049d299b25adf9c0cbaaf": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "cd750e09a5164090945128e2ca4a7dc5": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "d78cdb09f41a43758b95b09831cd9835": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "d8ca7b7c246a4308ad76a66c40217169": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_f77f421297434875804ee8629253445e",
+        "IPY_MODEL_0e5e5d3db5a94ca5be9f31b97541103e"
+       ],
+       "layout": "IPY_MODEL_bf8a81c9928b4799ae11b36481639f05"
+      }
+     },
+     "de09e4d8e77a4f3bad53753e5d0a7cfd": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_b3d9f949872b402c85e0fce3675fe20e",
+       "outputs": [
+        {
+         "data": {
+          "text/plain": "{('No', 'East'): 159,\n ('No', 'South'): 76,\n ('No', 'West'): 64,\n ('Yes', 'West'): 239,\n ('Yes', 'South'): 86,\n ('Yes', 'East'): 76}"
+         },
+         "metadata": {},
+         "output_type": "display_data"
+        }
+       ]
+      }
+     },
+     "e669e836fea040c6936a349c9c1b0cde": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried"
+       ],
+       "description": "column:",
+       "index": 8,
+       "layout": "IPY_MODEL_699e5a8612e0429b8e7efe5c65e303ee",
+       "style": "IPY_MODEL_cc1cf31782fb40258841bb7c775c4fda"
+      }
+     },
+     "e789edfeedd34d74b9b6ac28872c83ce": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried"
+       ],
+       "description": "column:",
+       "index": 8,
+       "layout": "IPY_MODEL_b77026796d6c4ef1a84839a30502f9e0",
+       "style": "IPY_MODEL_ea8657aa9dce47ab9f95c7a74433633e"
+      }
+     },
+     "e85bff0461da470d83ad7ce1056fa4e9": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "e8e75fbeecf64b1ea52b5042160f7512": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_11f30440d26e49aa897d4ca9450b4b1c",
+       "outputs": [
+        {
+         "data": {
+          "text/plain": "{('No', 'Home'): 140,\n ('No', 'Condo'): 90,\n ('No', 'Apt'): 69,\n ('Yes', 'Home'): 179,\n ('Yes', 'Apt'): 113,\n ('Yes', 'Condo'): 109}"
+         },
+         "metadata": {},
+         "output_type": "display_data"
+        }
+       ]
+      }
+     },
+     "e933b13a16aa47adaf3913ff73c750d7": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "ea8657aa9dce47ab9f95c7a74433633e": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "eb27b3528d114714947314686216cd37": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "eb8e6a4e902944fb8ae7a8a8be64d533": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "ed1b5a26f6f243daa0246888d8869c1c": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried",
+        "prediction"
+       ],
+       "description": "Column:",
+       "index": 7,
+       "layout": "IPY_MODEL_aeba3057a6b24107831fd5b470a04517",
+       "style": "IPY_MODEL_e933b13a16aa47adaf3913ff73c750d7"
+      }
+     },
+     "eef45a9504ef4f3cbc13b5479622d855": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_47a18e42bd944e718eef3d006b88cadc",
+        "IPY_MODEL_1cda8df16a4b4528ad5d3ae8cd4ddffe",
+        "IPY_MODEL_4dbf12a6fd314bc78df778c0482c909a"
+       ],
+       "layout": "IPY_MODEL_3c53e85e17a0446ca9c55e0b2dcde09a"
+      }
+     },
+     "f6055c98e8d94d229f27f3b524db9478": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "f6605a5a327b495eac0d85a679f1f961": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
+     "f77f421297434875804ee8629253445e": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried",
+        "prediction"
+       ],
+       "description": "Column:",
+       "index": 4,
+       "layout": "IPY_MODEL_2a72908e9f86469381708572f49031f3",
+       "style": "IPY_MODEL_f6605a5a327b495eac0d85a679f1f961"
+      }
+     },
+     "fa0058d26d0d4e31a42909bc3bb43623": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "fcf89b8c51994d8dbba43ed62f38d6a7": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_e669e836fea040c6936a349c9c1b0cde",
+        "IPY_MODEL_39b23b35de654b61b0e337f7143f1994",
+        "IPY_MODEL_030c487009d1410d8ced064dd107565d"
+       ],
+       "layout": "IPY_MODEL_8fc99cc858434a259e2fec8ea0cea8b7"
+      }
+     },
+     "ff11d81ca5094e0a9e39eaee11232930": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     }
+    },
+    "version_major": 2,
+    "version_minor": 0
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
