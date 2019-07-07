@@ -5,7 +5,7 @@
 
 ======================
 
-All notebooks at the `GitHub Repository <https://github.com/ming-zhao/Business-Analytics>`_.
+All notebooks are at the `GitHub Repository <https://github.com/ming-zhao/Business-Analytics>`_.
 
 .. toctree::
    :maxdepth: 2
