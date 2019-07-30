@@ -283,8 +283,11 @@
    "metadata": {},
    "source": [
     "```python\n",
-    "print('The accuracy of a complicated model (with 512 nodes) with less (half) training data:', net_compare(512, .5))\n",
-    "print('The accuracy of a simple model (with 206 nodes) with more training of data:', net_compare(206, 1))\n",
+    "acc1 = net_compare(512, .25)\n",
+    "acc2 = net_compare(128, 1)\n",
+    "print('The accuracy of a complicated model (with 512 nodes) with less (one fourth of) training data:', acc1)\n",
+    "print('The accuracy of a simple model (with 128 nodes) and full training data:', acc2)\n",
+    "print('The improvement is {}%!'.format(round((acc2-acc1)/(1-acc1)*100,2)))\n",
     "```"
    ]
   }

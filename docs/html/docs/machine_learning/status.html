@@ -607,8 +607,11 @@ GPUs.</p>
 <div class="output_area rendered_html docutils container">
 <a href="#" onclick="hide_answer(this); return false;">show answer</a></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;The accuracy of a complicated model (with 512 nodes) with less (half) training data:&#39;</span><span class="p">,</span> <span class="n">net_compare</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">&#39;The accuracy of a simple model (with 206 nodes) with more training of data:&#39;</span><span class="p">,</span> <span class="n">net_compare</span><span class="p">(</span><span class="mi">206</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">acc1</span> <span class="o">=</span> <span class="n">net_compare</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">acc2</span> <span class="o">=</span> <span class="n">net_compare</span><span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;The accuracy of a complicated model (with 512 nodes) with less (one fourth of) training data:&#39;</span><span class="p">,</span> <span class="n">acc1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;The accuracy of a simple model (with 128 nodes) and full training data:&#39;</span><span class="p">,</span> <span class="n">acc2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;The improvement is {}%!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">acc2</span><span class="o">-</span><span class="n">acc1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">acc1</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>
 </pre></div>
 </div>
 <script type="application/vnd.jupyter.widget-state+json">
