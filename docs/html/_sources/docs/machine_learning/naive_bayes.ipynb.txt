@@ -518,13 +518,13 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "We fit a frequency count based on the training data, which provides the probability of a feature given an individual's class. For example, \n",
-    "\n",
-    "- ('No', 'Home'): 0.468 shows that, if a customer did not try the lasagna product, the probability of his/her dwell type being Home is 0.468, i.e.,\n",
+    "We fit a frequency count based on the training data, which provides the probability of a feature given an individual's class. For example, person 1 has value 'No' for `tried` and has dwell 'Home'. We obtain a probability\n",
     "\n",
     "\\begin{align}\n",
-    "p(\\text{Home}|\\text{No}) = 0.468 \\nonumber\n",
-    "\\end{align}"
+    "p(\\text{dwell $=$ 'Home'}|\\text{No}) = \\frac{\\text{# of persons whose dwell $=$ 'Home' and tried $=$ 'No'}}{\\text{# of persons whose tried $=$ 'No'}} = 0.468 \\nonumber\n",
+    "\\end{align}\n",
+    "\n",
+    "The value ('No', 'Home'): 0.468 shows that, if a customer did not try the lasagna product, the probability of his/her dwell type being Home is 0.468."
    ]
   },
   {
@@ -537,7 +537,7 @@
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "eef45a9504ef4f3cbc13b5479622d855",
+       "model_id": "e84b3ba10ec84e25b681828afaa4847b",
        "version_major": 2,
        "version_minor": 0
       },
@@ -563,29 +563,49 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Then we calculate $p(\\text{feature}|\\text{No})$ and $p(\\text{feature}|\\text{Yes})$ for each customer. For example, for the first person\n",
+    "Similarly, we can calculate\n",
     "\n",
     "\\begin{align}\n",
-    "p(\\text{features of person 1}|\\text{No}) = & p(\\text{age}=3|\\text{No}) \\times p(\\text{weight}=1|\\text{No}) \\times \\cdots \\times\\nonumber \\\\\n",
+    "p(\\text{dwell $=$ 'Home'}|\\text{Yes}), p(\\text{age = '3'}|\\text{No}), p(\\text{income = '2'}|\\text{Yes}), \\nonumber\n",
+    "\\end{align}\n",
+    "\n",
+    "and so on. In summary, we have $p(\\text{feature}|\\text{No})$ and $p(\\text{feature}|\\text{Yes})$ for each possible feature of customers, which can be considered as a feature dictionary.\n",
+    "\n",
+    "With this feature dictionary, we want to obtain probabilities\n",
+    "\\begin{align}\n",
+    "p(\\text{person 1}|\\text{No}) \\text{ and } p(\\text{person 1}|\\text{Yes}) \\nonumber\n",
+    "\\end{align}\n",
+    "\n",
+    "where the probability $p(\\text{person 1}|\\text{No})$ can be interpret as\n",
+    "\n",
+    "- if a person did not want to try the lasagna product, s/he has probability $p(\\text{person 1}|\\text{No})$ being person 1.\n",
+    "\n",
+    "Then our prediction is as simple as follows\n",
+    "\n",
+    "- If $p(\\text{person 1}|\\text{No}) > p(\\text{person 1}|\\text{Yes})$ then we prediction the person will **not** try the lasagna production\n",
+    "\n",
+    "- Otherwise, we prediction the person will try the lasagna production.\n",
+    "\n",
+    "Here is how probabilities\n",
+    "\\begin{align}\n",
+    "p(\\text{person 1}|\\text{No}) \\text{ and } p(\\text{person 1}|\\text{Yes}) \\nonumber\n",
+    "\\end{align}\n",
+    "\n",
+    "are derived. For example, for the first person\n",
+    "\n",
+    "\\begin{align}\n",
+    "p(\\text{person 1}|\\text{No}) = & p(\\text{age}=3|\\text{No}) \\times p(\\text{weight}=1|\\text{No}) \\times \\cdots \\times\\nonumber \\\\\n",
     "& p(\\text{pay_type $=$ hourly}|\\text{No}) \\times p(\\text{nbhd $=$ East}|\\text{No}) \\nonumber\n",
     "\\end{align}\n",
     "\n",
     "and\n",
     "\n",
     "\\begin{align}\n",
-    "p(\\text{features of person 1}|\\text{Yes}) = & p(\\text{age}=3|\\text{Yes}) \\times p(\\text{weight}=1|\\text{Yes}) \\times \\cdots \\times \\nonumber \\\\\n",
+    "p(\\text{person 1}|\\text{Yes}) = & p(\\text{age}=3|\\text{Yes}) \\times p(\\text{weight}=1|\\text{Yes}) \\times \\cdots \\times \\nonumber \\\\\n",
     "& p(\\text{pay_type $=$ hourly}|\\text{Yes}) \\times p(\\text{nbhd $=$ East}|\\text{Yes}) \\nonumber\n",
     "\\end{align}\n",
     "\n",
-    "Here we assume all the features are independent so that a simple multiplication can be applied. The probability $p(\\text{features of person 1}|\\text{No})$ can be interpret as\n",
-    "\n",
-    "- if a person did not want to try the lasagna product, s/he has probability $p(\\text{features of person 1}|\\text{No})$ being person 1.\n",
-    "\n",
-    "Therefore, our prediction is as simple as follows:\n",
-    "\n",
-    "- If $p(\\text{features of person 1}|\\text{No}) > p(\\text{features of person 1}|\\text{Yes})$ then we prediction the person will **not** try the production\n",
-    "\n",
-    "- Otherwise, we prediction the person will try the production"
+    "Note that we assume all the features are independent so that a simple multiplication can be applied (that is why this method is called naive). Thus, $p(\\text{person 1}|\\text{No})$ is the probability to have the exactly same features as person 1 if a random person did not want to try the lasagna product."
    ]
   },
   {
@@ -846,7 +866,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The frequency count can be used in testing data and the classification matrix is"
+    "The feature dictionary can be used in testing data and its classification matrix is"
    ]
   },
   {
@@ -1287,6 +1307,31 @@
        "style": "IPY_MODEL_c895cab4be9c4e2d9b4bd8677f48eb8f"
       }
      },
+     "09b6385c4d72409ba9c41edacf6bf19e": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DropdownModel",
+      "state": {
+       "_options_labels": [
+        "age",
+        "weight",
+        "income",
+        "car_value",
+        "debt",
+        "mall_trips",
+        "gender",
+        "alone",
+        "dwell",
+        "pay_type",
+        "nbhd",
+        "tried"
+       ],
+       "description": "column:",
+       "index": 8,
+       "layout": "IPY_MODEL_985e9fb6d82a4a12a5879fa92fb7ee4c",
+       "style": "IPY_MODEL_fa27574bc79f4dd086783fe3a330cfe5"
+      }
+     },
      "0e5e5d3db5a94ca5be9f31b97541103e": {
       "model_module": "@jupyter-widgets/output",
       "model_module_version": "1.0.0",
@@ -1469,6 +1514,12 @@
        ]
       }
      },
+     "4e2ec3e6a3bc463bbfcad8374163f0bc": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
      "5a74a4e44b3e4dc7aefdc49c2353bab8": {
       "model_module": "@jupyter-widgets/controls",
       "model_module_version": "1.4.0",
@@ -1526,6 +1577,12 @@
         }
        ]
       }
+     },
+     "65102e81de1244b5a21117766cd32a9b": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
      },
      "67d6b88db7f24e16965191027c13da78": {
       "model_module": "@jupyter-widgets/output",
@@ -1728,6 +1785,20 @@
        "style": "IPY_MODEL_088eef9a400947bb8f1bd62367c8414a"
       }
      },
+     "985e9fb6d82a4a12a5879fa92fb7ee4c": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "9b3fbd23673b447cad9edf34b06f024c": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
+     },
      "a1302bbf978c469382d4c47f8e6591a6": {
       "model_module": "@jupyter-widgets/controls",
       "model_module_version": "1.4.0",
@@ -1787,6 +1858,12 @@
       "state": {}
      },
      "b4328f18e86e4d72a4068793c13ece74": {
+      "model_module": "@jupyter-widgets/base",
+      "model_module_version": "1.1.0",
+      "model_name": "LayoutModel",
+      "state": {}
+     },
+     "b6d7d917a2794e4bba9b3e70b0954e5c": {
       "model_module": "@jupyter-widgets/base",
       "model_module_version": "1.1.0",
       "model_name": "LayoutModel",
@@ -1877,6 +1954,18 @@
        "layout": "IPY_MODEL_bf8a81c9928b4799ae11b36481639f05"
       }
      },
+     "da8dc4c775984fba8388ae465c33a438": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "CheckboxModel",
+      "state": {
+       "description": "normalize",
+       "disabled": false,
+       "layout": "IPY_MODEL_b6d7d917a2794e4bba9b3e70b0954e5c",
+       "style": "IPY_MODEL_9b3fbd23673b447cad9edf34b06f024c",
+       "value": true
+      }
+     },
      "de09e4d8e77a4f3bad53753e5d0a7cfd": {
       "model_module": "@jupyter-widgets/output",
       "model_module_version": "1.0.0",
@@ -1887,6 +1976,23 @@
         {
          "data": {
           "text/plain": "{('No', 'East'): 159,\n ('No', 'South'): 76,\n ('No', 'West'): 64,\n ('Yes', 'West'): 239,\n ('Yes', 'South'): 86,\n ('Yes', 'East'): 76}"
+         },
+         "metadata": {},
+         "output_type": "display_data"
+        }
+       ]
+      }
+     },
+     "e1937632160c4ecea5653920f3f09867": {
+      "model_module": "@jupyter-widgets/output",
+      "model_module_version": "1.0.0",
+      "model_name": "OutputModel",
+      "state": {
+       "layout": "IPY_MODEL_4e2ec3e6a3bc463bbfcad8374163f0bc",
+       "outputs": [
+        {
+         "data": {
+          "text/plain": "{('No', 'Home'): 0.4682274247491639,\n ('No', 'Condo'): 0.3010033444816054,\n ('No', 'Apt'): 0.23076923076923078,\n ('Yes', 'Home'): 0.4463840399002494,\n ('Yes', 'Apt'): 0.2817955112219451,\n ('Yes', 'Condo'): 0.2718204488778055}"
          },
          "metadata": {},
          "output_type": "display_data"
@@ -1942,6 +2048,22 @@
        "index": 8,
        "layout": "IPY_MODEL_b77026796d6c4ef1a84839a30502f9e0",
        "style": "IPY_MODEL_ea8657aa9dce47ab9f95c7a74433633e"
+      }
+     },
+     "e84b3ba10ec84e25b681828afaa4847b": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "VBoxModel",
+      "state": {
+       "_dom_classes": [
+        "widget-interact"
+       ],
+       "children": [
+        "IPY_MODEL_09b6385c4d72409ba9c41edacf6bf19e",
+        "IPY_MODEL_da8dc4c775984fba8388ae465c33a438",
+        "IPY_MODEL_e1937632160c4ecea5653920f3f09867"
+       ],
+       "layout": "IPY_MODEL_65102e81de1244b5a21117766cd32a9b"
       }
      },
      "e85bff0461da470d83ad7ce1056fa4e9": {
@@ -2084,6 +2206,14 @@
       "model_module_version": "1.1.0",
       "model_name": "LayoutModel",
       "state": {}
+     },
+     "fa27574bc79f4dd086783fe3a330cfe5": {
+      "model_module": "@jupyter-widgets/controls",
+      "model_module_version": "1.4.0",
+      "model_name": "DescriptionStyleModel",
+      "state": {
+       "description_width": ""
+      }
      },
      "fcf89b8c51994d8dbba43ed62f38d6a7": {
       "model_module": "@jupyter-widgets/controls",
