@@ -429,7 +429,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The manager believes that the book club should build a predictive model to predict a customer's probability of purchasing, and then send out promotion mail only if such a probability is high enough.\n",
+    "The manager believes that the book club should build a predictive model to predict each customer's probability of purchasing, and then send out promotion mail only if such a probability is high enough.\n",
     "\n",
     "- can we derive a prediction model after collecting the data from the first promotion? \n",
     "\n",
