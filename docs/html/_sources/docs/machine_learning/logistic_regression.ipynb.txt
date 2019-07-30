@@ -429,7 +429,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The analyst believes that the book club should build a predictive model to predict a customer's probability of purchasing, and then send out promotion mail only if such a probability is high enough.\n",
+    "The manager believes that the book club should build a predictive model to predict a customer's probability of purchasing, and then send out promotion mail only if such a probability is high enough.\n",
     "\n",
     "- can we derive a prediction model after collecting the data from the first promotion? \n",
     "\n",
@@ -484,7 +484,7 @@
    "source": [
     "## The Model\n",
     "\n",
-    "Instead of using the binary variable (purchased or not), we may consider purchasing probability $p$ as dependent variable in a regression equation such as\n",
+    "Instead of using the binary variable (purchased or not), we may consider **purchasing probability** $p$ as dependent variable in a regression equation such as\n",
     "\n",
     "\\begin{align}\n",
     "p &= \\beta_0 + \\beta_1 \\times \\text{month} + \\beta_2 \\times \\text{art_book}\n",
@@ -564,7 +564,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In practice, we can simply use a typical type of regression, logistic regression, with binary dependent variable. Statistical tools will perform all the transformation for us. In python, we can use either use `statmodels` which provides statistical summary or `sklearn` package."
+    "In practice, we can simply use a typical type of regression, logistic regression, with binary dependent variable. Statistical tools will perform all the transformation for us. In python, we can use either `statmodels` which provides statistical summary or `sklearn` package."
    ]
   },
   {
@@ -596,10 +596,10 @@
        "  <th>Method:</th>               <td>MLE</td>       <th>  Df Model:          </th>  <td>     2</td>  \n",
        "</tr>\n",
        "<tr>\n",
-       "  <th>Date:</th>          <td>Fri, 05 Jul 2019</td> <th>  Pseudo R-squ.:     </th>  <td>0.1206</td>  \n",
+       "  <th>Date:</th>          <td>Mon, 29 Jul 2019</td> <th>  Pseudo R-squ.:     </th>  <td>0.1206</td>  \n",
        "</tr>\n",
        "<tr>\n",
-       "  <th>Time:</th>              <td>21:07:00</td>     <th>  Log-Likelihood:    </th> <td> -251.45</td> \n",
+       "  <th>Time:</th>              <td>20:41:18</td>     <th>  Log-Likelihood:    </th> <td> -251.45</td> \n",
        "</tr>\n",
        "<tr>\n",
        "  <th>converged:</th>           <td>True</td>       <th>  LL-Null:           </th> <td> -285.95</td> \n",
@@ -631,8 +631,8 @@
        "Dep. Variable:              purchased   No. Observations:                  999\n",
        "Model:                          Logit   Df Residuals:                      996\n",
        "Method:                           MLE   Df Model:                            2\n",
-       "Date:                Fri, 05 Jul 2019   Pseudo R-squ.:                  0.1206\n",
-       "Time:                        21:07:00   Log-Likelihood:                -251.45\n",
+       "Date:                Mon, 29 Jul 2019   Pseudo R-squ.:                  0.1206\n",
+       "Time:                        20:41:18   Log-Likelihood:                -251.45\n",
        "converged:                       True   LL-Null:                       -285.95\n",
        "                                        LLR p-value:                 1.044e-15\n",
        "==============================================================================\n",
@@ -657,6 +657,17 @@
     "y = df_book_part1['purchased']\n",
     "model = Logit(y, X)\n",
     "model.fit().summary()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The signs of the coefficients indicate whether the probability of purchasing the book increases or decreases when these variables increases. For example, the probability of purchasing the book decrease as `month` increase (because of its minus sign) and increase as `art_book` increase (because of its plus sign).\n",
+    "\n",
+    "However, you have to use caution when interpreting the magnitudes of the coefficients. For example, the absolute value of coefficient of `month` is smaller than `art_book` because `month` generally have larger values than `art_book`.\n",
+    "\n",
+    "The value $\\exp$(coefficient) is more interpretable. For example, if `art_book` increases 1, the odds of purchasing the book increase by a factor about $\\exp(0.9888)$. So, you should be on the lookout for values well above or below 1."
    ]
   },
   {
@@ -690,7 +701,7 @@
    "source": [
     "## Validation\n",
     "\n",
-    "After we have obtained $\\beta_0, \\beta_1$ and $\\beta_2$, we can use equation $(2)$ in our validation data to evaluate utility. Then, the probability is derived by\n",
+    "After we have obtained $\\beta_0, \\beta_1$ and $\\beta_2$, we can use equation $(2)$ for our validation data to evaluate its utility. Then, the probability can be derived by\n",
     "\n",
     "\\begin{align}\n",
     "p = \\frac{\\exp(\\text{utility})}{1+\\exp(\\text{utility})} \\nonumber\n",
@@ -748,9 +759,9 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Generally, our decision can be made based on a threshold value 0.5. That is, if the probability that a customer may purchase the book is greater than 0.5, we send a mail.\n",
+    "In general, our decision can be made based on a threshold value 0.5. That is, if the probability that a customer may purchase the book is greater than 0.5, we send a mail.\n",
     "\n",
-    "However, in the book club case, it has a simple breakeven point where the cost-profit ratio is $1/7$. Therefore, our strategy is based on this ratio that if the probability that a customer may purchase the book is greater than $1/7$, we send a mail, otherwise we do not.\n",
+    "However, in the book club case, it has a simple break-even point where the cost-profit ratio is $1/7$. Therefore, our strategy can be designed based on this ratio as follows. If the probability that a customer may purchase the book is greater than $1/7$, we send a mail, otherwise we do not.\n",
     "\n",
     "We prefer to use `sklearn` because it provides capability to predict the probability directly."
    ]
@@ -872,7 +883,7 @@
      "output_type": "stream",
      "text": [
       "Based on our prediction model, we should send 128 mails.\n",
-      "We would expect receiving 38 orders and profit is $138.\n"
+      "We would expect receiving 38 orders and our profit is $138.\n"
      ]
     },
     {
@@ -896,7 +907,7 @@
     "num_purchased = df_book_part2[df_book_part2['send'] & df_book_part2['purchased'] == 1].shape[0]\n",
     "profit = num_purchased * 7 - num_mail_send\n",
     "print('Based on our prediction model, we should send {} mails.'.format(num_mail_send))\n",
-    "print('We would expect receiving {} orders and profit is ${}.'.format(num_purchased, profit))\n",
+    "print('We would expect receiving {} orders and our profit is ${}.'.format(num_purchased, profit))\n",
     "toggle()"
    ]
   }

@@ -746,7 +746,7 @@ net profit for the 1st promotion: -418
 net profit for the 2nd promotion: -433
 </pre></div></div>
 </div>
-<p>The analyst believes that the book club should build a predictive model to predict a customer’s probability of purchasing, and then send out promotion mail only if such a probability is high enough.</p>
+<p>The manager believes that the book club should build a predictive model to predict a customer’s probability of purchasing, and then send out promotion mail only if such a probability is high enough.</p>
 <ul class="simple">
 <li><p>can we derive a prediction model after collecting the data from the first promotion?</p></li>
 <li><p>can this prediction model improve the second promotion?</p></li>
@@ -781,7 +781,7 @@ net profit for the 2nd promotion: -433
 </div>
 <div class="section" id="The-Model">
 <h2>The Model<a class="headerlink" href="#The-Model" title="Permalink to this headline">¶</a></h2>
-<p>Instead of using the binary variable (purchased or not), we may consider purchasing probability <span class="math notranslate nohighlight">\(p\)</span> as dependent variable in a regression equation such as</p>
+<p>Instead of using the binary variable (purchased or not), we may consider <strong>purchasing probability</strong> <span class="math notranslate nohighlight">\(p\)</span> as dependent variable in a regression equation such as</p>
 <p><span class="math">\begin{align}
 p &= \beta_0 + \beta_1 \times \text{month} + \beta_2 \times \text{art_book}
 \end{align}</span></p>
@@ -834,7 +834,7 @@ p &= \beta_0 + \beta_1 \times \text{month} + \beta_2 \times \text{art_book}
 <div class="output_area rendered_html docutils container">
 <a href="#" onclick="code_toggle(this); return false;">show code</a></div>
 </div>
-<p>In practice, we can simply use a typical type of regression, logistic regression, with binary dependent variable. Statistical tools will perform all the transformation for us. In python, we can use either use <code class="docutils literal notranslate"><span class="pre">statmodels</span></code> which provides statistical summary or <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> package.</p>
+<p>In practice, we can simply use a typical type of regression, logistic regression, with binary dependent variable. Statistical tools will perform all the transformation for us. In python, we can use either <code class="docutils literal notranslate"><span class="pre">statmodels</span></code> which provides statistical summary or <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> package.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -876,10 +876,10 @@ Optimization terminated successfully.
   <th>Method:</th>               <td>MLE</td>       <th>  Df Model:          </th>  <td>     2</td>
 </tr>
 <tr>
-  <th>Date:</th>          <td>Fri, 05 Jul 2019</td> <th>  Pseudo R-squ.:     </th>  <td>0.1206</td>
+  <th>Date:</th>          <td>Mon, 29 Jul 2019</td> <th>  Pseudo R-squ.:     </th>  <td>0.1206</td>
 </tr>
 <tr>
-  <th>Time:</th>              <td>21:07:00</td>     <th>  Log-Likelihood:    </th> <td> -251.45</td>
+  <th>Time:</th>              <td>20:41:18</td>     <th>  Log-Likelihood:    </th> <td> -251.45</td>
 </tr>
 <tr>
   <th>converged:</th>           <td>True</td>       <th>  LL-Null:           </th> <td> -285.95</td>
@@ -903,6 +903,9 @@ Optimization terminated successfully.
 </tr>
 </table></div>
 </div>
+<p>The signs of the coefficients indicate whether the probability of purchasing the book increases or decreases when these variables increases. For example, the probability of purchasing the book decrease as <code class="docutils literal notranslate"><span class="pre">month</span></code> increase (because of its minus sign) and increase as <code class="docutils literal notranslate"><span class="pre">art_book</span></code> increase (because of its plus sign).</p>
+<p>However, you have to use caution when interpreting the magnitudes of the coefficients. For example, the absolute value of coefficient of <code class="docutils literal notranslate"><span class="pre">month</span></code> is smaller than <code class="docutils literal notranslate"><span class="pre">art_book</span></code> because <code class="docutils literal notranslate"><span class="pre">month</span></code> generally have larger values than <code class="docutils literal notranslate"><span class="pre">art_book</span></code>.</p>
+<p>The value <span class="math notranslate nohighlight">\(\exp\)</span>(coefficient) is more interpretable. For example, if <code class="docutils literal notranslate"><span class="pre">art_book</span></code> increases 1, the odds of purchasing the book increase by a factor about <span class="math notranslate nohighlight">\(\exp(0.9888)\)</span>. So, you should be on the lookout for values well above or below 1.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
@@ -931,7 +934,7 @@ coefficient = [[-0.07061966  0.98880806]]
 </div>
 <div class="section" id="Validation">
 <h2>Validation<a class="headerlink" href="#Validation" title="Permalink to this headline">¶</a></h2>
-<p>After we have obtained <span class="math notranslate nohighlight">\(\beta_0, \beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_2\)</span>, we can use equation <span class="math notranslate nohighlight">\((2)\)</span> in our validation data to evaluate utility. Then, the probability is derived by</p>
+<p>After we have obtained <span class="math notranslate nohighlight">\(\beta_0, \beta_1\)</span> and <span class="math notranslate nohighlight">\(\beta_2\)</span>, we can use equation <span class="math notranslate nohighlight">\((2)\)</span> for our validation data to evaluate its utility. Then, the probability can be derived by</p>
 <p><span class="math">\begin{align}
 p = \frac{\exp(\text{utility})}{1+\exp(\text{utility})} \nonumber
 \end{align}</span></p>
@@ -956,7 +959,7 @@ p = \frac{\exp(\text{utility})}{1+\exp(\text{utility})} \nonumber
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../../_images/docs_machine_learning_logistic_regression_17_0.png" src="../../_images/docs_machine_learning_logistic_regression_17_0.png" />
+<img alt="../../_images/docs_machine_learning_logistic_regression_18_0.png" src="../../_images/docs_machine_learning_logistic_regression_18_0.png" />
 </div>
 </div>
 <div class="nboutput nblast docutils container">
@@ -966,8 +969,8 @@ p = \frac{\exp(\text{utility})}{1+\exp(\text{utility})} \nonumber
 <div class="output_area rendered_html docutils container">
 <a href="#" onclick="code_toggle(this); return false;">show code</a></div>
 </div>
-<p>Generally, our decision can be made based on a threshold value 0.5. That is, if the probability that a customer may purchase the book is greater than 0.5, we send a mail.</p>
-<p>However, in the book club case, it has a simple breakeven point where the cost-profit ratio is <span class="math notranslate nohighlight">\(1/7\)</span>. Therefore, our strategy is based on this ratio that if the probability that a customer may purchase the book is greater than <span class="math notranslate nohighlight">\(1/7\)</span>, we send a mail, otherwise we do not.</p>
+<p>In general, our decision can be made based on a threshold value 0.5. That is, if the probability that a customer may purchase the book is greater than 0.5, we send a mail.</p>
+<p>However, in the book club case, it has a simple break-even point where the cost-profit ratio is <span class="math notranslate nohighlight">\(1/7\)</span>. Therefore, our strategy can be designed based on this ratio as follows. If the probability that a customer may purchase the book is greater than <span class="math notranslate nohighlight">\(1/7\)</span>, we send a mail, otherwise we do not.</p>
 <p>We prefer to use <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> because it provides capability to predict the probability directly.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -1072,7 +1075,7 @@ p = \frac{\exp(\text{utility})}{1+\exp(\text{utility})} \nonumber
 <span class="n">num_purchased</span> <span class="o">=</span> <span class="n">df_book_part2</span><span class="p">[</span><span class="n">df_book_part2</span><span class="p">[</span><span class="s1">&#39;send&#39;</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">df_book_part2</span><span class="p">[</span><span class="s1">&#39;purchased&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">profit</span> <span class="o">=</span> <span class="n">num_purchased</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">-</span> <span class="n">num_mail_send</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Based on our prediction model, we should send </span><span class="si">{}</span><span class="s1"> mails.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_mail_send</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;We would expect receiving </span><span class="si">{}</span><span class="s1"> orders and profit is $</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_purchased</span><span class="p">,</span> <span class="n">profit</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;We would expect receiving </span><span class="si">{}</span><span class="s1"> orders and our profit is $</span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_purchased</span><span class="p">,</span> <span class="n">profit</span><span class="p">))</span>
 <span class="n">toggle</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1083,7 +1086,7 @@ p = \frac{\exp(\text{utility})}{1+\exp(\text{utility})} \nonumber
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Based on our prediction model, we should send 128 mails.
-We would expect receiving 38 orders and profit is $138.
+We would expect receiving 38 orders and our profit is $138.
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
