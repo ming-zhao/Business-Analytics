@@ -12,5 +12,5 @@ Introduction to Machine Learning
    ./logistic_regression.ipynb
    ./naive_bayes.ipynb
    ./example.ipynb
-   ./history.ipynb
+   ./intro_AI.ipynb
    ./status.ipynb

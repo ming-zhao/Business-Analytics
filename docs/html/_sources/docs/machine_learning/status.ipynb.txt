@@ -4,140 +4,7 @@
    "cell_type": "code",
    "execution_count": 1,
    "metadata": {},
-   "outputs": [
-    {
-     "data": {
-      "text/html": [
-       "<script>\n",
-       "  var password,\n",
-       "      teacher_mode,\n",
-       "      isHtml;\n",
-       "      \n",
-       "  var class_output,\n",
-       "      class_input,\n",
-       "      class_answer;\n",
-       "      \n",
-       "  function code_toggle(e) {\n",
-       "    var orig_e = e;\n",
-       "    while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {\n",
-       "      e = e.closest(class_output).previousElementSibling;\n",
-       "    }\n",
-       "    var target = e.closest(class_output).previousElementSibling;\n",
-       "    if (target.getAttribute(\"style\") == \"\" || target.getAttribute(\"style\") == null) {\n",
-       "      target.style.display = \"none\";\n",
-       "      orig_e.innerHTML = 'show code';\n",
-       "    }\n",
-       "    else {\n",
-       "      target.style.removeProperty(\"display\");\n",
-       "      orig_e.innerHTML = 'hide code';\n",
-       "    }\n",
-       "  }\n",
-       "  \n",
-       "  function hide_answer(e) {\n",
-       "    var target = e.closest(class_answer).nextElementSibling;\n",
-       "    //e.closest(class_output).previousElementSibling.style.display = \"none\";\n",
-       "    if (target.getAttribute(\"style\") == \"\" || target.getAttribute(\"style\") == null) {\n",
-       "      target.style.display = \"none\";\n",
-       "      e.innerHTML = 'show answer';\n",
-       "    }\n",
-       "    else if (teacher_mode) {\n",
-       "        e.innerHTML = 'hide answer';\n",
-       "        target.style.removeProperty(\"display\");\n",
-       "    }\n",
-       "  }\n",
-       "  \n",
-       "  function done() { \n",
-       "    document.getElementById(\"popup\").style.display = \"none\";\n",
-       "    var input = document.getElementById(\"password\").value;\n",
-       "    if (input==password) { teacher_mode=1; alert(\"Unlocked!\");}\n",
-       "    else { teacher_mode=0; alert(\"Wrong password!\");}       \n",
-       "  };\n",
-       "\n",
-       "  function unlock() {\n",
-       "    document.getElementById(\"popup\").style.display = \"block\";\n",
-       "  }\n",
-       "  \n",
-       "  $(document).ready(function() {\n",
-       "    $.ajax({\n",
-       "      type: \"GET\",  \n",
-       "      url: \"https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/course.csv\",\n",
-       "      dataType: \"text\",       \n",
-       "      success: function(data)  \n",
-       "      {\n",
-       "        var items = data.split(',');\n",
-       "        var url = window.location.pathname;\n",
-       "        var filename = url.substring(url.lastIndexOf('/')+1);\n",
-       "        password='123';\n",
-       "        for (var i = 0, len = items.length; i < len; ++i) {\n",
-       "            if (filename.includes(items[i].trim()) && i%2==0 && i<items.length) {\n",
-       "                password=items[i+1].trim();\n",
-       "                break;\n",
-       "            }\n",
-       "        }\n",
-       "        var code_blocks = document.getElementsByClassName('nbinput docutils container');\n",
-       "        if (code_blocks[0]==null) { \n",
-       "            isHtml=0;\n",
-       "            code_blocks = document.getElementsByClassName('input');\n",
-       "            class_output=\".output_wrapper\";\n",
-       "            class_input=\"input\";\n",
-       "            class_answer='.cell';\n",
-       "        }\n",
-       "        else { \n",
-       "            isHtml=1;\n",
-       "            class_output=\".nboutput\";\n",
-       "            class_input=\"nbinput\";\n",
-       "            class_answer=\".nboutput\";\n",
-       "        }\n",
-       "        \n",
-       "        for (var i = 0, len = code_blocks.length; i < len; ++i) {\n",
-       "          if (\n",
-       "              code_blocks[i].innerHTML.indexOf(\"toggle\") !== -1 \n",
-       "              || code_blocks[i].innerHTML.indexOf(\"button onclick\") !== -1\n",
-       "             ) {\n",
-       "            code_blocks[i].style.display = \"none\";\n",
-       "          }\n",
-       "        }\n",
-       "        for (var i = 0, len = code_blocks.length; i < len; ++i) {\n",
-       "          if (code_blocks[i].innerHTML.indexOf(\"hide_answer\") !== -1) {\n",
-       "            code_blocks[i].style.display = \"none\";\n",
-       "            if (isHtml) {\n",
-       "              code_blocks[i].nextElementSibling.nextElementSibling.style.display = \"none\";\n",
-       "            }\n",
-       "            else{\n",
-       "              code_blocks[i].closest(class_answer).nextElementSibling.style.display = \"none\";\n",
-       "            }            \n",
-       "          }\n",
-       "        }\n",
-       "      }\n",
-       "    });\n",
-       "  });\n",
-       "</script>"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
-    },
-    {
-     "data": {
-      "text/html": [
-       "\n",
-       "<div id=\"popup\" style=\"padding-bottom:5px; display:none;\">\n",
-       "    <div>Enter Password:</div>\n",
-       "    <input id=\"password\" type=\"password\"/>\n",
-       "    <button onclick=\"done()\" style=\"border-radius: 12px;\">Submit</button>    \n",
-       "</div>\n",
-       "<button onclick=\"unlock()\" style=\"border-radius: 12px;\">Unclock</button>\n",
-       "<a href=\"#\" onclick=\"code_toggle(this); return false;\">show code</a>\n"
-      ],
-      "text/plain": [
-       "<IPython.core.display.HTML object>"
-      ]
-     },
-     "execution_count": 1,
-     "metadata": {},
-     "output_type": "execute_result"
-    }
-   ],
+   "outputs": [],
    "source": [
     "%run ../initscript.py\n",
     "HTML(\"\"\"\n",
@@ -208,11 +75,11 @@
     "\n",
     "Throughout the 2000s, companies like NVIDIA and AMD have been investing billions of dollars in developing fast, massively parallel chips, graphical processing units (GPUs), to power the graphics of increasingly photorealistic video games — cheap, single-purpose supercomputers designed to render complex 3D scenes on the screen in real time.\n",
     "\n",
-    "NVIDIA launched CUDA, a programming interface for its line of GPUs, in 2007, and around 2011, some researchers began to write CUDA implementations of neural nets. \n",
-    "\n",
     "At the end of 2015, the NVIDIA TITAN X, a gaming GPU that cost \\$1,000 can perform 6.6 trillion `float32` operations per second. That is about 350 times more than what you can get out of a modern laptop. Meanwhile, large companies train deep-learning models on clusters of hundreds of GPUs of a type developed specifically for the needs of deep learning, such as the NVIDIA Tesla K80. The sheer computational power of such clusters is something that would never have been possible without modern GPUs.\n",
     "\n",
-    "The deep-learning industry is starting to go beyond GPUs and is investing in increasingly specialized, efficient chips for deep learning. In 2016, at its annual I/O convention, Google revealed its tensor processing unit (TPU) project: a new chip design developed from the ground up to run deep neural networks, which is reportedly 10 times faster and far more energy efficient than top-of-the-line GPUs."
+    "The deep-learning industry is starting to go beyond GPUs and is investing in increasingly specialized, efficient chips for deep learning. In 2016, at its annual I/O convention, Google revealed its tensor processing unit (TPU) project: a new chip design developed from the ground up to run deep neural networks, which is reportedly 10 times faster and far more energy efficient than top-of-the-line GPUs.\n",
+    "\n",
+    "If you don't already have a GPU that you can use for deep learning, then running deep-learning experiments in the cloud is a simple, low cost way for you to get started without having to buy any additional hardware. But if you're a heavy user of deep learning, this setup isn't sustainable in the long term or even for more than a few weeks."
    ]
   },
   {
@@ -240,7 +107,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Case Study\n",
+    "## Model v.s. Data\n",
     "\n",
     "As entrepreneurs of AI start-ups, Alice and Bob had received similar amount of investments and competed in the same market\n",
     "\n",
@@ -289,6 +156,55 @@
     "print('The accuracy of a simple model (with 128 nodes) and full training data:', acc2)\n",
     "print('The improvement is {}%!'.format(round((acc2-acc1)/(1-acc1)*100,2)))\n",
     "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Is Deep Learning Everything?\n",
+    "\n",
+    "Suppose you're trying to develop a model that can take as input images of a clock \n",
+    "\n",
+    "![clock](https://github.com/ming-zhao/Business-Analytics/raw/master/images/clock.png)\n",
+    "\n",
+    "and can output the time of day. What machine learning approach will you use?"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "\n",
+       "        <a href=\"#\" onclick=\"hide_answer(this); return false;\">show answer</a>\n",
+       "    "
+      ],
+      "text/plain": [
+       "<IPython.core.display.HTML object>"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "hide_answer()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "- If you choose to use the raw pixels of the image as input data, then you have a difficult machine-learning problem on your hands. You'll need a convolutional neural network to solve it, and you'll have to expend quite a bit of computational resources to train the network.\n",
+    "\n",
+    "- But if you already understand the problem at a high level, you can write a five-line Python script to follow the **black pixels of the clock hands** and output the $(x, y)$ coordinates of the tip of each hand. Then a simple machine-learning algorithm can learn to associate these coordinates with the appropriate time of day. For example, the long hand has $(x=0.7, y=0.7)$ and the short hand has $(x=0.5, y=0.0)$ in the first image, and the long hand has $(x=0.0, y=1.0)$ and the short hand has $(x=-0.38, y=0.32)$ in the second image.\n",
+    "\n",
+    "- You can go even further: do a coordinate change, and express the $(x, y)$ coordinates as the angle of each clock hand. For example, the long hand has angle $45$ degree and the short hand has angle $0$ degree in the first image, and the long hand has angle $90$ degree and the short hand has angle $140$ degree in the second image. At this point, your features are making the problem so easy that no machine learning is required; a simple rounding operation and dictionary lookup are enough to recover the approximate time of day."
    ]
   }
  ],
