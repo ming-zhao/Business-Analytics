@@ -392,7 +392,7 @@ div.rendered_html tbody tr:hover {
     text-align: unset;
 }
 </style>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
@@ -409,6 +409,128 @@ div.rendered_html tbody tr:hover {
 <span class="s2">&quot;&quot;&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<script>
+  var password,
+      teacher_mode,
+      isHtml;
+
+  var class_output,
+      class_input,
+      class_answer;
+
+  function code_toggle(e) {
+    var orig_e = e;
+    while (!e.closest(class_output).previousElementSibling.classList.contains(class_input)) {
+      e = e.closest(class_output).previousElementSibling;
+    }
+    var target = e.closest(class_output).previousElementSibling;
+    if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+      target.style.display = "none";
+      orig_e.innerHTML = 'show code';
+    }
+    else {
+      target.style.removeProperty("display");
+      orig_e.innerHTML = 'hide code';
+    }
+  }
+
+  function hide_answer(e) {
+    var target = e.closest(class_answer).nextElementSibling;
+    //e.closest(class_output).previousElementSibling.style.display = "none";
+    if (target.getAttribute("style") == "" || target.getAttribute("style") == null) {
+      target.style.display = "none";
+      e.innerHTML = 'show answer';
+    }
+    else if (teacher_mode) {
+        e.innerHTML = 'hide answer';
+        target.style.removeProperty("display");
+    }
+  }
+
+  function done() {
+    document.getElementById("popup").style.display = "none";
+    var input = document.getElementById("password").value;
+    if (input==password) { teacher_mode=1; alert("Unlocked!");}
+    else { teacher_mode=0; alert("Wrong password!");}
+  };
+
+  function unlock() {
+    document.getElementById("popup").style.display = "block";
+  }
+
+  $(document).ready(function() {
+    $.ajax({
+      type: "GET",
+      url: "https://raw.githubusercontent.com/ming-zhao/ming-zhao.github.io/master/data/course.csv",
+      dataType: "text",
+      success: function(data)
+      {
+        var items = data.split(',');
+        var url = window.location.pathname;
+        var filename = url.substring(url.lastIndexOf('/')+1);
+        password='123';
+        for (var i = 0, len = items.length; i < len; ++i) {
+            if (filename.includes(items[i].trim()) && i%2==0 && i<items.length) {
+                password=items[i+1].trim();
+                break;
+            }
+        }
+        var code_blocks = document.getElementsByClassName('nbinput docutils container');
+        if (code_blocks[0]==null) {
+            isHtml=0;
+            code_blocks = document.getElementsByClassName('input');
+            class_output=".output_wrapper";
+            class_input="input";
+            class_answer='.cell';
+        }
+        else {
+            isHtml=1;
+            class_output=".nboutput";
+            class_input="nbinput";
+            class_answer=".nboutput";
+        }
+
+        for (var i = 0, len = code_blocks.length; i < len; ++i) {
+          if (
+              code_blocks[i].innerHTML.indexOf("toggle") !== -1
+              || code_blocks[i].innerHTML.indexOf("button onclick") !== -1
+             ) {
+            code_blocks[i].style.display = "none";
+          }
+        }
+        for (var i = 0, len = code_blocks.length; i < len; ++i) {
+          if (code_blocks[i].innerHTML.indexOf("hide_answer") !== -1) {
+            code_blocks[i].style.display = "none";
+            if (isHtml) {
+              code_blocks[i].nextElementSibling.nextElementSibling.style.display = "none";
+            }
+            else{
+              code_blocks[i].closest(class_answer).nextElementSibling.style.display = "none";
+            }
+          }
+        }
+      }
+    });
+  });
+</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div id="popup" style="padding-bottom:5px; display:none;">
+    <div>Enter Password:</div>
+    <input id="password" type="password"/>
+    <button onclick="done()" style="border-radius: 12px;">Submit</button>
+</div>
+<button onclick="unlock()" style="border-radius: 12px;">Unclock</button>
+<a href="#" onclick="code_toggle(this); return false;">show code</a></div>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:

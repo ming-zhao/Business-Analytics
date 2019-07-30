@@ -391,7 +391,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "- [YouTube](https://www.youtube.com/watch?v=4kuaikerPKs) ![anatomy](https://github.com/ming-zhao/Business-Analytics/raw/master/images/iRobot.png)\n",
+    "- [YouTube](https://www.youtube.com/watch?v=4kuaikerPKs)![irobot](https://github.com/ming-zhao/Business-Analytics/raw/master/images/iRobot.png)\n",
     "\n",
     "- In the movie \"I, Robot.\", there's one scene that makes it very clear what this distinction between prediction and judgment is. \n",
     "\n",
