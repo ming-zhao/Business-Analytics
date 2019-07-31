@@ -240,7 +240,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Model v.s. Data\n",
+    "## Cases\n",
     "\n",
     "As entrepreneurs of AI start-ups, Alice and Bob had received similar amount of investments and competed in the same market\n",
     "\n",
@@ -295,8 +295,6 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Is Deep Learning Everything?\n",
-    "\n",
     "Suppose you're trying to develop a model that can take as input images of a clock \n",
     "\n",
     "![clock](https://github.com/ming-zhao/Business-Analytics/raw/master/images/clock.png)\n",
@@ -307,7 +305,9 @@
   {
    "cell_type": "code",
    "execution_count": 4,
-   "metadata": {},
+   "metadata": {
+    "scrolled": true
+   },
    "outputs": [
     {
      "data": {
