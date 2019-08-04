@@ -11,12 +11,12 @@ All notebooks are at the `GitHub Repository <https://github.com/ming-zhao/Busine
    :maxdepth: 2
    :caption: Business Analytics
  
-   docs/regression_analysis/regression.rst
-   docs/time_series/time_series.rst
-   docs/optimization/optimization.rst
-   docs/machine_learning/machine_learning.rst
+   docs/exploring_data.ipynb
+   docs/regression_analysis.ipynb
+   docs/time_series.ipynb
+   docs/optimization.ipynb
+   docs/machine_learning.ipynb
    
-
 Indices and tables
 ==================
 
