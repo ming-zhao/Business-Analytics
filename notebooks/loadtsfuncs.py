@@ -14,8 +14,6 @@ from ipywidgets import *
 from IPython.display import display, HTML
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-import warnings
-warnings.filterwarnings('ignore')
 
 dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/time_series/'
 

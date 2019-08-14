@@ -4,11 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.path import Path
 from matplotlib.patches import PathPatch
 import seaborn as sns
-from IPython.display import display, HTML
 from ipywidgets import *
-import warnings
-warnings.filterwarnings('ignore')
-# from pulp import *
+from IPython.display import display, HTML
 
 def prodmix_graph(zoom):
     # create the plot object

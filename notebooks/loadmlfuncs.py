@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from ipywidgets import *
 from IPython.display import display, HTML
-import warnings
-warnings.filterwarnings('ignore')
 
 dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/data_mining/'
 
