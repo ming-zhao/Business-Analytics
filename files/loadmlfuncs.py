@@ -4,8 +4,18 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from ipywidgets import *
 from IPython.display import display, HTML
+import tensorflow as tf
+tf.logging.set_verbosity(tf.logging.ERROR)
 
 dataurl = 'https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/data/data_mining/'
+
+def transfer_data(df, df_quantile):
+    for col in ['month', 'art_book']:
+        df = pd.merge_asof(df.sort_values(col),df_quantile[[col, 'quantile']],
+                           on=col, direction='backward').sort_values('customer')\
+        .drop(columns=[col]).rename(columns={'quantile': col})
+    df = df.set_index('customer')
+    return df
 
 def net_compare(nNodes, train_size_pct):
     from keras.datasets import mnist

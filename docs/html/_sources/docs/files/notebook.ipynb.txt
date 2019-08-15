@@ -13,17 +13,41 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/notebooks/loaddatfuncs.py > /dev/null\n",
-    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/notebooks/loadmlfuncs.py > /dev/null\n",
-    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/notebooks/loadoptfuncs.py > /dev/null\n",
-    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/notebooks/loadregfuncs.py > /dev/null\n",
-    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/notebooks/loadtsfuncs.py > /dev/null\n",
+    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/files/loaddatfuncs.py > /dev/null\n",
+    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/files/loadmlfuncs.py > /dev/null\n",
+    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/files/loadoptfuncs.py > /dev/null\n",
+    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/files/loadregfuncs.py > /dev/null\n",
+    "!wget -q https://raw.githubusercontent.com/ming-zhao/Business-Analytics/master/files/loadtsfuncs.py > /dev/null\n",
+    "!pip install imgaug==0.2.5 > /dev/null\n",
+    "!pip install scipy==1.2 > /dev/null\n",
+    "!pip install pmdarima > /dev/null\n",
     "%run loaddatfuncs.py\n",
     "%run loadmlfuncs.py\n",
     "%run loadoptfuncs.py\n",
     "%run loadregfuncs.py\n",
     "%run loadtsfuncs.py"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {
