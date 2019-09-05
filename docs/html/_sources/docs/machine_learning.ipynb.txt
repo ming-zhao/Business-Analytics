@@ -2701,18 +2701,6 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### Deep Learning: AI Hype?\n",
-    "\n",
-    "Although some world-changing applications like autonomous cars are already within reach, many more are likely to remain elusive\n",
-    "for a long time, such as believable dialogue systems, human-level machine translation across arbitrary languages, and human-level natural-language understanding. In particular, talk of **human-level general intelligence shouldn't be taken too seriously**. The risk with high expectations for the short term is that, as technology fails to deliver, research investment will dry up, slowing progress for a long time.\n",
-    "\n",
-    "Although we're still in the phase of intense optimism, we may be currently witnessing the third cycle of AI hype and disappointment. "
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
     "### Machine Learning\n",
     "\n",
     "In classical programming, such as symbolic AI, humans input rules (a program) and data to be processed according to these rules, and out come answers:\n",
@@ -2766,7 +2754,16 @@
     "\n",
     "See the deep representations learned by a 4-layer neural network for digit number 4.\n",
     "\n",
-    "![deep_rep](https://dpzbhybb2pdcj.cloudfront.net/chollet/HighResolutionFigures/figure_1-6.png)"
+    "![deep_rep](https://dpzbhybb2pdcj.cloudfront.net/chollet/HighResolutionFigures/figure_1-6.png)\n",
+    "\n",
+    "<br>\n",
+    "\n",
+    "**Is deep learning an AI Hype?**\n",
+    "\n",
+    "Although some world-changing applications like autonomous cars are already within reach, many more are likely to remain elusive\n",
+    "for a long time, such as believable dialogue systems, human-level machine translation across arbitrary languages, and human-level natural-language understanding. In particular, talk of **human-level general intelligence shouldn't be taken too seriously**. The risk with high expectations for the short term is that, as technology fails to deliver, research investment will dry up, slowing progress for a long time.\n",
+    "\n",
+    "Although we're still in the phase of intense optimism, we may be currently witnessing the third cycle of AI hype and disappointment. "
    ]
   },
   {
