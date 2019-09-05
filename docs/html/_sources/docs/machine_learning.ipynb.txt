@@ -2038,7 +2038,7 @@
    "source": [
     "K-means clustering aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean, serving as a prototype of the cluster.\n",
     "\n",
-    "<img src='https://2.bp.blogspot.com/-wspg_wO3q84/WWRTqIARMgI/AAAAAAAAB30/HNFjncz_U1kXawU_5yM2dBhhEfxlQ6EcwCLcBGAs/s1600/Capture.PNG' width='500'>\n",
+    "<img src='https://github.com/ming-zhao/Business-Analytics/raw/master/images/kmeans.PNG' width='500'>\n",
     "\n",
     "The mathematics behind clustering is\n",
     "\n",
